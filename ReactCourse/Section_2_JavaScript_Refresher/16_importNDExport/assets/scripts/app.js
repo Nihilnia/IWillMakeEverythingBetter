@@ -10,5 +10,6 @@
 import * as util from "./util.js";
 
 console.log(util.default);
+console.log(util.apiKey);
 console.log(util.Gloria);
 console.log(util.Alt);

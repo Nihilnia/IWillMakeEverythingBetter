@@ -9,3 +9,15 @@ body {
   color: #fff;
   font-family: "Kanit", serif;
 }
+
+#container-main {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  border: 1px solid #fff;
+  max-width: 80%;
+  margin: auto;
+}
+
+.btn-tab {
+  display: block;
+}

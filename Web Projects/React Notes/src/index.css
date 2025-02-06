@@ -13,11 +13,75 @@ body {
 #container-main {
   display: grid;
   grid-template-columns: 30% 70%;
-  border: 1px solid #fff;
   max-width: 80%;
   margin: auto;
 }
 
-.btn-tab {
+#container-main > .right-side {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.btn-section {
+  background-image: linear-gradient(
+    to right,
+    #e55d87 0%,
+    #5fc3e4 51%,
+    #e55d87 100%
+  );
+  font-size: 16px;
+}
+.btn-section {
+  margin: 10px;
+  padding: 15px 15px;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
   display: block;
+  font-family: "Kanit";
+  border: none;
+}
+
+.btn-section:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-lecture {
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #dd2476 51%,
+    #ff512f 100%
+  );
+  font-family: "Kanit";
+  font-size: 16px;
+}
+.btn-lecture {
+  margin: 10px;
+  margin-left: 0;
+  padding: 10px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  display: block;
+}
+
+.btn-lecture:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+pre {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  margin-top: 10px;
 }

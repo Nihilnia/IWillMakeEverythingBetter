@@ -29,26 +29,28 @@ function App() {
       <TabButton
         key={section.title}
         onSelected={() => handleSectionChange(section.title)}
+        className="btn-section"
       >
         {section.title}
       </TabButton>
     );
   });
 
-  const allLectures = selectedSection.lectures.map((lecture) => {
+  const allLectures = selectedSection.lectures.map((lecture, idx) => {
+    idx++;
     return (
       <TabButton
         key={lecture.title}
         onSelected={() => handleLectureChange(lecture.title)}
+        className="btn-lecture"
       >
-        {lecture.title}
+        {idx}- {lecture.title}
       </TabButton>
     );
   });
 
   const jsxLecture = (
     <div>
-      <h3>{selectedLecture.title}</h3>
       <h4>{selectedLecture.description}</h4>
       <pre>
         <code>{selectedLecture.codeExamples}</code>
@@ -60,8 +62,8 @@ function App() {
     <section id="container-main">
       <div className="left-side">{allSections}</div>
       <div className="right-side">
-        {allLectures}
-        {jsxLecture}
+        <div>{allLectures}</div>
+        <div>{jsxLecture}</div>
       </div>
     </section>
   );

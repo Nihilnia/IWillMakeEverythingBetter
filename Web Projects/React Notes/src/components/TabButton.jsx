@@ -1,6 +1,6 @@
-function TabButton({ children, onSelected }) {
+function TabButton({ children, onSelected, className }) {
   return (
-    <button className="btn-tab" onClick={onSelected}>
+    <button onClick={onSelected} className={className}>
       {children}
     </button>
   );

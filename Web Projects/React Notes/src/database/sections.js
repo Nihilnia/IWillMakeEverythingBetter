@@ -1,6 +1,5 @@
 export const sections = [
   {
-    id: 0,
     title: "Section 1: Getting Started",
     lectures: [
       {
@@ -20,7 +19,6 @@ export const sections = [
     ],
   },
   {
-    id: 1,
     title: "Section 2: JavaScript Refresher",
     lectures: [
       {
@@ -40,7 +38,6 @@ export const sections = [
     ],
   },
   {
-    id: 2,
     title: "Section 3: React Essentials",
     lectures: [
       {

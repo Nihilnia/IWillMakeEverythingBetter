@@ -1,31 +1,41 @@
 import { useState } from "react";
-import TabButton from "./components/TabButton";
-import { sections } from "./database/sections";
+import { sections } from "./database/sections.js";
+
+import TabButton from "./components/TabButton.jsx";
 
 function App() {
-  const [selectedSection, setSelectedSection] = useState(0);
-  const [selectedLecture, setSelectedLecture] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(sections[0]);
+  const [selectedLecture, setSelectedLecture] = useState(
+    selectedSection.lectures[0]
+  );
 
-  function handleSectionChange(secID) {
-    setSelectedSection(secID);
+  console.log("selectedLecture");
+  console.log(selectedLecture);
+
+  function handleSectionChange(secTitle) {
+    let index = sections.findIndex((f) => f.title === secTitle);
+    setSelectedSection(sections[index]);
+    // setSelectedLecture(selectedSection.lectures[0]); //Doesnt work, take notes
+    setSelectedLecture(sections[index].lectures[0]);
   }
 
   function handleLectureChange(lecTitle) {
-    setSelectedLecture(lecTitle);
+    let index = selectedSection.lectures.findIndex((f) => f.title === lecTitle);
+    setSelectedLecture(selectedSection.lectures[index]);
   }
 
-  let allSections = sections.map((section) => {
+  const allSections = sections.map((section) => {
     return (
       <TabButton
-        key={section.id}
-        onSelected={() => handleSectionChange(section.id)}
+        key={section.title}
+        onSelected={() => handleSectionChange(section.title)}
       >
         {section.title}
       </TabButton>
     );
   });
 
-  let currentLectures = sections[selectedSection].lectures.map((lecture) => {
+  const allLectures = selectedSection.lectures.map((lecture) => {
     return (
       <TabButton
         key={lecture.title}
@@ -36,24 +46,22 @@ function App() {
     );
   });
 
-  let currentLecture = sections[selectedSection].lectures.map((lecture) => {
-    return (
-      lecture.title === selectedLecture && (
-        <div>
-          <h2>{lecture.title}</h2>
-          <h2>{lecture.description}</h2>
-          <h2>{lecture.codeExamples}</h2>
-        </div>
-      )
-    );
-  });
+  const jsxLecture = (
+    <div>
+      <h3>{selectedLecture.title}</h3>
+      <h4>{selectedLecture.description}</h4>
+      <pre>
+        <code>{selectedLecture.codeExamples}</code>
+      </pre>
+    </div>
+  );
 
   return (
     <section id="container-main">
-      <div id="left-side">{allSections}</div>
-      <div id="right-side">
-        {currentLectures}
-        {currentLecture}
+      <div className="left-side">{allSections}</div>
+      <div className="right-side">
+        {allLectures}
+        {jsxLecture}
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import TabButton from "./TabButton.jsx";
 import { EXAMPLES } from "../data.js";
 
 import Section from "./Section.jsx";
+import Tabs from "./Tabs.jsx";
 
 export default function Examples() {
   const [selectedTopic, setSelectedTopic] = useState();
@@ -27,33 +28,24 @@ export default function Examples() {
 
   return (
     <Section id="examples" title="Examples">
-      <menu>
-        <TabButton
-          isSelected={selectedTopic === "components"}
-          onClick={() => handleSelect("components")}
-        >
-          Components
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "jsx"}
-          onClick={() => handleSelect("jsx")}
-        >
-          JSX
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "props"}
-          onClick={() => handleSelect("props")}
-        >
-          Props
-        </TabButton>
-        <TabButton
-          isSelected={selectedTopic === "state"}
-          onClick={() => handleSelect("state")}
-        >
-          State
-        </TabButton>
-      </menu>
-      {tabContent}
+      <Tabs
+        tabButtons={
+          <>
+            {Object.values(EXAMPLES).map((example) => {
+              return (
+                <TabButton
+                  key={example.title}
+                  onClick={() => handleSelect(example.title.toLowerCase())}
+                >
+                  {example.title}
+                </TabButton>
+              );
+            })}
+          </>
+        }
+      >
+        {tabContent}
+      </Tabs>
     </Section>
   );
 }

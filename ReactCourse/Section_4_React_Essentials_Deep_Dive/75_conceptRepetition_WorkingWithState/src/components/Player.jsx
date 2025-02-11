@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol }) {
+function Player({ name, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
@@ -8,11 +8,10 @@ export default function Player({ name, symbol }) {
   }
 
   const playerName = isEditing ? (
-    <input />
+    <input type="text" />
   ) : (
     <span className="player-name">{name}</span>
   );
-
   return (
     <li>
       <span className="player">
@@ -23,3 +22,5 @@ export default function Player({ name, symbol }) {
     </li>
   );
 }
+
+export default Player;

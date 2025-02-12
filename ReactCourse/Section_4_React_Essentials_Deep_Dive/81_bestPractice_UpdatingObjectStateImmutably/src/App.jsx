@@ -3,8 +3,6 @@ import GameBoard from "./components/GameBoard";
 import { useState } from "react";
 
 function App() {
-  const [turn, setTurn] = useState("O");
-
   return (
     <main>
       <div id="game-container">
@@ -12,7 +10,7 @@ function App() {
           <Player name="Player One" symbol="X" />
           <Player name="Player Two" symbol="O" />
         </ol>
-        <GameBoard symbol={turn} />
+        <GameBoard />
       </div>
     </main>
   );

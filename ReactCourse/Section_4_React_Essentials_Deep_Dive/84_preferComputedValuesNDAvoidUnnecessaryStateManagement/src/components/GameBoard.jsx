@@ -1,10 +1,6 @@
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+import { useState } from "react";
 
-export default function GameBoard({ onSelected }) {
+export default function GameBoard({ onSelected, whosTurn }) {
   // const [gameBoard, setGameboard] = useState([
   //   [null, null, null],
   //   [null, null, null],
@@ -28,7 +24,9 @@ export default function GameBoard({ onSelected }) {
           <ol>
             {row.map((col, colIndex) => (
               <li key={colIndex}>
-                <button onClick={onSelected}>{col}</button>
+                <button onClick={() => handleClick(rowIndex, colIndex)}>
+                  {col}
+                </button>
               </li>
             ))}
           </ol>

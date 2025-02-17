@@ -1,6 +1,6 @@
-import daImg from "./assets/investment-calculator-logo.png";
-
 import { useState } from "react";
+import headerImg from "./assets/a.png";
+import Header from "./components/Header";
 import UserInput from "./components/UserInput";
 import Table from "./components/Table.jsx";
 
@@ -9,7 +9,7 @@ import { calculateInvestmentResults } from "./util/investment.js";
 export default function App() {
   const [userIntel, setUserIntel] = useState({});
 
-  function getUserIntel(key, val) {
+  function getUserInput(key, val) {
     setUserIntel((prev) => {
       return { ...prev, [key]: val };
     });
@@ -17,37 +17,35 @@ export default function App() {
 
   const result = calculateInvestmentResults(userIntel);
 
+  console.log("result");
+  console.log(result);
+
   return (
     <>
-      <section id="header">
-        <img src={daImg} alt="" />
-        <h1>Exercise</h1>
-      </section>
+      <Header theImg={headerImg}>Example Title</Header>
       <section id="user-input">
         <UserInput
           title="Initial Investment"
-          getUserIntel={getUserIntel}
           symbol="initialInvestment"
+          getUserInput={getUserInput}
         />
         <UserInput
           title="Annual Investment"
-          getUserIntel={getUserIntel}
+          getUserInput={getUserInput}
           symbol="annualInvestment"
         />
         <UserInput
           title="Expected Return"
-          getUserIntel={getUserIntel}
+          getUserInput={getUserInput}
           symbol="expectedReturn"
         />
         <UserInput
           title="Duration"
-          getUserIntel={getUserIntel}
+          getUserInput={getUserInput}
           symbol="duration"
         />
       </section>
-      <section>
-        <Table data={result} initialInvestment={userIntel.initialInvestment} />
-      </section>
+      <Table result={result} />
     </>
   );
 }

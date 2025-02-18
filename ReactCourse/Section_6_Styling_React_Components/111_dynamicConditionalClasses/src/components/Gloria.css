@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "Gloria";
+  src: url("../assets/ITC-Benguiat-Book.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#Gloria {
+  max-width: 44%;
+  margin: auto;
+}
+
+#Gloria p {
+  font-weight: 600;
+  font-family: "Gloria", sans-serif;
+}

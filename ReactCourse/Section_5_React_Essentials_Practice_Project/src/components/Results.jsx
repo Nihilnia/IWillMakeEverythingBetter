@@ -8,6 +8,38 @@ export default function Results({ res }) {
     resultsData[0].interest -
     resultsData[0].annualInvestment;
 
+  let render = null;
+
+  if (
+    res.initialInvestment <= 0 ||
+    res.annualInvestment <= 0 ||
+    res.expectedReturn <= 0 ||
+    res.duration <= 0
+  ) {
+    render = (
+      <tr>
+        <td colSpan={4}>Given values must be greater than zero.</td>
+      </tr>
+    );
+  } else {
+    render = resultsData.map((f) => {
+      const totalInterest =
+        f.valueEndOfYear - f.annualInvestment * f.year - initialInvestment;
+
+      const totalAmountInvested = f.valueEndOfYear - totalInterest;
+
+      return (
+        <tr key={f.year}>
+          <td>{f.year}</td>
+          <td>{formatter.format(f.valueEndOfYear)}</td>
+          <td>{formatter.format(f.interest)}</td>
+          <td>{formatter.format(totalInterest)}</td>
+          <td>{formatter.format(totalAmountInvested)}</td>
+        </tr>
+      );
+    });
+  }
+
   return (
     <table id="result">
       <thead>
@@ -19,24 +51,7 @@ export default function Results({ res }) {
           <th>Invested Capital</th>
         </tr>
       </thead>
-      <tbody>
-        {resultsData.map((f) => {
-          const totalInterest =
-            f.valueEndOfYear - f.annualInvestment * f.year - initialInvestment;
-
-          const totalAmountInvested = f.valueEndOfYear - totalInterest;
-
-          return (
-            <tr key={f.year}>
-              <td>{f.year}</td>
-              <td>{formatter.format(f.valueEndOfYear)}</td>
-              <td>{formatter.format(f.interest)}</td>
-              <td>{formatter.format(totalInterest)}</td>
-              <td>{formatter.format(totalAmountInvested)}</td>
-            </tr>
-          );
-        })}
-      </tbody>
+      <tbody>{render}</tbody>
     </table>
   );
 }

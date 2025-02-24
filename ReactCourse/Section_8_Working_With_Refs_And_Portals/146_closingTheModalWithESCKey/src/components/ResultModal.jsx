@@ -20,14 +20,18 @@ export default function ResultModal({
     };
   });
 
+  // My way
   const aKey = useRef();
 
   function handleKeyDown(e) {
-    if (e.key === "b") aKey.current.click();
+    if (e.key === "Escape") {
+      aKey.current.click();
+      onReset();
+    }
   }
 
   return (
-    <dialog ref={dialog} className="result-modal">
+    <dialog ref={dialog} className="result-modal" onClose={onReset}>
       {!isWin && <h2>Your score: {score}</h2>}
       {isWin && <h2>You lost.</h2>}
       <p>

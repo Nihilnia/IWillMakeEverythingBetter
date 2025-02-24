@@ -1,6 +1,6 @@
 import { useImperativeHandle, useRef } from "react";
 
-export default function ResultModal({ ref, result, left, targetTime }) {
+export default function ResultModal({ ref, result, targetTime }) {
   const dialog = useRef();
 
   useImperativeHandle(ref, () => {
@@ -19,7 +19,7 @@ export default function ResultModal({ ref, result, left, targetTime }) {
         The target time was <strong>{targetTime} seconds.</strong>
       </p>
       <p>
-        You stopped the timer with <strong>{left} seconds left.</strong>
+        You stopped the timer with <strong>X seconds left.</strong>
       </p>
       <form method="dialog">
         <button>Close</button>

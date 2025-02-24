@@ -6,17 +6,13 @@ export default function TimerChallenge({ title, targetTime }) {
 
   const timer = useRef();
   const dialog = useRef();
-  const result = useRef({ isWin: false, timeLeft: targetTime * 1000 });
-
   const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
 
   if (timeRemaining <= 0) {
     //user did not click till time is expired
     clearInterval(timer.current);
-
-    result.current = { isWin: false, timeLeft: timeRemaining };
-    dialog.current.openIt();
     setTimeRemaining(targetTime * 1000);
+    dialog.current.openIt();
   }
 
   function handleStart() {
@@ -28,20 +24,12 @@ export default function TimerChallenge({ title, targetTime }) {
   function handleStop() {
     //user clicked it
     clearInterval(timer.current);
-
-    result.current = { isWin: true, timeLeft: timeRemaining / 1000 };
     dialog.current.openIt();
-    setTimeRemaining(targetTime * 1000);
   }
 
   return (
     <>
-      <ResultModal
-        ref={dialog}
-        result={result.current.isWin ? "Won" : "Lose"}
-        left={result.current.timeLeft}
-        targetTime={targetTime}
-      />
+      <ResultModal ref={dialog} result="lost" targetTime={targetTime} />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">

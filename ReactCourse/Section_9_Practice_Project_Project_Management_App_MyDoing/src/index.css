@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #0c0c0d;
+  color: #fff;
+}
+
+#container-main {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.left-side {
+  border: 1px solid red;
+}
+.right-side {
+  border: 1px solid blue;
+}

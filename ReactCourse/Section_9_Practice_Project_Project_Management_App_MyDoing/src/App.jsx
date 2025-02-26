@@ -1,80 +1,80 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [projects, setProjects] = useState([
-    {
-      title: "aa",
-      description: "aaa",
-      date: "",
-      todo: [],
-    },
-    {
-      title: "bb",
-      description: "bbb",
-      date: "",
-      todo: [],
-    },
-  ]);
-  const [selectedProject, setSelectedProject] = useState("");
+  const [allProjects, setAllProjects] = useState([]);
+  const currentProject = useRef();
 
-  function handleCurrentPage(page, project) {
+  function handleCurrentPage(page) {
     setCurrentPage(page);
-
-    if (page === "ProjectDetails") {
-      setSelectedProject(project);
-    }
   }
 
-  function handleProjects(title, description, date) {
-    setProjects((prev) => {
-      return [
-        ...prev,
-        { title: title, description: description, date: date, todo: [] },
-      ];
+  function handleNewProject(newProject) {
+    setAllProjects((prev) => [...prev, newProject]);
+  }
+
+  function handleNewTodo(prjTitle, newTodo) {
+    setAllProjects((prev) => {
+      const updated = prev.map((f) =>
+        f.title === prjTitle
+          ? { ...f, todo: [...f.todo, { id: Math.random(), name: newTodo }] }
+          : f
+      );
+
+      currentProject.current = updated.find((f) => f.title === prjTitle);
+
+      return updated;
     });
   }
 
-  function handleTodos(title, todo) {
-    setProjects((prev) => {
-      const updatedProjects = prev.map((project) => {
-        if (project.title === title) {
-          return {
-            ...project,
-            todo: [...project.todo, todo],
-          };
+  function handleRemoveTodo(prjTitle, todoId) {
+    setAllProjects((prev) => {
+      const updated = prev.map((f) => {
+        if (f.title === prjTitle) {
+          return { ...f, todo: f.todo.splice(todoId, 1) };
         } else {
-          return project;
+          return f;
         }
       });
 
-      // Update selectedProject if it's the one being modified
-      if (selectedProject && selectedProject.title === title) {
-        const updatedProject = updatedProjects.find((p) => p.title === title);
-        setSelectedProject(updatedProject);
-      }
-
-      return updatedProjects;
+      currentProject.current = updated.find((f) => f.title === prjTitle);
+      console.log("asudhasukdj");
+      console.log(currentProject.current);
+      return updated;
     });
   }
 
+  function handleCurrentProject(prj) {
+    currentProject.current = prj;
+    setCurrentPage("ProjectDetails");
+  }
+
+  console.log(allProjects);
+
   return (
-    <section id="container-main">
-      <div className="left-side">
-        <Sidebar handleCurrentPage={handleCurrentPage} projects={projects} />
-      </div>
-      <div className="right-side">
-        <MainContent
-          currentPage={currentPage}
-          handleCurrentPage={handleCurrentPage}
-          handleProjects={handleProjects}
-          selectedProject={selectedProject}
-          handleTodos={handleTodos}
-        />
-      </div>
-    </section>
+    <>
+      <section id="container-main">
+        <div className="left-side">
+          <Sidebar
+            allProjects={allProjects}
+            handleCurrentPage={handleCurrentPage}
+            handleCurrentProject={handleCurrentProject}
+          />
+        </div>
+        <div className="right-side">
+          <MainContent
+            currentPage={currentPage}
+            currentProject={currentProject.current}
+            handleCurrentPage={handleCurrentPage}
+            handleNewProject={handleNewProject}
+            handleNewTodo={handleNewTodo}
+            handleRemoveTodo={handleRemoveTodo}
+          />
+        </div>
+      </section>
+    </>
   );
 }

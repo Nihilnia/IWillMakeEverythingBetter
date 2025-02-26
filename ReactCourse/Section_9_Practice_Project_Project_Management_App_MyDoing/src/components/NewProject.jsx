@@ -1,50 +1,52 @@
 import { useState } from "react";
 
-export default function NewProject({ handleProjects }) {
-  const [project, setProject] = useState({
+export default function NewProject({ handleNewProject }) {
+  const [newProject, setNewProject] = useState({
     title: "",
     description: "",
     date: "",
     todo: [],
   });
 
-  function handleProject(key, val) {
-    setProject((prev) => {
-      return { ...prev, [key]: val };
-    });
+  function handleProjectDetails(key, val) {
+    setNewProject((prev) => ({ ...prev, [key]: val }));
   }
 
-  function sendProject(e) {
+  function sendNewProject(e) {
     e.preventDefault();
-    handleProjects(project.title, project.description, project.date);
+
+    handleNewProject(newProject);
   }
 
   return (
-    <section id="new-project">
-      <form onSubmit={sendProject}>
+    <section>
+      <form onSubmit={sendNewProject}>
         <div>
-          <label>Title</label>
+          <label>Title:</label>
           <input
             type="text"
-            onChange={(e) => handleProject("title", e.target.value)}
+            onChange={(e) => handleProjectDetails("title", e.target.value)}
           />
         </div>
         <div>
-          <label>Description</label>
+          <label>Description:</label>
           <textarea
-            type="text"
-            onChange={(e) => handleProject("description", e.target.value)}
-          />
+            onChange={(e) =>
+              handleProjectDetails("description", e.target.value)
+            }
+          ></textarea>
         </div>
         <div>
-          <label>Date</label>
+          <label>Date:</label>
           <input
             type="date"
-            onChange={(e) => handleProject("date", e.target.value)}
+            onChange={(e) => handleProjectDetails("date", e.target.value)}
           />
         </div>
-        <button type="button">Cancel</button>
-        <button type="submit">Save</button>
+        <div>
+          <button>Cancel</button>
+          <button type="submit">Add</button>
+        </div>
       </form>
     </section>
   );

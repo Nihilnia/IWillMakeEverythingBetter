@@ -4,30 +4,31 @@ import ProjectDetails from "./ProjectDetails";
 export default function MainContent({
   currentPage,
   handleCurrentPage,
-  handleProjects,
-  selectedProject,
-  handleTodos,
+  handleNewProject,
+  currentProject,
+  handleNewTodo,
+  handleRemoveTodo,
 }) {
-  console.log("selectedProject");
-  console.log(selectedProject);
+  function setCurrentPage(page) {
+    handleCurrentPage(page);
+  }
 
   return (
-    <section id="main-content">
+    <section>
       {currentPage === "home" && (
         <div>
           <h2>No project selected</h2>
-          <button onClick={() => handleCurrentPage("NewProject")}>
-            Add new project
-          </button>
+          <button onClick={() => setCurrentPage("NewProject")}>Add new</button>
         </div>
       )}
       {currentPage === "NewProject" && (
-        <NewProject handleProjects={handleProjects} />
+        <NewProject handleNewProject={handleNewProject} />
       )}
       {currentPage === "ProjectDetails" && (
         <ProjectDetails
-          selectedProject={selectedProject}
-          handleTodos={handleTodos}
+          currentProject={currentProject}
+          handleNewTodo={handleNewTodo}
+          handleRemoveTodo={handleRemoveTodo}
         />
       )}
     </section>

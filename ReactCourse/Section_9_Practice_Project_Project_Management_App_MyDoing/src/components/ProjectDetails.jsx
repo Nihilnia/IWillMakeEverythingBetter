@@ -1,33 +1,43 @@
 import { useState } from "react";
 
-export default function ProjectDetails({ selectedProject, handleTodos }) {
-  const [newTodo, setNewTodo] = useState("");
+export default function ProjectDetails({
+  currentProject,
+  handleNewTodo,
+  handleRemoveTodo,
+}) {
+  const [newTodo, setNewTodo] = useState();
 
-  function sendNewTodo() {
-    handleTodos(selectedProject.title, newTodo);
+  function handleTodoDetails(e) {
+    setNewTodo(e.target.value);
+  }
+
+  function sendNewTodo(prjTitle) {
+    handleNewTodo(prjTitle, newTodo);
+  }
+
+  function removeTodo(todoId) {
+    handleRemoveTodo(currentProject.title, todoId);
   }
 
   return (
-    <>
+    <section>
+      <h2>{currentProject.title}</h2>
+      <h2>{currentProject.description}</h2>
+      <h2>{currentProject.date}</h2>
       <div>
-        <h2>Name: {selectedProject.title}</h2>
-        <h2>Name: {selectedProject.description}</h2>
-        <h2>Name: {selectedProject.date}</h2>
-      </div>
-      <div>
-        <h2>Tasks:</h2>
-        {selectedProject.todo.map((f, index) => {
-          return <h4 key={index}>{f}</h4>;
-        })}
+        <h3>Current todos:</h3>
+        {currentProject.todo?.map((f, idx) => (
+          <div key={idx}>
+            <span>{f.name}</span>
+            <button onClick={() => removeTodo(f.title)}>Remove</button>
+          </div>
+        ))}
         <div>
-          <label>Add task</label>
-          <input type="text" onChange={(e) => setNewTodo(e.target.value)} />
-          <button onClick={sendNewTodo}>Add</button>
+          <label>New todo: </label>
+          <input type="text" onChange={handleTodoDetails} />
+          <button onClick={() => sendNewTodo(currentProject.title)}>Add</button>
         </div>
-        {selectedProject.tasks?.map((task) => {
-          return <p>{task.name}</p>;
-        })}
       </div>
-    </>
+    </section>
   );
 }

@@ -2,11 +2,12 @@ import { useState, useRef } from "react";
 
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [allProjects, setAllProjects] = useState([]);
-  const currentProject = useRef();
+  const [currentProject, setCurrentProject] = useState();
 
   function handleCurrentPage(page) {
     setCurrentPage(page);
@@ -24,7 +25,7 @@ export default function App() {
           : f
       );
 
-      currentProject.current = updated.find((f) => f.title === prjTitle);
+      setCurrentProject(updated.find((f) => f.title === prjTitle));
 
       return updated;
     });
@@ -40,15 +41,17 @@ export default function App() {
         }
       });
 
-      currentProject.current = updated.find((f) => f.title === prjTitle);
-      console.log("asudhasukdj");
-      console.log(currentProject.current);
+      setCurrentProject(updated.find((f) => f.title === prjTitle));
+
       return updated;
     });
   }
 
   function handleCurrentProject(prj) {
-    currentProject.current = prj;
+    console.log("Incoming project");
+    console.log(prj);
+
+    setCurrentProject(prj);
     setCurrentPage("ProjectDetails");
   }
 
@@ -56,6 +59,7 @@ export default function App() {
 
   return (
     <>
+      <Navbar />
       <section id="container-main">
         <div className="left-side">
           <Sidebar
@@ -67,7 +71,7 @@ export default function App() {
         <div className="right-side">
           <MainContent
             currentPage={currentPage}
-            currentProject={currentProject.current}
+            currentProject={currentProject}
             handleCurrentPage={handleCurrentPage}
             handleNewProject={handleNewProject}
             handleNewTodo={handleNewTodo}

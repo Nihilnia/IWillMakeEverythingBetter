@@ -1,20 +1,138 @@
-* {
-  margin: 0;
+@font-face {
+  font-family: "Questrial";
+  src: url("./assets/Questrial-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-body {
-  background-color: #0c0c0d;
-  color: #fff;
+* {
+  margin: 0;
+  font-family: "Questrial";
 }
 
 #container-main {
   display: grid;
   grid-template-columns: 20% 80%;
+  height: 100vh;
 }
 
-.left-side {
-  border: 1px solid red;
+#navbar {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.right-side {
-  border: 1px solid blue;
+
+#all-projects {
+  background-color: #0c0c0d;
+  color: white;
+  height: 100vh;
+  border-top-right-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 44px;
+  align-items: center;
+  row-gap: 44px;
+}
+
+#all-projects .btn-add {
+  margin-top: 20px;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#main-content {
+  padding: 44px;
+}
+
+.btn-add {
+  padding: 10px 30px;
+  border: none;
+  background-color: #322e2a;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.sidebar-projects {
+  max-width: 100%;
+  width: 100%;
+}
+.sidebar-project-title {
+  max-width: 100%;
+  width: 100%;
+  background-color: gray;
+  padding: 5px 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.project-details {
+  max-width: 444px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.project-todos {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+strong {
+  margin-right: 10px;
+}
+
+.project-title {
+  font-size: 44px;
+}
+.project-date {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.form-new-project {
+  max-width: 600px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  font-size: 24px;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+
+form input {
+  border: none;
+  background-color: #e1dfdd;
+  height: 35px;
+  box-sizing: border-box;
+}
+
+.form-item:hover,
+.form-item:focus {
+  border-bottom: 3px solid #c4c4c2;
+}
+
+textarea.form-item {
+  border: none;
+  background-color: #e1dfdd;
+  height: 80px;
+  box-sizing: border-box;
 }

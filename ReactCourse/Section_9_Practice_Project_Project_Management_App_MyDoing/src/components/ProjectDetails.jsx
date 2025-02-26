@@ -20,11 +20,17 @@ export default function ProjectDetails({
   }
 
   return (
-    <section>
-      <h2>{currentProject.title}</h2>
-      <h2>{currentProject.description}</h2>
-      <h2>{currentProject.date}</h2>
-      <div>
+    <section className="project-details">
+      <div className="project-title">Project: {currentProject.title}</div>
+      <div className="project-date">
+        <strong>Due:</strong>
+        {currentProject.date}
+      </div>
+      <div className="project-description">
+        <strong>Description:</strong> {currentProject.description}
+      </div>
+
+      <div className="project-todos">
         <h3>Current todos:</h3>
         {currentProject.todo?.map((f, idx) => (
           <div key={idx}>
@@ -32,8 +38,11 @@ export default function ProjectDetails({
             <button onClick={() => removeTodo(f.title)}>Remove</button>
           </div>
         ))}
+
         <div>
-          <label>New todo: </label>
+          <div>
+            <label>New todo: </label>
+          </div>
           <input type="text" onChange={handleTodoDetails} />
           <button onClick={() => sendNewTodo(currentProject.title)}>Add</button>
         </div>

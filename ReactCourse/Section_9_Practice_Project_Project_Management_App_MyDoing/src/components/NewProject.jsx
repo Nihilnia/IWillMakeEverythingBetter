@@ -19,11 +19,16 @@ export default function NewProject({ handleNewProject }) {
   }
 
   return (
-    <section>
+    <section className="form-new-project">
       <form onSubmit={sendNewProject}>
+        <div className="form-actions">
+          <button type="button">Cancel</button>
+          <button type="submit">Add</button>
+        </div>
         <div>
           <label>Title:</label>
           <input
+            className="form-item"
             type="text"
             onChange={(e) => handleProjectDetails("title", e.target.value)}
           />
@@ -31,6 +36,7 @@ export default function NewProject({ handleNewProject }) {
         <div>
           <label>Description:</label>
           <textarea
+            className="form-item"
             onChange={(e) =>
               handleProjectDetails("description", e.target.value)
             }
@@ -39,13 +45,10 @@ export default function NewProject({ handleNewProject }) {
         <div>
           <label>Date:</label>
           <input
+            className="form-item"
             type="date"
             onChange={(e) => handleProjectDetails("date", e.target.value)}
           />
-        </div>
-        <div>
-          <button>Cancel</button>
-          <button type="submit">Add</button>
         </div>
       </form>
     </section>

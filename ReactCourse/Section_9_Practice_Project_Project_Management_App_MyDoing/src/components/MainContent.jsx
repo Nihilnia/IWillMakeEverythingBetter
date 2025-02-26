@@ -14,11 +14,16 @@ export default function MainContent({
   }
 
   return (
-    <section>
+    <section id="main-content">
       {currentPage === "home" && (
         <div>
           <h2>No project selected</h2>
-          <button onClick={() => setCurrentPage("NewProject")}>Add new</button>
+          <button
+            className="btn-add"
+            onClick={() => setCurrentPage("NewProject")}
+          >
+            Add new
+          </button>
         </div>
       )}
       {currentPage === "NewProject" && (

@@ -144,3 +144,53 @@ textarea.form-item {
   height: 80px;
   box-sizing: border-box;
 }
+
+.result-modal {
+  border: none;
+  border-radius: 8px;
+  padding: 2rem;
+  background-color: #d7fcf8;
+  position: fixed; /* Ensures it's positioned relative to the viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers it perfectly */
+}
+
+.result-modal[open] {
+  animation: slide-in-from-top 0.35s ease-out;
+}
+
+.result-modal::backdrop {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@keyframes slide-in-from-top {
+  0% {
+    transform: translateY(-15%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  #all-projects {
+    text-align: center;
+  }
+
+  .sidebar-project-title {
+    padding: 5px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  #container-main {
+    display: block;
+  }
+
+  #all-projects {
+    height: auto;
+  }
+}

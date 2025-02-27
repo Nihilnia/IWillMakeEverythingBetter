@@ -53,6 +53,13 @@
   border-radius: 5px;
   font-size: 18px;
 }
+.btn-generic {
+  padding: 10px 30px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  font-size: 18px;
+}
 
 .sidebar-projects {
   max-width: 100%;
@@ -116,6 +123,7 @@ form > div {
   display: flex;
   justify-content: end;
   flex-direction: row;
+  column-gap: 10px;
 }
 
 form input {

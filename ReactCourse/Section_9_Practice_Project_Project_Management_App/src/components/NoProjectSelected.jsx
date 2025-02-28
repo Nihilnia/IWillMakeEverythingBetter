@@ -1,7 +1,7 @@
 import imgNoProject from "../assets/no-projects.png";
 import ButtonAdd from "./ButtonAdd";
 
-export default function NoProjectSelected() {
+export default function NoProjectSelected({ handleSelectedPage }) {
   return (
     <div className="mt-24 text-center w-2/3">
       <img
@@ -16,7 +16,9 @@ export default function NoProjectSelected() {
         Select a project or get started with a new one
       </p>
       <p>
-        <ButtonAdd>Create new project</ButtonAdd>
+        <ButtonAdd onClick={() => handleSelectedPage("NewProject")}>
+          Create new project
+        </ButtonAdd>
       </p>
     </div>
   );

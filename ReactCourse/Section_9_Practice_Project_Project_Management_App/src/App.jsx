@@ -5,26 +5,33 @@ import ProjectsSidebar from "./components/ProjectsSidebar";
 
 function App() {
   const [projectsState, setProjectsState] = useState({
-    selectedProject: undefined,
+    selectedProjectId: undefined, //undefined, id or null - makes hella sense to control three conditions
     projects: [],
-    selectedPage: undefined,
   });
 
-  function handleSelectedPage(page) {
-    setProjectsState((prev) => ({ ...prev, selectedPage: page }));
+  function handleStartAddProject() {
+    console.log("asdas");
+    setProjectsState((prev) => ({ ...prev, selectedProjectId: null }));
   }
 
-  const toRender =
-    projectsState.selectedPage === undefined ? (
-      <NoProjectSelected handleSelectedPage={handleSelectedPage} />
-    ) : (
-      <NewProject />
-    );
+  let render;
+
+  switch (projectsState.selectedProjectId) {
+    case null:
+      render = <NewProject handleStartAddProject={handleStartAddProject} />;
+      break;
+
+    default:
+      render = (
+        <NoProjectSelected handleStartAddProject={handleStartAddProject} />
+      );
+      break;
+  }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar handleSelectedPage={handleSelectedPage} />
-      {toRender}
+      <ProjectsSidebar handleStartAddProject={handleStartAddProject} />
+      {render}
     </main>
   );
 }

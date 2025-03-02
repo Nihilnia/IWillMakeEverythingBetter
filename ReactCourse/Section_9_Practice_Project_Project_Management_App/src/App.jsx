@@ -41,7 +41,11 @@ function App() {
 
   console.log(projectsState);
 
-  let content;
+  let selectedProject = projectsState.projects.find(
+    (f) => f.id === projectsState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={selectedProject} />;
 
   if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
@@ -50,14 +54,6 @@ function App() {
       <NewProject
         onAddNewProject={handleAddNewProject}
         onCancel={handleCancel}
-      />
-    );
-  } else {
-    content = (
-      <SelectedProject
-        project={projectsState.projects.find(
-          (f) => f.id === projectsState.selectedProjectId
-        )}
       />
     );
   }

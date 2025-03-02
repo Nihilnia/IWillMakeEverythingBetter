@@ -1,9 +1,12 @@
-export default function SelectedProject({ project }) {
+export default function SelectedProject({ project, onProjectDelete }) {
   const formattedDate = new Date(project.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     dat: "numeric",
   });
+
+  console.log("SelectedProject");
+  console.log(project);
 
   return (
     <div className="w-[35rem] mt-16">
@@ -14,7 +17,7 @@ export default function SelectedProject({ project }) {
           </h1>
           <button
             className="text-stone-600 hover:text-stone-950"
-            onClick={() => handleDelete(project.Id)}
+            onClick={onProjectDelete}
           >
             Delete
           </button>

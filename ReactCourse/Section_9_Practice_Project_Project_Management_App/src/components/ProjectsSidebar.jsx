@@ -4,12 +4,15 @@ export default function ProjectsSidebar({
   onStartAddProject,
   allProjects,
   onSelectedProject,
+  selectedProjectId,
 }) {
   const projects = allProjects.map((project) => (
     <li key={project.id}>
       <button
-        className="w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400
-       hover:text-stone-200 hover:bg-stone-800"
+        className={`w-full text-left px-2 py-1 rounded-sm my-1 text-stone-400
+       hover:text-stone-200 hover:bg-stone-800 ${
+         selectedProjectId === project.id ? "border-4 border-stone-300" : ""
+       }`}
         onClick={() => onSelectedProject(project.id)}
       >
         {project.title}

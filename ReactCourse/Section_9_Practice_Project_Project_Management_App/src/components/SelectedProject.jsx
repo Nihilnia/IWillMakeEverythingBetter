@@ -4,6 +4,7 @@ export default function SelectedProject({
   project,
   onProjectDelete,
   onAddNewTask,
+  projectTasks,
 }) {
   const formattedDate = new Date(project.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -13,6 +14,8 @@ export default function SelectedProject({
 
   console.log("SelectedProject");
   console.log(project);
+  console.log("projectTasks");
+  console.log(projectTasks);
 
   return (
     <div className="w-[35rem] mt-16">
@@ -33,7 +36,7 @@ export default function SelectedProject({
           {project.description}
         </p>
       </header>
-      <Tasks project={project} onAddNewTask={onAddNewTask} />
+      <Tasks projectTasks={projectTasks} onAddNewTask={onAddNewTask} />
     </div>
   );
 }

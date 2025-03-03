@@ -1,19 +1,15 @@
-import ButtonAdd from "./ButtonAdd";
-import Input from "./Input";
 import NewTask from "./NewTask";
 
-export default function Tasks({ project, onAddNewTask }) {
+export default function Tasks({ projectTasks, onAddNewTask }) {
   const content =
-    project.tasks.length > 0 ? (
+    projectTasks !== undefined ? (
       <ul>
-        {project.tasks.map((f, idx) => (
-          <li key={f.id}>
-            Task {idx + 1}- {f.title}
-          </li>
-        ))}
+        {projectTasks.map((task) => {
+          return <li key={task.id + Math.random()}>{task.title}</li>;
+        })}
       </ul>
     ) : (
-      <p className="text-stone-800 mb-4">
+      <p className="text-stone-800 my-4">
         This project does not have any tasks yet.
       </p>
     );

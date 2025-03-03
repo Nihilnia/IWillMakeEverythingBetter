@@ -8,6 +8,7 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined, //undefined, id or null - makes hella sense to control three conditions
     projects: [],
+    tasks: [],
   });
 
   function handleStartAddProject() {
@@ -20,34 +21,23 @@ function App() {
 
   function handleAddNewProject(prj) {
     setProjectsState((prev) => {
-      const newProjectId = Math.random();
-
       const newProject = {
         ...prj,
-        id: newProjectId,
-        tasks: [],
+        id: Math.random(),
       };
 
       return {
         ...prev,
-        selectedProjectId: undefined,
         projects: [...prev.projects, newProject],
       };
     });
   }
 
-  function handleAddNewTask(newTask) {
+  function handleAddNewTask(task) {
     setProjectsState((prev) => {
       return {
         ...prev,
-        projects: prev.projects.map((prj) => {
-          return prj.id === prev.selectedProjectId
-            ? {
-                ...prj,
-                tasks: [...prj.tasks, { id: Math.random(), title: newTask }],
-              }
-            : prj;
-        }),
+        tasks: [...prev.tasks, { id: prev.selectedProjectId, title: task }],
       };
     });
   }
@@ -64,9 +54,14 @@ function App() {
     }));
   }
 
+  console.log("projectsState");
   console.log(projectsState);
 
   let selectedProject = projectsState.projects.find(
+    (f) => f.id === projectsState.selectedProjectId
+  );
+
+  let selectedProjectTasks = projectsState.tasks.filter(
     (f) => f.id === projectsState.selectedProjectId
   );
 
@@ -75,6 +70,7 @@ function App() {
       project={selectedProject}
       onProjectDelete={handleDeleteProject}
       onAddNewTask={handleAddNewTask}
+      projectTasks={selectedProjectTasks}
     />
   );
 

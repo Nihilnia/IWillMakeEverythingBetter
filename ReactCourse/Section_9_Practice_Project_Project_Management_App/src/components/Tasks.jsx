@@ -1,14 +1,8 @@
-import { useRef } from "react";
 import ButtonAdd from "./ButtonAdd";
 import Input from "./Input";
+import NewTask from "./NewTask";
 
 export default function Tasks({ project, onAddNewTask }) {
-  const newTask = useRef();
-
-  function handleNewTask() {
-    onAddNewTask(newTask.current.value);
-  }
-
   const content =
     project.tasks.length > 0 ? (
       <ul>
@@ -27,8 +21,7 @@ export default function Tasks({ project, onAddNewTask }) {
   return (
     <section>
       <h2 className="text-2xl font-bold text-stone-700 mb-4">Tasks</h2>
-      <Input type="text" label="New Task:" ref={newTask} />
-      <ButtonAdd onClick={handleNewTask}>Add</ButtonAdd>
+      <NewTask onAddNewTask={onAddNewTask} />
       {content}
     </section>
   );

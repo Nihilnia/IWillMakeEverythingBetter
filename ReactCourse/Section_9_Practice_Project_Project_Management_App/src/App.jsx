@@ -25,12 +25,29 @@ function App() {
       const newProject = {
         ...prj,
         id: newProjectId,
+        tasks: [],
       };
 
       return {
         ...prev,
         selectedProjectId: undefined,
         projects: [...prev.projects, newProject],
+      };
+    });
+  }
+
+  function handleAddNewTask(newTask) {
+    setProjectsState((prev) => {
+      return {
+        ...prev,
+        projects: prev.projects.map((prj) => {
+          return prj.id === prev.selectedProjectId
+            ? {
+                ...prj,
+                tasks: [...prj.tasks, { id: Math.random(), title: newTask }],
+              }
+            : prj;
+        }),
       };
     });
   }
@@ -57,6 +74,7 @@ function App() {
     <SelectedProject
       project={selectedProject}
       onProjectDelete={handleDeleteProject}
+      onAddNewTask={handleAddNewTask}
     />
   );
 

@@ -1,17 +1,22 @@
 import NewTask from "./NewTask";
 
-export default function Tasks({ projectTasks, onAddNewTask, onRemoveTask }) {
-  console.log("projectTasks");
-  console.log(projectTasks);
-
+export default function Tasks({ tasks, onAddNewTask, onRemoveTask }) {
   const content =
-    projectTasks.length > 0 ? (
-      <ul>
-        {projectTasks.map((task) => {
+    tasks.length > 0 ? (
+      <ul className="p-4 mt-8 bg-stone-100 rounded-lg">
+        {tasks.map((task) => {
           return (
-            <li key={task.id}>
-              <p>{task.title}</p>
-              <button onClick={() => onRemoveTask(task)}>Remove</button>
+            <li
+              key={task.id}
+              className="flex justify-between my-4 hover:bg-red-300 hover:rounded-lg px-3"
+            >
+              <span>{task.title}</span>
+              <button
+                onClick={() => onRemoveTask(task)}
+                className="text-stone-700 hover:text-red-500"
+              >
+                Remove
+              </button>
             </li>
           );
         })}

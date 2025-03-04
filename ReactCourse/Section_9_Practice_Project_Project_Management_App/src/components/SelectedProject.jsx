@@ -18,6 +18,10 @@ export default function SelectedProject({
   console.log("projectTasks");
   console.log(projectTasks);
 
+  const selectedProjectTasks = projectTasks.filter(
+    (f) => f.projectId === project.id
+  );
+
   return (
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
@@ -38,9 +42,9 @@ export default function SelectedProject({
         </p>
       </header>
       <Tasks
-        projectTasks={projectTasks}
         onAddNewTask={onAddNewTask}
         onRemoveTask={onRemoveTask}
+        tasks={selectedProjectTasks}
       />
     </div>
   );

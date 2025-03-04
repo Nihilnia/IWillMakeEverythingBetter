@@ -73,17 +73,13 @@ function App() {
     (f) => f.id === projectsState.selectedProjectId
   );
 
-  let selectedProjectTasks = projectsState.tasks.filter(
-    (f) => f.projectId === projectsState.selectedProjectId
-  );
-
   let content = (
     <SelectedProject
       project={selectedProject}
       onProjectDelete={handleDeleteProject}
       onAddNewTask={handleAddNewTask}
       onRemoveTask={handleRemoveTask}
-      projectTasks={selectedProjectTasks}
+      projectTasks={projectsState.tasks}
     />
   );
 

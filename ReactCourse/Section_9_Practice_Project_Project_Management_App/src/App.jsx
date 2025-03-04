@@ -42,6 +42,15 @@ function App() {
     });
   }
 
+  function handleRemoveTask(task) {
+    setProjectsState((prev) => {
+      return {
+        ...prev,
+        tasks: prev.tasks.filter((f) => f.title !== task.title),
+      };
+    });
+  }
+
   function handleSelectedProject(prjId) {
     setProjectsState((prev) => ({ ...prev, selectedProjectId: prjId }));
   }
@@ -70,6 +79,7 @@ function App() {
       project={selectedProject}
       onProjectDelete={handleDeleteProject}
       onAddNewTask={handleAddNewTask}
+      onRemoveTask={handleRemoveTask}
       projectTasks={selectedProjectTasks}
     />
   );

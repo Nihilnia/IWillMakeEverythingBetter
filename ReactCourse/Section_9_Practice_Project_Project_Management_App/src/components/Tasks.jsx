@@ -1,11 +1,16 @@
 import NewTask from "./NewTask";
 
-export default function Tasks({ projectTasks, onAddNewTask }) {
+export default function Tasks({ projectTasks, onAddNewTask, onRemoveTask }) {
   const content =
     projectTasks !== undefined ? (
       <ul>
         {projectTasks.map((task) => {
-          return <li key={task.id + Math.random()}>{task.title}</li>;
+          return (
+            <li key={task.id + Math.random()}>
+              <p>{task.title}</p>
+              <button onClick={() => onRemoveTask(task)}>Remove</button>
+            </li>
+          );
         })}
       </ul>
     ) : (

@@ -1,12 +1,15 @@
 import NewTask from "./NewTask";
 
 export default function Tasks({ projectTasks, onAddNewTask, onRemoveTask }) {
+  console.log("projectTasks");
+  console.log(projectTasks);
+
   const content =
-    projectTasks !== undefined ? (
+    projectTasks.length > 0 ? (
       <ul>
         {projectTasks.map((task) => {
           return (
-            <li key={task.id + Math.random()}>
+            <li key={task.id}>
               <p>{task.title}</p>
               <button onClick={() => onRemoveTask(task)}>Remove</button>
             </li>

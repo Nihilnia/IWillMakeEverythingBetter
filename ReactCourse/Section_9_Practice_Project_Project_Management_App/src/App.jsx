@@ -37,7 +37,10 @@ function App() {
     setProjectsState((prev) => {
       return {
         ...prev,
-        tasks: [...prev.tasks, { id: prev.selectedProjectId, title: task }],
+        tasks: [
+          ...prev.tasks,
+          { id: Math.random(), projectId: prev.selectedProjectId, title: task },
+        ],
       };
     });
   }
@@ -46,7 +49,7 @@ function App() {
     setProjectsState((prev) => {
       return {
         ...prev,
-        tasks: prev.tasks.filter((f) => f.title !== task.title),
+        tasks: prev.tasks.filter((f) => f.id !== task.id),
       };
     });
   }
@@ -71,7 +74,7 @@ function App() {
   );
 
   let selectedProjectTasks = projectsState.tasks.filter(
-    (f) => f.id === projectsState.selectedProjectId
+    (f) => f.projectId === projectsState.selectedProjectId
   );
 
   let content = (

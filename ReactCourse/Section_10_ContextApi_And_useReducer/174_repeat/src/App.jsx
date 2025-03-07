@@ -1,24 +1,25 @@
-import Product from "./components/Product.jsx";
-import Header from "./components/Header.jsx";
-import Shop from "./components/Shop.jsx";
-import { DUMMY_PRODUCTS } from "./dummy-products.js";
+import Container from "./components/Container";
+import Button from "./components/Button";
 
-import CartContextProvider from "./store/ShoppingCartContext.jsx";
+import ExampleContextProvider from "./store/ExampleContext";
+import { ExampleContext } from "./store/ExampleContext";
+import { useContext } from "react";
 
-function App() {
+function AppContent() {
+  const { toggleTheme } = useContext(ExampleContext);
+
   return (
-    <CartContextProvider>
-      {/* React 19 and higher doesnt need .Provider prop */}
-      <Header />
-      <Shop>
-        {DUMMY_PRODUCTS.map((product) => (
-          <li key={product.id}>
-            <Product {...product} />
-          </li>
-        ))}
-      </Shop>
-    </CartContextProvider>
+    <Container>
+      <h2>Its a basic container</h2>
+      <Button label="Toggle" onClick={toggleTheme} />
+    </Container>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <ExampleContextProvider>
+      <AppContent />
+    </ExampleContextProvider>
+  );
+}

@@ -8,7 +8,7 @@ import CartContextProvider from "./store/ShoppingCartContext.jsx";
 function App() {
   return (
     <CartContextProvider>
-      {/* All these children will get the value (ctxValue) we are returning from CartContextProvider */}
+      {/* React 19 and higher doesnt need .Provider prop */}
       <Header />
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (

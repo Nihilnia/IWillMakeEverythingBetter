@@ -45,6 +45,11 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    const storedIDs = JSON.parse(localStorage.getItem("selectedPlaces") || []);
+    if (storedIDs.indexOf(id) === -1) {
+      localStorage.setItem("selectedPlaces", [id, ...storedIDs]);
+    }
   }
 
   function handleRemovePlace() {

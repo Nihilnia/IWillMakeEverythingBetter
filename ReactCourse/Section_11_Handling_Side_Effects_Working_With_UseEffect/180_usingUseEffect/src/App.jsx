@@ -15,7 +15,6 @@ function App() {
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
   useEffect(() => {
-    //Side effect, creates an infinite loop
     navigator.geolocation.getCurrentPosition((position) => {
       const sortedPlaces = sortPlacesByDistance(
         AVAILABLE_PLACES,
@@ -81,9 +80,11 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={availablePlaces}
+          places={
+            availablePlaces.length > 1 ? availablePlaces : AVAILABLE_PLACES
+          }
           onSelectPlace={handleSelectPlace}
-          fallbackText={"Getting your location.."}
+          fallbackText={"Sorting places by distance.."}
         />
       </main>
     </>

@@ -46,9 +46,12 @@ function App() {
       return [place, ...prevPickedPlaces];
     });
 
-    const storedIDs = JSON.parse(localStorage.getItem("selectedPlaces") || []);
+    const storedIDs = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
     if (storedIDs.indexOf(id) === -1) {
-      localStorage.setItem("selectedPlaces", [id, ...storedIDs]);
+      localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIDs])
+      );
     }
   }
 

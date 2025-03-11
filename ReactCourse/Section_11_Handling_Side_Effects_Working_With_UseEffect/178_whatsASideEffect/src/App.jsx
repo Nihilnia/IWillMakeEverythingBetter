@@ -79,9 +79,7 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={
-            availablePlaces.length > 0 ? availablePlaces : AVAILABLE_PLACES
-          }
+          places={availablePlaces}
           onSelectPlace={handleSelectPlace}
         />
       </main>

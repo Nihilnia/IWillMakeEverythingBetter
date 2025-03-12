@@ -61,6 +61,11 @@ function App() {
       return [place, ...prevPickedPlaces];
     });
 
+    setAvailablePlaces((prev) => {
+      const updatedAvailablePlaces = prev.filter((place) => place.id !== id);
+      return updatedAvailablePlaces;
+    });
+
     const storedIDs = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
     if (storedIDs.indexOf(id) === -1) {
       localStorage.setItem(

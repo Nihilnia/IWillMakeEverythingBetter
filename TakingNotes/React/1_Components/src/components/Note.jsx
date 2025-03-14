@@ -22,7 +22,7 @@ function App() {
 
   return (
     <section className="max-w-[50%] w-[100%]">
-      <h1>JSX (JavaScript XML)</h1>
+      <h1>Components</h1>
       <CodeExample code={code} />
     </section>
   );

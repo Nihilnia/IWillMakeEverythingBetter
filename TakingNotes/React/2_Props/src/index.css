@@ -1,0 +1,7 @@
+@import url("https://github.com/Nihilnia/IWillMakeEverythingBetter/blob/main/TakingNotes/React/sources/fonts/IBMPlexMono/IBMPlexMono.css");
+
+@import "tailwindcss";
+
+body {
+  font-family: "IBM Plex Mono", monospace;
+}

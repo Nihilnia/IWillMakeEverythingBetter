@@ -1,5 +1,5 @@
 ---
-name: General Note
+name: "[PROJECT_GLORIA]"
 about: Use this template for general issues or questions.
 title: "[ISSUE] Short description of the issue"
 labels: Note
@@ -14,4 +14,6 @@ assignees: "projectGloria"
 
 ## Anatomy
 
-[Detailed explanation, code snippets, etc.]
+```jsx
+
+```

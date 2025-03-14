@@ -11,7 +11,7 @@ function Gloria(props) {
   );
 }
 
-//Using rhe component
+//Using the component
 function App() {
   return (
     <div>

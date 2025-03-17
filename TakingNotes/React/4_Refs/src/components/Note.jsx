@@ -8,6 +8,17 @@ export default function Note() {
     console.log(theInput.current.value);
   }
 
+  const code = `
+  const theInput = useRef("");
+
+  function handleClick() {
+    console.log(theInput.current.value);
+  }
+    
+  <input type="text" ref={theInput} placeholder="Write something.." />
+  <button onClick={handleClick}>Click me</button>
+  `;
+
   return (
     <section className="max-w-[60%] w-[100%]">
       <div>

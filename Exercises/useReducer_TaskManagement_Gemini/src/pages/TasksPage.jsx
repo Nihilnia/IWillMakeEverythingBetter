@@ -1,8 +1,5 @@
 import { useReducer } from "react";
 
-import TasksList from "../components/TasksList";
-import NewTask from "../components/NewTask";
-
 function tasksReducer(state, action) {
   const { type, payload } = action;
   const { id, name } = payload;

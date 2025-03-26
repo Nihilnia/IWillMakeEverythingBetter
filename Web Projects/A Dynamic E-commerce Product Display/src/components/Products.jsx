@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductsList from "./ProductsList";
 
-export default function Products() {
+export default function Products({ onAddToChart, onShowDetails }) {
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
@@ -10,12 +10,19 @@ export default function Products() {
       .then((json) => setAllProducts(json));
   }, []);
 
+  console.log("allProducts");
   console.log(allProducts);
 
-  return (
-    <section className="max-w-[70%] m-auto">
-      <h2>All Products</h2>
-      <ProductsList allProducts={allProducts} />
-    </section>
-  );
+  let render = "Products are loading..";
+
+  if (allProducts.length > 0)
+    render = (
+      <ProductsList
+        allProducts={allProducts}
+        onAddToChart={onAddToChart}
+        onShowDetails={onShowDetails}
+      />
+    );
+
+  return <section className="max-w-[70%] m-auto">{render}</section>;
 }

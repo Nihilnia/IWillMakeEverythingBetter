@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "ibm-plex-mono": ['"IBM Plex Mono"', "sans-serif"],
+        Raleway: ['"Spectral"', "serif"],
       },
     },
   },

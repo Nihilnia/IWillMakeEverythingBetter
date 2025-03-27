@@ -7,7 +7,6 @@ export default function App() {
     <section>
       <CartContextProvider>
         <Navbar />
-        <h2>Hello world.</h2>
         <ProductList />
       </CartContextProvider>
     </section>

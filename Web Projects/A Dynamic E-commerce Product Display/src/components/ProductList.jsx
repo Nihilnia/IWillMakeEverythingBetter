@@ -24,5 +24,9 @@ export default function ProductList() {
     return <ProductCard key={product.id} product={product} />;
   });
 
-  return <section className="grid grid-cols-4">{render}</section>;
+  return (
+    <section className="grid grid-cols-4 max-w-[80%] m-auto gap-10">
+      {render}
+    </section>
+  );
 }

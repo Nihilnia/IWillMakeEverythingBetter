@@ -18,10 +18,11 @@ export default function Navbar() {
   }
 
   return (
-    <section className="bg-amber-50 h-auto text-[#000] flex justify-between">
+    <section className="bg-amber-50 h-auto text-[#000] flex justify-between px-10 py-3">
       <div>Home</div>
-      <CartModal ref={refCartModal} />
+      <div>A Dynamic E-commerce Product Display</div>
       <div onClick={handleShowCart}>Cart ({cartTotalItemPiece})</div>
+      <CartModal ref={refCartModal} />
     </section>
   );
 }

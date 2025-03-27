@@ -18,9 +18,9 @@ export default function Navbar() {
   }
 
   return (
-    <section className="bg-amber-50 h-auto text-[#000] flex justify-between px-10 py-3">
+    <section className="bg-amber-50 h-auto text-[#000] flex justify-between px-10 py-3 text-center">
       <div>Home</div>
-      <div>A Dynamic E-commerce Product Display</div>
+      <div className="font-bold">A Dynamic E-commerce Product Display</div>
       <div onClick={handleShowCart}>Cart ({cartTotalItemPiece})</div>
       <CartModal ref={refCartModal} />
     </section>

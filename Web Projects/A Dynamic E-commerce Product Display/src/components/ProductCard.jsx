@@ -13,6 +13,7 @@ export default function ProductCard({ product }) {
     isShort: true,
     theDescription: product.description.slice(0, 150) + "..",
   });
+  const [isHover, setIsHover] = useState(false);
 
   const ctxData = useContext(CartContext);
 
@@ -49,7 +50,19 @@ export default function ProductCard({ product }) {
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <img src={images[0]} alt={description} />
+        <div
+          className="relative"
+          onClick={handleAddToCart}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          {isHover && (
+            <div className="absolute h-full w-full flex items-center justify-center bg-[#0c0c0d] opacity-50 font-bold">
+              Add to cart
+            </div>
+          )}
+          <img src={images[0]} alt={description} className="rounded-md" />
+        </div>
         <h1 className="text-xl font-bold">{title}</h1>
         <h2>
           {formattedDescription.theDescription}
@@ -65,9 +78,19 @@ export default function ProductCard({ product }) {
           <h2>Price: ${price}</h2>
         </div>
       </div>
-      <div>
-        <button onClick={handleShowDetails}>Show details</button>
-        <button onClick={handleAddToCart}>Add to cart</button>
+      <div className="flex gap-2">
+        <button
+          onClick={handleShowDetails}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Show details
+        </button>
+        <button
+          onClick={handleAddToCart}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add to cart
+        </button>
       </div>
       <div>
         {cartStatus > 0 && `Product added to cart: ${cartStatus} times.`}

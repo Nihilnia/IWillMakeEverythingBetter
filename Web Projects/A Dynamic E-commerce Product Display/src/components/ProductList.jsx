@@ -25,7 +25,10 @@ export default function ProductList() {
   });
 
   return (
-    <section className="grid grid-cols-4 max-w-[80%] m-auto gap-10">
+    <section
+      className="grid max-w-[80%] m-auto gap-10
+    md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 "
+    >
       {render}
     </section>
   );

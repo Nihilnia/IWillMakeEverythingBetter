@@ -4,11 +4,11 @@ import { CartContextProvider } from "./context/CartContext";
 
 export default function App() {
   return (
-    <section>
-      <CartContextProvider>
+    <CartContextProvider>
+      <section className="flex flex-col gap-4">
         <Navbar />
         <ProductList />
-      </CartContextProvider>
-    </section>
+      </section>
+    </CartContextProvider>
   );
 }

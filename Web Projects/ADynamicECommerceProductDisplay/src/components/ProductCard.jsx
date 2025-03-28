@@ -2,7 +2,6 @@ import { useContext, useRef, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import ProductDetailsModal from "./ProductDetailsModal";
 import EventInfoModal from "./EventInfoModal";
-import { foundation } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export default function ProductCard({ product }) {
   const { title, price, description, category, images } = product;

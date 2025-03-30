@@ -1,14 +1,13 @@
 import { useState } from "react";
 import NewTask from "./components/NewTask";
 import TaskList from "./components/TaskList";
+import FilterBy from "./components/FilterBy";
 
 export default function App() {
   const [allTasks, setAllTasks] = useState([]);
+  const [filteredResult, setFilteredResult] = useState([]);
 
-  console.log("allTasks");
-  console.log(allTasks);
-
-  function handleTaskOps(op, task, editedTask) {
+  function handleTaskOps(op, task, editedTask, selectedCategory) {
     switch (op) {
       case "NEW_TASK":
         setAllTasks((prev) => {
@@ -39,6 +38,7 @@ export default function App() {
 
           return updatedAllTasks;
         });
+        break;
 
       case "REMOVE_TASK":
         setAllTasks((prev) => {
@@ -48,13 +48,33 @@ export default function App() {
 
           return updatedAllTasks;
         });
+        break;
     }
+  }
+
+  function handleFilterTasks(selectedCategory) {
+    setFilteredResult((prev) => {
+      let updatedFilteredResult = [...prev];
+
+      updatedFilteredResult = allTasks.filter(
+        (f) => f.category === selectedCategory
+      );
+
+      return updatedFilteredResult;
+    });
   }
 
   return (
     <section id="sec-app">
+      <FilterBy
+        categories={allTasks.map((f) => f.category)}
+        onFilterTasks={handleFilterTasks}
+      />
       <NewTask onAddTask={handleTaskOps} />
-      <TaskList userTasks={allTasks} onEditTask={handleTaskOps} />
+      <TaskList
+        userTasks={filteredResult.length !== 0 ? filteredResult : allTasks}
+        onEditTask={handleTaskOps}
+      />
     </section>
   );
 }

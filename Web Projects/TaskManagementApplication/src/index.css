@@ -4,6 +4,8 @@
 
 body {
   font-family: "Spectral", serif;
+  background-color: #0c0c0d;
+  color: #fff;
 }
 
 dialog::backdrop {

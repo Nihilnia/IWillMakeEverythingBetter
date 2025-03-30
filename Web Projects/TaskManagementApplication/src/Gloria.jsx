@@ -39,6 +39,15 @@ export default function App() {
 
           return updatedAllTasks;
         });
+
+      case "REMOVE_TASK":
+        setAllTasks((prev) => {
+          let updatedAllTasks = [...prev];
+
+          updatedAllTasks = updatedAllTasks.filter((f) => f.id !== task.id);
+
+          return updatedAllTasks;
+        });
     }
   }
 

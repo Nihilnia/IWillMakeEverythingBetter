@@ -1,11 +1,17 @@
 import { useRef } from "react";
 import TaskDetailsModal from "./TaskDetailsModal";
+import InfoModal from "./InfoModal";
 
 export default function TaskCard({ task, onEditTask }) {
   const refDetails = useRef();
+  const refInfo = useRef();
 
   function handleOpenDetails() {
     refDetails.current.openDetails();
+  }
+
+  function handleRemove() {
+    onEditTask("REMOVE_TASK", task);
   }
 
   return (
@@ -21,10 +27,23 @@ export default function TaskCard({ task, onEditTask }) {
           >
             Edit/ Show Details
           </button>
+          <button
+            onClick={() => refInfo.current.openDialog()}
+            className="bg-red-700 p-2 rounded-md text-[#000]"
+          >
+            Remove
+          </button>
         </div>
       </div>
 
       <TaskDetailsModal task={task} ref={refDetails} onEditTask={onEditTask} />
+      <InfoModal ref={refInfo}>
+        <h4>Do you want to remove?</h4>
+        <button onClick={handleRemove}>Yes</button>
+        <form method="dialog">
+          <button type="submit">Cancel</button>
+        </form>
+      </InfoModal>
     </section>
   );
 }

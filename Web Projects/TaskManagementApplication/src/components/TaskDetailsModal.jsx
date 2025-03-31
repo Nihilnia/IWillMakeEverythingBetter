@@ -70,6 +70,12 @@ export default function TaskDetailsModal({ task, ref, onEditTask }) {
         >
           Apply
         </button>
+        <button
+          className="bg-amber-950 text-amber-100"
+          onClick={() => refDialog.current.close()}
+        >
+          Close
+        </button>
       </div>
     </dialog>
   );

@@ -10,9 +10,6 @@ export default function ExportBy({ categories, onFilterTasks }) {
     onFilterTasks(categories.sort()[0]);
   }
 
-  console.log("categories.sort");
-  console.log(categories.sort());
-
   function handleSelectedSubOption(e) {
     setselectedSubOption(e.target.value);
     onFilterTasks(e.target.value);

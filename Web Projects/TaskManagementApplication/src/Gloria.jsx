@@ -66,10 +66,12 @@ export default function App() {
 
   return (
     <section id="sec-app">
-      <FilterBy
-        categories={allTasks.map((f) => f.category)}
-        onFilterTasks={handleFilterTasks}
-      />
+      {allTasks.length > 0 && (
+        <FilterBy
+          categories={allTasks.map((f) => f.category)}
+          onFilterTasks={handleFilterTasks}
+        />
+      )}
       <NewTask onAddTask={handleTaskOps} />
       <TaskList
         userTasks={filteredResult.length !== 0 ? filteredResult : allTasks}

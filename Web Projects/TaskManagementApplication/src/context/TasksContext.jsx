@@ -14,7 +14,14 @@ function tasksReducer(state, action) {
 
   switch (type) {
     case "ADD_TASK":
-      updatedState.push(...payload);
+      const { title, description, dueDate, category } = payload;
+      updatedState.push({
+        id: Math.random(),
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        category: category,
+      });
       return updatedState;
 
     case "EDIT_TASK":
@@ -44,15 +51,14 @@ export function TaskContextProvider({ children }) {
   ]);
 
   function handleNewTask(task) {
-    const { title, description, dueData, category } = task;
+    const { title, description, dueDate, category } = task;
 
     dispatch({
       type: "ADD_TASK",
       payload: {
-        id: Math.random(),
         title: title,
         description: description,
-        dueData: dueData,
+        dueDate: dueDate,
         category: category,
       },
     });

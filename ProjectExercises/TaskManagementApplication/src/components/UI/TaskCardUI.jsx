@@ -20,15 +20,23 @@ export default function TaskCardUI({ task }) {
 
   function onHandleEditDialog() {
     refDialog.current.openDialog();
+    // Set initial values
+    refNewTitle.current.value = task.title;
+    reNewDescription.current.value = task.description;
+    refNewDueDate.current.value = task.dueDate;
+    refNewCategory.current.value = task.category;
   }
 
   function onHandleEditTask() {
     const newDetails = {
-      title: refNewTitle.current.value,
-      description: reNewDescription.current.value,
-      dueData: refNewDueDate.current.value,
-      category: refNewCategory.current.value,
+      title: refNewTitle.current.value || task.title,
+      description: reNewDescription.current.value || task.description,
+      dueDate: refNewDueDate.current.value || task.dueDate,
+      category: refNewCategory.current.value || task.category,
     };
+
+    console.log("refNewDueDate.current.value");
+    console.log(refNewDueDate.current.value);
 
     handleEditTask(task.id, newDetails);
   }
@@ -48,11 +56,14 @@ export default function TaskCardUI({ task }) {
         </div>
         {isHover && (
           <div onClick={onHandleEditDialog}>
-            <ButtonUI title="Edit" onClick={onHandleEditTask} />
+            <ButtonUI title="Edit" />
           </div>
         )}
-        <DialogUI ref={refDialog} btnTitle="Apply changes">
-          <h2>asdjahsd</h2>
+        <DialogUI
+          ref={refDialog}
+          btnTitle="Apply changes"
+          btnEvent={onHandleEditTask}
+        >
           <div className="flex flex-col">
             <div>
               Title:
@@ -71,7 +82,7 @@ export default function TaskCardUI({ task }) {
               <InputUI
                 type="date"
                 ref={refNewDueDate}
-                // placeholder={task.dueDate}
+                placeholder={task.dueDate}
               />
             </div>
             <div>

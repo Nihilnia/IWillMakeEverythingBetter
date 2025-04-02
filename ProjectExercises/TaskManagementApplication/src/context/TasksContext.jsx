@@ -58,6 +58,9 @@ export function TaskContextProvider({ children }) {
     },
   ]);
 
+  console.log("allTasks");
+  console.log(allTasks);
+
   function handleNewTask(task) {
     const { title, description, dueDate, category } = task;
 
@@ -73,7 +76,7 @@ export function TaskContextProvider({ children }) {
   }
 
   function handleEditTask(id, newDetails) {
-    const { title, description, dueData, category } = newDetails;
+    const { title, description, dueDate, category } = newDetails;
 
     dispatch({
       type: "EDIT_TASK",
@@ -81,7 +84,7 @@ export function TaskContextProvider({ children }) {
         id: id,
         title: title,
         description: description,
-        dueData: dueData,
+        dueDate: dueDate,
         category: category,
       },
     });

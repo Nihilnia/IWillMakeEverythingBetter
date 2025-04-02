@@ -1,4 +1,4 @@
-export default function InputUI({ type, title, props }) {
+export default function ButtonUI({ type, title, ...props }) {
   return (
     <button
       type={type}

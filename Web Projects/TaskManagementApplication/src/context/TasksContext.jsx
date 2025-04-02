@@ -9,12 +9,12 @@ export const TaskContext = createContext({
 
 function tasksReducer(state, action) {
   const { type, payload } = action;
+  const { title, description, dueDate, category } = payload;
 
   let updatedState = [...state];
 
   switch (type) {
     case "ADD_TASK":
-      const { title, description, dueDate, category } = payload;
       updatedState.push({
         id: Math.random(),
         title: title,
@@ -26,7 +26,15 @@ function tasksReducer(state, action) {
 
     case "EDIT_TASK":
       updatedState = updatedState.map((f) => {
-        return f.id === payload.id ? [...payload] : f;
+        return f.id === payload.id
+          ? {
+              ...f,
+              title: title,
+              description: description,
+              dueDate: dueDate,
+              category: category,
+            }
+          : f;
       });
       return updatedState;
 
@@ -46,7 +54,7 @@ export function TaskContextProvider({ children }) {
       title: "ABC",
       description: "DEF",
       dueDate: "FSDGF",
-      Category: "category",
+      category: "categoryasdasdasd",
     },
   ]);
 

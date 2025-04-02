@@ -1,20 +1,17 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { TaskContext } from "../context/TasksContext";
+import TaskCardUI from "./UI/TaskCardUI";
 
 export default function TaskList() {
-  const allTasks = useContext(TaskContext);
+  const { userTasks } = useContext(TaskContext);
 
-  const render = allTasks.userTasks.map((task) => {
-    return (
-      <div key={task.id}>
-        ID: {task.id}
-        Ttitle: {task.title}
-        Description: {task.description}
-        dueDate: {task.dueDate}
-        Category: {task.category}
-      </div>
-    );
+  const render = userTasks.map((task) => {
+    return <TaskCardUI key={task.id} task={task} />;
   });
 
-  return <>{render}</>;
+  return (
+    <section id="sec-task-list" className="flex flex-col gap-2">
+      {render}
+    </section>
+  );
 }

@@ -53,7 +53,7 @@ export function TaskContextProvider({ children }) {
       id: 345345345,
       title: "ABC",
       description: "DEF",
-      dueDate: "FSDGF",
+      dueDate: "2025-04-19",
       category: "categoryasdasdasd",
     },
   ]);

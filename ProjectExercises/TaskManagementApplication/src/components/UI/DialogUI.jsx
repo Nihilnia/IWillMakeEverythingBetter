@@ -1,4 +1,5 @@
 import { useImperativeHandle, useRef } from "react";
+import { createPortal } from "react-dom";
 
 export default function DialogUI({ children, ref }) {
   const refDialog = useRef();
@@ -14,5 +15,8 @@ export default function DialogUI({ children, ref }) {
     };
   });
 
-  return <dialog ref={refDialog}>{children}</dialog>;
+  return createPortal(
+    <dialog ref={refDialog}>{children}</dialog>,
+    document.getElementById("modal")
+  );
 }

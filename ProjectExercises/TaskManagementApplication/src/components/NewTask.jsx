@@ -3,10 +3,12 @@ import LabelUI from "./UI/LabelUI";
 import ButtonUI from "./UI/ButtonUI";
 
 import { TaskContext } from "../context/TasksContext";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
+import GeneralMessageUI from "./UI/GeneralMessageUI";
 
 export default function NewTask() {
   const { handleNewTask } = useContext(TaskContext);
+  const [message, setMessage] = useState(null);
 
   const refTitle = useRef();
   const refDescription = useRef();
@@ -24,6 +26,8 @@ export default function NewTask() {
     };
 
     handleNewTask(newTask);
+
+    setMessage("New task added.");
   }
 
   return (
@@ -49,6 +53,7 @@ export default function NewTask() {
           <ButtonUI type="submit" title="Add" />
         </div>
       </form>
+      {message && <GeneralMessageUI message={message} time={2000} />}
     </section>
   );
 }

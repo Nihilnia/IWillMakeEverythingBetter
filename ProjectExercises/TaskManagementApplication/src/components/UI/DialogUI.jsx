@@ -4,6 +4,7 @@ import ButtonUI from "./ButtonUI";
 
 export default function DialogUI({
   ref,
+  isForm = true,
   btnTitle,
   btnEvent,
   children,
@@ -14,9 +15,11 @@ export default function DialogUI({
   useImperativeHandle(ref, () => {
     return {
       openDialog() {
+        console.log("Dialog on.");
         dialogRef.current.showModal();
       },
       closeDialog() {
+        console.log("Dialog off.");
         dialogRef.current.close();
       },
     };
@@ -25,10 +28,12 @@ export default function DialogUI({
   return (
     <dialog ref={dialogRef} {...props}>
       {children}
-      <form method="dialog">
-        <ButtonUI type="submit" title={btnTitle} onClick={btnEvent} />
-        <ButtonUI title="Close" onClick={() => dialogRef.current.close()} />
-      </form>
+      {isForm && (
+        <form method="dialog">
+          <ButtonUI type="submit" title={btnTitle} onClick={() => btnEvent()} />
+          <ButtonUI title="Close" onClick={() => dialogRef.current.close()} />
+        </form>
+      )}
     </dialog>
   );
 }

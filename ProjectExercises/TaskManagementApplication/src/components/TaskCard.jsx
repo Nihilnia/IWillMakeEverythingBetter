@@ -77,10 +77,10 @@ export default function TaskCard({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <h2>{title}</h2>
-      <h2>{description}</h2>
-      <h2>{dueDate}</h2>
-      <h2>{isCompleted ? "yes" : "no"}</h2>
+      <h2>Task: {title}</h2>
+      <h2>Description: {description}</h2>
+      <h2>Due date: {dueDate}</h2>
+      <h2>Completed: {isCompleted ? "yes" : "no"}</h2>
       {isHover && (
         <div>
           <button onClick={() => handleSelectedOption("edit")}>Edit</button>

@@ -12,6 +12,13 @@ export default function App() {
       dueDate: "1/1/1111",
       isCompleted: false,
     },
+    {
+      id: Math.random(),
+      title: "Task_1",
+      description: "Description_1",
+      dueDate: "2/2/2222",
+      isCompleted: true,
+    },
   ]);
 
   const [isTasksUpdated, setIsTasksUpdated] = useState(false);
@@ -68,7 +75,6 @@ export default function App() {
 
   return (
     <section id="sec-gloria">
-      <h2>Task app</h2>
       <NewTask onHandleNewTask={handleAddTask} />
       <TaskList
         allTasks={allTasks}

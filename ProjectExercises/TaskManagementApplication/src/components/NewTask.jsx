@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import NotificationUI from "./UI/NotificationUI";
+import { useRef } from "react";
 
 export default function NewTask({ onHandleNewTask }) {
   const refTitle = useRef();
@@ -19,18 +18,18 @@ export default function NewTask({ onHandleNewTask }) {
   }
 
   return (
-    <section id="sec-new-task">
+    <section id="sec-new-task" className="max-w-[50%] m-auto">
       <form onSubmit={handleNewTask}>
         <div>
           <label>Title:</label>
           <input type="text" ref={refTitle} />
         </div>
         <div>
-          <label>description:</label>
+          <label>Description:</label>
           <input type="text" ref={refDescription} />
         </div>
         <div>
-          <label>dueDate:</label>
+          <label>Due Date:</label>
           <input type="date" ref={refDueDate} />
         </div>
         <div>

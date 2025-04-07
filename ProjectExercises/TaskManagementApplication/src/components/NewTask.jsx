@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import NotificationUI from "./UI/NotificationUI";
 
 export default function NewTask({ onHandleNewTask }) {
   const refTitle = useRef();

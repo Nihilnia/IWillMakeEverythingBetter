@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList";
 import NewTask from "./components/NewTask";
+import NotificationUI from "./components/UI/NotificationUI";
 
 export default function App() {
   const [allTasks, setAllTasks] = useState([
@@ -13,6 +14,18 @@ export default function App() {
     },
   ]);
 
+  const [isTasksUpdated, setIsTasksUpdated] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTasksUpdated(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isTasksUpdated]);
+
   function handleAddTask(task) {
     setAllTasks((prev) => {
       let updatedTasksList = [...prev];
@@ -21,6 +34,8 @@ export default function App() {
 
       return updatedTasksList;
     });
+
+    setIsTasksUpdated("New task added.");
   }
 
   function handleEditTask(taskID, newDetails) {
@@ -33,6 +48,8 @@ export default function App() {
 
       return updatedTasksList;
     });
+
+    setIsTasksUpdated("Task edited.");
   }
 
   function handleRemoveTask(taskID) {
@@ -45,6 +62,8 @@ export default function App() {
 
       return updatedTasksList;
     });
+
+    setIsTasksUpdated("Task removed.");
   }
 
   return (
@@ -56,6 +75,7 @@ export default function App() {
         onHandleEditTask={handleEditTask}
         onHandleRemoveTask={handleRemoveTask}
       />
+      {isTasksUpdated && <NotificationUI message={isTasksUpdated} />}
     </section>
   );
 }

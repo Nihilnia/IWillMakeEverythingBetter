@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DialogUI from "./UI/DialogUI";
+import NotificationUI from "./UI/NotificationUI";
 
 export default function TaskCard({
   task,
@@ -29,10 +30,12 @@ export default function TaskCard({
     };
 
     onHandleEditTask(id, newDetails);
+    refDialog.current.closeDialog();
   }
 
   function handleRemove() {
     onHandleRemoveTask(id);
+    refDialog.current.closeDialog();
   }
 
   const renderEdit = (

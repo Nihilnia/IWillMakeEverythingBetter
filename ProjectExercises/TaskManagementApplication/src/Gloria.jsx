@@ -9,17 +9,20 @@ export default function App() {
       id: Math.random(),
       title: "Task_0",
       description: "Description_0",
-      dueDate: "1/1/1111",
+      dueDate: "1-1-1111",
       isCompleted: false,
     },
     {
       id: Math.random(),
       title: "Task_1",
       description: "Description_1",
-      dueDate: "2/2/2222",
+      dueDate: "2-2-2222",
       isCompleted: true,
     },
   ]);
+
+  console.log("allTasks");
+  console.log(allTasks);
 
   const [isTasksUpdated, setIsTasksUpdated] = useState(false);
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
 
 export default function TaskList({
@@ -6,7 +6,15 @@ export default function TaskList({
   onHandleEditTask,
   onHandleRemoveTask,
 }) {
-  const [filtered, setFiltered] = useState([...allTasks]);
+  const [filtered, setFiltered] = useState([]);
+
+  useEffect(() => {
+    setFiltered((prev) => {
+      let updatedFiltered = [...allTasks];
+
+      return updatedFiltered;
+    });
+  }, [allTasks]);
 
   function handleSelectedOption(e) {
     setFiltered((prev) => {

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import DialogUI from "./UI/DialogUI";
-import NotificationUI from "./UI/NotificationUI";
 
 export default function TaskCard({
   task,
@@ -36,6 +35,13 @@ export default function TaskCard({
   function handleRemove() {
     onHandleRemoveTask(id);
     refDialog.current.closeDialog();
+  }
+
+  function handleToggleCompleted() {
+    const newDetails = {
+      isCompleted: !isCompleted,
+    };
+    onHandleEditTask(id, newDetails);
   }
 
   const renderEdit = (
@@ -85,6 +91,9 @@ export default function TaskCard({
         <div>
           <button onClick={() => handleSelectedOption("edit")}>Edit</button>
           <button onClick={() => handleSelectedOption("remove")}>Remove</button>
+          <button
+            onClick={() => handleToggleCompleted("toggleCompleted")}
+          >{`Set as ${isCompleted ? "not completed" : "completed"}`}</button>
         </div>
       )}
       {renderDialog}

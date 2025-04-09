@@ -49,6 +49,48 @@ export default function TaskContextProvider({ children }) {
       dueDate: "2-2-2222",
       isCompleted: true,
     },
+    {
+      id: Math.random(),
+      title: "Task_03",
+      description: "Description_03",
+      dueDate: "3-3-3333",
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "Task_04",
+      description: "Description_04",
+      dueDate: "4-4-4444",
+      isCompleted: true,
+    },
+    {
+      id: Math.random(),
+      title: "Task_05",
+      description: "Description_05",
+      dueDate: "5-5-5555",
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "Task_06",
+      description: "Description_06",
+      dueDate: "6-6-6666",
+      isCompleted: true,
+    },
+    {
+      id: Math.random(),
+      title: "Task_07",
+      description: "Description_07",
+      dueDate: "7-7-7777",
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "Task_08",
+      description: "Description_08",
+      dueDate: "8-8-8888",
+      isCompleted: true,
+    },
   ]);
 
   function handleNewTask(newTask) {

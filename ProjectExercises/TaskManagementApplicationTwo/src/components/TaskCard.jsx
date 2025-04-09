@@ -73,7 +73,7 @@ export default function TaskCard({ task }) {
       <h2>{title}</h2>
       <h2>{description}</h2>
       <h2>{dueDate}</h2>
-      <h2>{isCompleted ? "yes" : "no"}</h2>
+      <h2>Completed?: {isCompleted ? "yes" : "no"}</h2>
       <h2>{title}</h2>
       {isHover && (
         <div>

@@ -1,3 +1,10 @@
+import TaskList from "./components/TaskList";
+import TaskContextProvider from "./store/TaskContext";
+
 export default function App() {
-	return <h2>Hello world</h2>;
+	return (
+		<TaskContextProvider>
+			<TaskList />
+		</TaskContextProvider>
+	);
 }

@@ -1,6 +1,6 @@
-import { useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
-export const TaskContext = useContext({
+export const TaskContext = createContext({
 	allTasks: [],
 	handleNewTask: () => {},
 	handleEditTask: () => {},
@@ -13,7 +13,7 @@ function taskReducer(state, action) {
 	let updatedTaskList = [...state];
 
 	switch (type) {
-		case "ADD_TASKS":
+		case "ADD_TASKS": {
 			const { id, newTaskData } = payload;
 			updatedTaskList.push({
 				id: id,
@@ -22,18 +22,21 @@ function taskReducer(state, action) {
 				...newTaskData,
 			});
 			break;
+		}
 
-		case "EDIT_TASK":
+		case "EDIT_TASK": {
 			const { id, editedTaskData } = payload;
 			updatedTaskList = updatedTaskList.map((task) => {
 				return task.id === id ? { id: id, ...editedTaskData } : task;
 			});
 			break;
+		}
 
-		case "REMOVE_TASK":
+		case "REMOVE_TASK": {
 			const { id } = payload;
 			updatedTaskList = updatedTaskList.filter((task) => task.id !== id);
 			break;
+		}
 
 		default:
 			return updatedTaskList;

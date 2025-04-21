@@ -9,12 +9,13 @@ export const TaskContext = createContext({
 
 function taskReducer(state, action) {
 	const { type, payload } = action;
+	const { id, newTaskData, editedTaskData } = payload;
 
 	let updatedTaskList = [...state];
 
 	switch (type) {
-		case "ADD_TASKS": {
-			const { id, newTaskData } = payload;
+		case "ADD_TASK":
+			console.log("asdasd");
 			updatedTaskList.push({
 				id: id,
 				isCompleted: false,
@@ -22,25 +23,22 @@ function taskReducer(state, action) {
 				...newTaskData,
 			});
 			break;
-		}
 
-		case "EDIT_TASK": {
-			const { id, editedTaskData } = payload;
+		case "EDIT_TASK":
 			updatedTaskList = updatedTaskList.map((task) => {
 				return task.id === id ? { id: id, ...editedTaskData } : task;
 			});
 			break;
-		}
 
-		case "REMOVE_TASK": {
-			const { id } = payload;
+		case "REMOVE_TASK":
 			updatedTaskList = updatedTaskList.filter((task) => task.id !== id);
 			break;
-		}
 
 		default:
 			return updatedTaskList;
 	}
+
+	return updatedTaskList;
 }
 
 export default function TaskContextProvider({ children }) {
@@ -62,6 +60,9 @@ export default function TaskContextProvider({ children }) {
 			isActive: true,
 		},
 	]);
+
+	console.log("allTasks");
+	console.log(allTasks);
 
 	function handleNewTask(task) {
 		dispatch({

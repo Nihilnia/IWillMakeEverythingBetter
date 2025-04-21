@@ -1,6 +1,6 @@
 export default function CardUI({ task }) {
 	const render = (
-		<div>
+		<div className="p-4 border rounded-sm">
 			<h2>Title: {task.title}</h2>
 			<h2>Description: {task.description}</h2>
 			<h2>Due date: {task.dueDate}</h2>

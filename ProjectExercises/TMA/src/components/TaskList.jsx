@@ -9,5 +9,9 @@ export default function TaskList() {
 		return <CardUI key={task.id} task={task} />;
 	});
 
-	return <section id="sec-task-list">{render}</section>;
+	return (
+		<section id="sec-task-list" className="flex flex-col gap-4">
+			{render}
+		</section>
+	);
 }

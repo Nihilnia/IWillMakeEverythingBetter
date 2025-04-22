@@ -114,11 +114,7 @@ export default function CardUI({ task }) {
 					</button>
 				</div>
 			)}
-			{
-				<DialogUI ref={refDialog} x>
-					{dialogContent}
-				</DialogUI>
-			}
+			{<DialogUI ref={refDialog}>{dialogContent}</DialogUI>}
 		</div>
 	);
 

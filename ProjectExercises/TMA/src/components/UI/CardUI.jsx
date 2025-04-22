@@ -105,7 +105,7 @@ export default function CardUI({ task }) {
 			<h2>Title: {task.title}</h2>
 			<h2>Description: {task.description}</h2>
 			<h2>Due date: {task.dueDate}</h2>
-			<h2>Completed: {task.isCompleted ?z "Yes" : "No"}</h2>
+			<h2>Completed: {task.isCompleted ? "Yes" : "No"}</h2>
 			{isHover && (
 				<div>
 					<button type="button" onClick={() => setSelectedOption("EDIT")}>

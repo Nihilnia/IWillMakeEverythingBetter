@@ -7,7 +7,7 @@ export default function CardUI({ task }) {
 	const [isHover, setIsHover] = useState(false);
 	const [selectedOption, setSelectedOption] = useState(null);
 
-	const { handleRemoveTask } = useContext(TaskContext);
+	const { handleEditTask, handleRemoveTask } = useContext(TaskContext);
 
 	const refDialog = useRef();
 	const refTitle = useRef();
@@ -19,7 +19,7 @@ export default function CardUI({ task }) {
 	switch (selectedOption) {
 		case "EDIT":
 			dialogContent = (
-				<form>
+				<form onSubmit={handleConfirmEdit}>
 					<div>
 						<label htmlFor="editTaskTitle">Title:</label>
 						<input
@@ -90,16 +90,27 @@ export default function CardUI({ task }) {
 		handleRemoveTask(task.id);
 	}
 
+	function handleConfirmEdit(e) {
+		e.preventDefault();
+
+		const newData = {
+			title: refTitle.current.value,
+			description: refDescription.current.value,
+			dueDate: refDueDate.current.value,
+		};
+		handleEditTask(task.id, newData);
+
+		handleCloseDialog();
+	}
+
 	const render = (
 		<div
 			className="p-4 border rounded-sm"
 			onMouseEnter={() => {
 				setIsHover(true);
-				handleCloseDialog();
 			}}
 			onMouseLeave={() => {
 				setIsHover(false);
-				handleCloseDialog();
 			}}
 		>
 			<h2>Title: {task.title}</h2>

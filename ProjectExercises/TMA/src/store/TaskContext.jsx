@@ -56,7 +56,7 @@ export default function TaskContextProvider({ children }) {
 			title: "Task_02",
 			description: "Description_02",
 			dueDate: "2222-2-2",
-			isCompleted: false,
+			isCompleted: true,
 			isActive: true,
 		},
 	]);

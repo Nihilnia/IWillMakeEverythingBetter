@@ -1,6 +1,7 @@
 import { useState, useRef, useContext } from "react";
-import DialogUI from "./DialogUI";
+
 import { TaskContext } from "../../store/TaskContext";
+import DialogUI from "./DialogUI";
 
 export default function CardUI({ task }) {
 	const [isHover, setIsHover] = useState(false);
@@ -51,19 +52,13 @@ export default function CardUI({ task }) {
 					</div>
 					<div>
 						<button type="submit">Edit</button>
-						<button
-							type="button"
-							onClick={() => {
-								refDialog.current.closeDialog();
-								setSelectedOption(null);
-							}}
-						>
+						<button type="button" onClick={handleCloseDialog}>
 							Cancel
 						</button>
 					</div>
 				</form>
 			);
-			refDialog.current.showDialog();
+			handleOpenDialog();
 			break;
 
 		case "REMOVE":
@@ -74,20 +69,21 @@ export default function CardUI({ task }) {
 						<button type="button" onClick={handleConfirmRemove}>
 							Yes
 						</button>
-						<button
-							type="button"
-							onClick={() => {
-								refDialog.current.closeDialog();
-								setSelectedOption(null);
-							}}
-						>
+						<button type="button" onClick={handleCloseDialog}>
 							Cancel
 						</button>
 					</div>
 				</div>
 			);
-			refDialog.current.showDialog();
+			handleOpenDialog();
 			break;
+	}
+
+	function handleOpenDialog() {
+		refDialog.current.showDialog();
+	}
+	function handleCloseDialog() {
+		refDialog.current.closeDialog();
 	}
 
 	function handleConfirmRemove() {
@@ -97,13 +93,19 @@ export default function CardUI({ task }) {
 	const render = (
 		<div
 			className="p-4 border rounded-sm"
-			onMouseEnter={() => setIsHover(true)}
-			onMouseLeave={() => setIsHover(false)}
+			onMouseEnter={() => {
+				setIsHover(true);
+				handleCloseDialog();
+			}}
+			onMouseLeave={() => {
+				setIsHover(false);
+				handleCloseDialog();
+			}}
 		>
 			<h2>Title: {task.title}</h2>
 			<h2>Description: {task.description}</h2>
 			<h2>Due date: {task.dueDate}</h2>
-			<h2>Completed: {task.isCompleted ? "Yes" : "No"}</h2>
+			<h2>Completed: {task.isCompleted ?z "Yes" : "No"}</h2>
 			{isHover && (
 				<div>
 					<button type="button" onClick={() => setSelectedOption("EDIT")}>
@@ -114,7 +116,20 @@ export default function CardUI({ task }) {
 					</button>
 				</div>
 			)}
-			{<DialogUI ref={refDialog}>{dialogContent}</DialogUI>}
+			{
+				<DialogUI
+					ref={refDialog}
+					onDialogShow={() => {
+						console.log("Dialog active");
+					}}
+					onDialogClose={() => {
+						console.log("Dialog inactive");
+						setSelectedOption(null);
+					}}
+				>
+					{dialogContent}
+				</DialogUI>
+			}
 		</div>
 	);
 

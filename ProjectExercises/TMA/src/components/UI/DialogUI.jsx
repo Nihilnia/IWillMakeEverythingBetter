@@ -1,23 +1,41 @@
-import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import { useEffect } from "react";
+import { useRef } from "react";
+import { useImperativeHandle } from "react";
+import { useState } from "react";
 
-export default function DialogUI({ ref, children, onOpen, onClose }) {
+export default function DialogUI({
+	ref,
+	children,
+	onDialogShow,
+	onDialogClose,
+}) {
+	//Setting state to control Dialog,
 	const [isOpen, setIsOpen] = useState(false);
 
 	const refDialog = useRef();
 
+	//Setting functions to expose to it' s parents
 	function showDialog() {
 		setIsOpen(true);
-
-		if (onOpen) {
-			onOpen();
+		//Giving a change to it' s parents to know what is the current state
+		if (onDialogShow) {
+			onDialogShow();
 		}
 	}
 
 	function closeDialog() {
 		setIsOpen(false);
 
-		if (onClose) {
-			onClose();
+		if (onDialogClose) {
+			onDialogClose();
+		}
+	}
+
+	function handleModalClose() {
+		setIsOpen(false);
+
+		if (onDialogClose) {
+			onDialogClose();
 		}
 	}
 
@@ -25,20 +43,21 @@ export default function DialogUI({ ref, children, onOpen, onClose }) {
 		return {
 			showDialog: showDialog,
 			closeDialog: closeDialog,
-			isDialogOpen: isOpen,
 		};
 	});
 
 	useEffect(() => {
+		//checking if the state is truthy and ref.current is defined
 		if (isOpen && refDialog.current) {
 			refDialog.current.showModal();
-		} else if (!isOpen && refDialog.current && refDialog.current.open) {
+		} else if (!isOpen && refDialog.current) {
 			refDialog.current.close();
 		}
 	}, [isOpen]);
 
-	console.log("Current state of the dialog");
-	console.log(isOpen);
-
-	return <dialog ref={refDialog}>{children}</dialog>;
+	return (
+		<dialog ref={refDialog} onClose={handleModalClose}>
+			{children}
+		</dialog>
+	);
 }

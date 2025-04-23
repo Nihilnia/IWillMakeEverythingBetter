@@ -103,7 +103,14 @@ export default function CardUI({ task }) {
 		handleCloseDialog();
 	}
 
+	function handleToggleCompleted() {
+		console.log("triggered");
+		const newTaskData = { isCompleted: !task.isCompleted };
+		handleEditTask(task.id, newTaskData);
+	}
+
 	const render = (
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div
 			className="p-4 border rounded-sm"
 			onMouseEnter={() => {
@@ -112,6 +119,7 @@ export default function CardUI({ task }) {
 			onMouseLeave={() => {
 				setIsHover(false);
 			}}
+			onClick={handleToggleCompleted}
 		>
 			<h2>Title: {task.title}</h2>
 			<h2>Description: {task.description}</h2>

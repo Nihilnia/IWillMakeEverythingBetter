@@ -3,6 +3,7 @@ import CardUI from "./UI/CardUI";
 import { TaskContext } from "../store/TaskContext";
 import FilterTask from "./FilterTask";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function TaskList() {
 	const { allTasks } = useContext(TaskContext);
@@ -10,10 +11,13 @@ export default function TaskList() {
 	//Filtered results
 	const [filteredTasks, setFilteredTasks] = useState([...allTasks]);
 
-	function handleFilter(selectedFilter) {
-		console.log("selectedFilter");
-		console.log(selectedFilter);
+	useEffect(() => {
+		setFilteredTasks((prev) => {
+			return [...prev];
+		});
+	}, [allTasks]);
 
+	function handleFilter(selectedFilter) {
 		setFilteredTasks(() => {
 			let updatedTaskList = [...allTasks];
 

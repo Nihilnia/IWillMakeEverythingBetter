@@ -26,7 +26,7 @@ function taskReducer(state, action) {
 
 		case "EDIT_TASK":
 			updatedTaskList = updatedTaskList.map((task) => {
-				return task.id === id ? { id: id, ...editedTaskData } : task;
+				return task.id === id ? { ...task, ...editedTaskData } : task;
 			});
 			break;
 

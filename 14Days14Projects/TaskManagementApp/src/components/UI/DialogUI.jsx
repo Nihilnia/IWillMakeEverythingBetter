@@ -1,4 +1,5 @@
 import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function DialogUI({
 	ref,
@@ -48,9 +49,10 @@ export default function DialogUI({
 		}
 	}, [isDialogOn]);
 
-	return (
+	return createPortal(
 		<dialog ref={refDialog} onClose={handleCloseDialog}>
 			{children}
-		</dialog>
+		</dialog>,
+		document.getElementById("modal"),
 	);
 }

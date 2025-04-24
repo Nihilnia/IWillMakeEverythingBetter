@@ -2,11 +2,9 @@ import { useRef, useContext, useState, useEffect } from "react";
 import { TaskContext } from "../../context/TaskContext";
 import DialogUI from "./DialogUI";
 import BadgeUI from "./BadgeUI";
-import ButtonUI from "./ButtonUI";
 
 export default function TaskCardUI({ task }) {
-	const { id, title, description, dueDate, isCompleted, isActive, thumbnail } =
-		task;
+	const { id, title, description, dueDate, isCompleted, isActive } = task;
 
 	const { editTask, removeTask } = useContext(TaskContext);
 
@@ -143,45 +141,65 @@ export default function TaskCardUI({ task }) {
 	}
 
 	return (
-		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-		<div
-			className="card bg-base-100 shadow-sm max-w-[100%] w-[100%]"
+		<article
+			className="overflow-hidden rounded-lg shadow-sm transition hover:shadow-lg dark:shadow-gray-700/25"
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
+			onClick={hangleToggleCompleted}
 		>
-			<figure>
-				<img src={thumbnail} alt={title} />
-			</figure>
-			<div className="card-body">
-				<h2 className="card-title">{title}</h2>
+			<img
+				alt=""
+				src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+				className="h-56 w-full object-cover"
+			/>
 
-				<p>{description}</p>
-				<BadgeUI
-					badgeType="soft"
-					badgeColor={isCompleted ? "accent" : "error"}
-					badgeTitle={isCompleted ? "Completed" : "Not-Completed"}
-					onClick={hangleToggleCompleted}
-				/>
+			<time
+				datetime="2022-10-10"
+				className="block text-xs text-gray-500 dark:text-gray-400"
+			>
+				Due Date: {dueDate}
+			</time>
+
+			<div className="bg-white p-4 sm:p-6 dark:bg-gray-900">
+				<a>
+					<h3 className="mt-0.5 text-lg text-gray-900 dark:text-white">
+						{title}
+					</h3>
+				</a>
+
+				<p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400">
+					{description}
+				</p>
+				<div className="mt-3">
+					<div>
+						<span>Active: </span>
+						{isActive ? (
+							<BadgeUI badgeType="success" title="Yes" />
+						) : (
+							<BadgeUI badgeType="failed" title="No" />
+						)}
+					</div>
+					<div>
+						<span>Completed: </span>
+						{isCompleted ? (
+							<BadgeUI type="success" title="Yes" />
+						) : (
+							<BadgeUI type="failed" title="No" />
+						)}
+					</div>
+				</div>
 			</div>
-
 			{isHover && (
-				<div className="card-actions justify-end pb-4 mr-4">
-					<ButtonUI
-						btnType="button"
-						btnLibType="soft"
-						btnColor="accent"
-						btnTitle="Edit"
-						btnSize="sm"
-					/>
-					<ButtonUI
-						btnType="button"
-						btnLibType="soft"
-						btnColor="warning"
-						btnTitle="Remove"
-						btnSize="sm"
-					/>
+				<div>
+					<button type="button" onClick={handleEditTask}>
+						Edit
+					</button>
+					<button type="button" onClick={handleRemoveTask}>
+						Remove
+					</button>
 				</div>
 			)}
-		</div>
+			{<DialogUI ref={refDialog}>{dialogContent}</DialogUI>}
+		</article>
 	);
 }

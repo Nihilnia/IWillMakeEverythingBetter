@@ -9,8 +9,8 @@ export default function TaskList() {
 	const [filteredTasks, setFilteredTasks] = useState([...allTasks]);
 	const [selectedFilter, setSelectedFilter] = useState("default");
 
-	function handleSetFilter(val) {
-		setSelectedFilter(val);
+	function handleSetFilter(e) {
+		setSelectedFilter(e.target.value);
 	}
 
 	useEffect(() => {
@@ -36,11 +36,7 @@ export default function TaskList() {
 			console.log(currentFilter);
 
 			updatedFilteredTasks = updatedFilteredTasks.filter((task) => {
-				if (currentFilter !== "default") {
-					return task.isCompleted === currentFilter;
-				} else {
-					return [...allTasks];
-				}
+				return task.isCompleted !== currentFilter;
 			});
 
 			return updatedFilteredTasks;
@@ -52,8 +48,9 @@ export default function TaskList() {
 
 	return (
 		<>
-			<section id="sec-filter" className="flex justify-end">
+			<section id="sec-filter">
 				<FilterTask onSetFilter={handleSetFilter} />
+				<button className="btn btn-secondary">Secondary</button>
 			</section>
 			<section id="sec-active-list" className="grid grid-cols-4 gap-4">
 				{filteredTasks.map((task) => {

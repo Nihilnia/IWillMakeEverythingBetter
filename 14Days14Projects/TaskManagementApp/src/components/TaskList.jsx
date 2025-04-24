@@ -19,11 +19,6 @@ export default function TaskList() {
 		setSelectedFilter(val);
 	}
 
-	console.log("selectedStatus");
-	console.log(selectedStatus);
-	console.log("selectedFilter");
-	console.log(selectedFilter);
-
 	useEffect(() => {
 		//This depends to the status
 		setFilteredTasks(() => {

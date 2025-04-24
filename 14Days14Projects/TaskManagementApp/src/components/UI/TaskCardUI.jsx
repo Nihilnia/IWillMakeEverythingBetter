@@ -133,18 +133,58 @@ export default function TaskCardUI({ task }) {
 	}
 
 	return (
-		<div
-			className="border rounded-sm"
+		<article
+			className="overflow-hidden rounded-lg shadow-sm transition hover:shadow-lg dark:shadow-gray-700/25"
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
 		>
-			<div>
-				<h2>ID: {id}</h2>
-				<h2>title: {title}</h2>
-				<h2>description: {description}</h2>
-				<h2>dueDate: {dueDate}</h2>
-				<h2>isCompleted: {isCompleted ? "Yes" : "No"}</h2>
-				<h2>isActive: {isActive ? "Yes" : "No"}</h2>
+			<img
+				alt=""
+				src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+				className="h-56 w-full object-cover"
+			/>
+
+			<time
+				datetime="2022-10-10"
+				className="block text-xs text-gray-500 dark:text-gray-400"
+			>
+				Due Date: {dueDate}
+			</time>
+
+			<div className="bg-white p-4 sm:p-6 dark:bg-gray-900">
+				<a>
+					<h3 className="mt-0.5 text-lg text-gray-900 dark:text-white">
+						{title}
+					</h3>
+				</a>
+
+				<p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400">
+					{description}
+				</p>
+				<div>
+					<span>Active: </span>
+					{isActive ? (
+						<span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
+							Yes
+						</span>
+					) : (
+						<span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+							No
+						</span>
+					)}
+				</div>
+				<div>
+					<span>Completed: </span>
+					{isCompleted ? (
+						<span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">
+							Yes
+						</span>
+					) : (
+						<span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">
+							No
+						</span>
+					)}
+				</div>
 			</div>
 			{isHover && (
 				<div>
@@ -157,6 +197,6 @@ export default function TaskCardUI({ task }) {
 				</div>
 			)}
 			{<DialogUI ref={refDialog}>{dialogContent}</DialogUI>}
-		</div>
+		</article>
 	);
 }

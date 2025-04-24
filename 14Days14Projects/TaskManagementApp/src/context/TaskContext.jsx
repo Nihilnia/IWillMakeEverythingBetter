@@ -53,7 +53,8 @@ export default function TaskContextProvider({ children }) {
 		{
 			id: Math.random(),
 			title: "Task_0",
-			description: "Description_0",
+			description:
+				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, illo sed perspiciatis aliquam consequatur odio vero blanditiis exercitationem distinctio fuga saepe nulla rem qui quas modi nesciunt nobis provident vitae?",
 			dueDate: "0000-0-0",
 			isCompleted: false,
 			isActive: true,
@@ -61,9 +62,10 @@ export default function TaskContextProvider({ children }) {
 		{
 			id: Math.random(),
 			title: "Task_1",
-			description: "Description_1",
+			description:
+				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, illo sed perspiciatis aliquam consequatur odio vero blanditiis exercitationem distinctio fuga saepe nulla rem qui quas modi nesciunt nobis provident vitae?",
 			dueDate: "1111-1-1",
-			isCompleted: false,
+			isCompleted: true,
 			isActive: true,
 		},
 	]);

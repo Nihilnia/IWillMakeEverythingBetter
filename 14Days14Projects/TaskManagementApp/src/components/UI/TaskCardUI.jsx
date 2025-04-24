@@ -87,7 +87,7 @@ export default function TaskCardUI({ task }) {
 				<h2 className="card-title">{title}</h2>
 
 				<p>{description}</p>
-				<div>
+				<div className="flex justify-between">
 					<BadgeUI
 						badgeType="soft"
 						badgeColor={isCompleted ? "accent" : "error"}

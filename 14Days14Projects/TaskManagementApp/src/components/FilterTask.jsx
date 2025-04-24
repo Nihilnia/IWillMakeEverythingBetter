@@ -1,3 +1,5 @@
+import ButtonUI from "./UI/ButtonUI";
+
 export default function FilterTask({ condition, onSetStatus, onSetFilter }) {
 	function handleSetStatus(val) {
 		onSetStatus(val);

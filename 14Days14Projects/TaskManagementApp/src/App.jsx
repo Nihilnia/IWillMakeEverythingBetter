@@ -7,7 +7,7 @@ export default function App() {
 		<TaskContextProvider>
 			<section
 				id="sec-app"
-				className="max-w-[90%] sm:max-w-[90%] md:max-w-[80%] lg:max-w-[70%] m-auto"
+				className="max-w-[90%] sm:max-w-[90%] md:max-w-[80%] lg:max-w-[70%] m-auto grid gap-4"
 			>
 				<h2>Task Management</h2>
 				<NewTask />

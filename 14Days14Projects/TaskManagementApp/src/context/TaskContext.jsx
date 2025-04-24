@@ -1,7 +1,9 @@
-import { createContext, useReducer } from "react";
+import { act, createContext, useEffect, useReducer, useState } from "react";
 
 export const TaskContext = createContext({
 	allTasks: [],
+	activeTasks: [],
+	deActiveTasks: [],
 	addNewTask: () => {},
 	editTask: () => {},
 	removeTask: () => {},
@@ -59,7 +61,7 @@ export default function TaskContextProvider({ children }) {
 			dueDate: "2025-05-01",
 			thumbnail: "https://picsum.photos/400/200",
 			isCompleted: false,
-			isActive: true,
+			isActive: false,
 		},
 		{
 			id: Math.random(),
@@ -77,7 +79,7 @@ export default function TaskContextProvider({ children }) {
 			dueDate: "2025-05-05",
 			thumbnail: "https://picsum.photos/400/200",
 			isCompleted: false,
-			isActive: true,
+			isActive: false,
 		},
 		{
 			id: Math.random(),
@@ -96,7 +98,7 @@ export default function TaskContextProvider({ children }) {
 			dueDate: "2025-04-30",
 			thumbnail: "https://picsum.photos/400/200",
 			isCompleted: false,
-			isActive: true,
+			isActive: false,
 		},
 		{
 			id: Math.random(),
@@ -114,7 +116,7 @@ export default function TaskContextProvider({ children }) {
 			dueDate: "2025-04-25",
 			thumbnail: "https://picsum.photos/400/200",
 			isCompleted: true,
-			isActive: true,
+			isActive: false,
 		},
 		{
 			id: Math.random(),
@@ -126,6 +128,9 @@ export default function TaskContextProvider({ children }) {
 			isActive: true,
 		},
 	]);
+
+	const [activeTasks, setActiveTasks] = useState([]);
+	const [deActiveTasks, setDeActiveTasks] = useState([]);
 
 	function addNewTask(newTaskDetails) {
 		dispatch({
@@ -157,13 +162,32 @@ export default function TaskContextProvider({ children }) {
 
 	const ctxValues = {
 		allTasks: allTasks,
+		activeTasks: activeTasks,
+		deActiveTasks: deActiveTasks,
 		addNewTask: addNewTask,
 		editTask: editTask,
 		removeTask: removeTask,
 	};
 
-	console.log("allTasks");
-	console.log(allTasks);
+	useEffect(() => {
+		const currentAllTaskList = [...allTasks];
+
+		setActiveTasks((prev) => {
+			let currentActiveTasks = [...prev];
+			currentActiveTasks = currentAllTaskList.filter(
+				(task) => task.isActive === true,
+			);
+			return currentActiveTasks;
+		});
+
+		setDeActiveTasks((prev) => {
+			let currentDeActiveTasks = [...prev];
+			currentDeActiveTasks = currentAllTaskList.filter(
+				(task) => task.isActive === false,
+			);
+			return currentDeActiveTasks;
+		});
+	}, [allTasks]);
 
 	return (
 		<TaskContext.Provider value={ctxValues}>{children}</TaskContext.Provider>

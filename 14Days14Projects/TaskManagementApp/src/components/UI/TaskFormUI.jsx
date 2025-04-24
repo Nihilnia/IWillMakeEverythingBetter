@@ -3,13 +3,15 @@ import ButtonUI from "./ButtonUI";
 
 export default function TaskFormUI({ onGetFormData, btnTitle = "Add" }) {
 	const refTitle = useRef();
-	const refDesc = useRef();
+	const refDescription = useRef();
 	const refDueDate = useRef();
 
-	function handleForm() {
+	function handleForm(e) {
+		e.preventDefault();
+
 		const formData = {
 			title: refTitle.current.value,
-			description: refDesc.current.value,
+			description: refDescription.current.value,
 			dueDate: refDueDate.current.value,
 		};
 
@@ -27,7 +29,7 @@ export default function TaskFormUI({ onGetFormData, btnTitle = "Add" }) {
 			<div>
 				<label className="input">
 					<span className="label">Description:</span>
-					<input type="text" placeholder="Description" ref={refTitle} />
+					<input type="text" placeholder="Description" ref={refDescription} />
 				</label>
 			</div>
 			<div>
@@ -41,7 +43,7 @@ export default function TaskFormUI({ onGetFormData, btnTitle = "Add" }) {
 					btnType="submit"
 					btnLibType="soft"
 					btnColor="accent"
-					btnTitle="Add"
+					btnTitle={btnTitle}
 					btnSize="sm"
 				/>
 			</div>

@@ -3,12 +3,12 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+html {
+	background-color: #0c0c0d;
+}
+
 body {
 	font-family: "Noto Sans", serif;
 	background-color: #0c0c0d;
 	color: #fff;
-}
-
-dialog::backdrop {
-	background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
 }

@@ -3,6 +3,7 @@ import { TaskContext } from "../../context/TaskContext";
 import DialogUI from "./DialogUI";
 import BadgeUI from "./BadgeUI";
 import ButtonUI from "./ButtonUI";
+import TaskFormUI from "./TaskFormUI";
 
 export default function TaskCardUI({ task }) {
 	const { id, title, description, dueDate, isCompleted, isActive, thumbnail } =
@@ -18,8 +19,6 @@ export default function TaskCardUI({ task }) {
 	const refDesc = useRef();
 	const refDueDate = useRef();
 
-	let dialogContent = null;
-
 	useEffect(() => {
 		if (isDialog === "editDialog") {
 			if (refTitle.current) {
@@ -34,74 +33,6 @@ export default function TaskCardUI({ task }) {
 			}
 		}
 	}, [isDialog, task]);
-
-	switch (isDialog) {
-		case "editDialog":
-			//Show current values of the task
-			dialogContent = (
-				<form onSubmit={confirmEditTask}>
-					<div>
-						<label htmlFor="newTaskTitle">Title:</label>
-						<input
-							type="text"
-							id="newTaskTitle"
-							name="newTaskTitle"
-							ref={refTitle}
-						/>
-					</div>
-					<div>
-						<label htmlFor="newTaskDescription">Description:</label>
-						<input
-							type="text"
-							id="newTaskDescription"
-							name="newTaskDescription"
-							ref={refDesc}
-						/>
-					</div>
-					<div>
-						<label htmlFor="newTaskDueDate">Due Date:</label>
-						<input
-							type="date"
-							id="newTaskDueDate"
-							name="newTaskDueDate"
-							ref={refDueDate}
-						/>
-					</div>
-					<div>
-						<button type="submit">Yes</button>
-						<button
-							type="button"
-							onClick={() => {
-								refDialog.current.closeDialog();
-							}}
-						>
-							Cancel
-						</button>
-					</div>
-				</form>
-			);
-			break;
-
-		case "removeDialog":
-			dialogContent = (
-				<div>
-					<h2>Are you sure?</h2>
-					<div>
-						<button type="button" onClick={confirmRemoveTask}>
-							Yes
-						</button>
-						<button
-							type="button"
-							onClick={() => {
-								refDialog.current.closeDialog();
-							}}
-						>
-							Cancel
-						</button>
-					</div>
-				</div>
-			);
-	}
 
 	function handleEditTask() {
 		console.log("Edit task triggered");
@@ -156,12 +87,19 @@ export default function TaskCardUI({ task }) {
 				<h2 className="card-title">{title}</h2>
 
 				<p>{description}</p>
-				<BadgeUI
-					badgeType="soft"
-					badgeColor={isCompleted ? "accent" : "error"}
-					badgeTitle={isCompleted ? "Completed" : "Not-Completed"}
-					onClick={hangleToggleCompleted}
-				/>
+				<div>
+					<BadgeUI
+						badgeType="soft"
+						badgeColor={isCompleted ? "accent" : "error"}
+						badgeTitle={isCompleted ? "Completed" : "Not-Completed"}
+						onClick={hangleToggleCompleted}
+					/>
+					<BadgeUI
+						badgeType="soft"
+						badgeColor={isActive ? "accent" : "error"}
+						badgeTitle={isActive ? "Active" : "Not-Active"}
+					/>
+				</div>
 			</div>
 
 			{isHover && (
@@ -172,6 +110,7 @@ export default function TaskCardUI({ task }) {
 						btnColor="accent"
 						btnTitle="Edit"
 						btnSize="sm"
+						onClick={handleEditTask}
 					/>
 					<ButtonUI
 						btnType="button"
@@ -179,9 +118,35 @@ export default function TaskCardUI({ task }) {
 						btnColor="warning"
 						btnTitle="Remove"
 						btnSize="sm"
+						onClick={handleRemoveTask}
 					/>
 				</div>
 			)}
+
+			<DialogUI ref={refDialog}>
+				{isDialog === "editDialog" && <TaskFormUI btnTitle="Edit" />}
+				{isDialog === "removeDialog" && (
+					<div>
+						<h2>Are you sure?</h2>
+						<ButtonUI
+							btnType="button"
+							btnLibType="soft"
+							btnColor="warning"
+							btnTitle="Yes"
+							btnSize="sm"
+							onClick={confirmRemoveTask}
+						/>
+						<ButtonUI
+							btnType="button"
+							btnLibType="soft"
+							btnColor="warning"
+							btnTitle="Cancel"
+							btnSize="sm"
+							onClick={() => refDialog.current.closeDialog()}
+						/>
+					</div>
+				)}
+			</DialogUI>
 		</div>
 	);
 }

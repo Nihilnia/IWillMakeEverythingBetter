@@ -5,7 +5,7 @@ import TaskContextProvider from "./context/TaskContext";
 export default function App() {
 	return (
 		<TaskContextProvider>
-			<section id="sec-app" className="max-w-[70%] m-auto grid gap-4 h-screen">
+			<section id="sec-app" className="max-w-[70%] m-auto grid gap-4 h-auto">
 				<h2>Task Management</h2>
 				<NewTask />
 				<TaskList />

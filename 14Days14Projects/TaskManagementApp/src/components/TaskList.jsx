@@ -4,18 +4,37 @@ import TaskCardUI from "./UI/TaskCardUI";
 import FilterTask from "./FilterTask";
 
 export default function TaskList() {
-	const { allTasks } = useContext(TaskContext);
+	const { allTasks, activeTasks, deActiveTasks } = useContext(TaskContext);
 
-	const [filteredTasks, setFilteredTasks] = useState([...allTasks]);
+	const [filteredTasks, setFilteredTasks] = useState([...activeTasks]);
+	const [selectedStatus, setSelectedStatus] = useState("default");
 	const [selectedFilter, setSelectedFilter] = useState("default");
 
+	console.log("selectedStatus");
+	console.log(selectedStatus);
+	console.log("selectedFilter");
+	console.log(selectedFilter);
+
+	function handleSetStatus(val) {
+		setSelectedStatus(val);
+	}
 	function handleSetFilter(val) {
 		setSelectedFilter(val);
 	}
 
 	useEffect(() => {
-		setFilteredTasks((prev) => {
-			let updatedFilteredTasks = [...allTasks];
+		//This depends to the status
+		setFilteredTasks(() => {
+			//default as all
+			let listedByStatus = [...allTasks];
+
+			if (selectedStatus === "active") {
+				listedByStatus = [...activeTasks];
+			} else if (selectedStatus === "deActive") {
+				listedByStatus = [...deActiveTasks];
+			}
+
+			let updatedFilteredTasks = [...listedByStatus];
 
 			let currentFilter = "default";
 
@@ -32,28 +51,23 @@ export default function TaskList() {
 					currentFilter = "default";
 			}
 
-			console.log("currentFilter");
-			console.log(currentFilter);
-
 			updatedFilteredTasks = updatedFilteredTasks.filter((task) => {
 				if (currentFilter !== "default") {
 					return task.isCompleted === currentFilter;
 				} else {
-					return [...allTasks];
+					return [...listedByStatus];
 				}
 			});
 
 			return updatedFilteredTasks;
 		});
-	}, [selectedFilter, allTasks]);
-
-	console.log("selectedFilter");
-	console.log(selectedFilter);
+	}, [selectedStatus, selectedFilter, activeTasks]);
 
 	return (
 		<>
 			<section id="sec-filter" className="flex justify-end">
-				<FilterTask onSetFilter={handleSetFilter} />
+				<FilterTask condition="completion" onSetFilter={handleSetFilter} />
+				<FilterTask condition="activity" onSetStatus={handleSetStatus} />
 			</section>
 			<section id="sec-active-list" className="grid grid-cols-4 gap-4">
 				{filteredTasks.map((task) => {

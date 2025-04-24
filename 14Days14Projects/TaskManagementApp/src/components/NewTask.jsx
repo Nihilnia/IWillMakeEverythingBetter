@@ -9,5 +9,9 @@ export default function NewTask() {
 		addNewTask(incominTask);
 	}
 
-	return <TaskFormUI onGetFormData={handleNewTask} btnTitle="Add" />;
+	return (
+		<section className="col-span-full">
+			<TaskFormUI onGetFormData={handleNewTask} btnTitle="Add" />
+		</section>
+	);
 }

@@ -64,16 +64,16 @@ export default function TaskList() {
 	}, [selectedStatus, selectedFilter, activeTasks]);
 
 	return (
-		<>
-			<section id="sec-filter" className="flex justify-end">
+		<section id="sec-task-list" className="col-span-full">
+			<div id="sec-filter" className="flex justify-end">
 				<FilterTask condition="completion" onSetFilter={handleSetFilter} />
 				<FilterTask condition="activity" onSetStatus={handleSetStatus} />
-			</section>
-			<section id="sec-active-list" className="grid grid-cols-4 gap-4">
+			</div>
+			<div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 				{filteredTasks.map((task) => {
 					return <TaskCardUI key={task.id} task={task} />;
 				})}
-			</section>
-		</>
+			</div>
+		</section>
 	);
 }

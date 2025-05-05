@@ -103,7 +103,7 @@ export default function ProductList() {
 						checked={selectedStock}
 						onChange={handleStock}
 					/>
-					<label for="inStock">In stock</label>
+					<label htmlFor="inStock">In stock</label>
 				</div>
 				<div>
 					<h2>Order by price:</h2>
@@ -116,7 +116,7 @@ export default function ProductList() {
 							checked={selectedPrice === "lowToHigh"}
 							onChange={handlePrices}
 						/>
-						<label for="lowToHigh">Low to high</label>
+						<label htmlFor="lowToHigh">Low to high</label>
 					</div>
 					<div>
 						<input
@@ -127,7 +127,7 @@ export default function ProductList() {
 							checked={selectedPrice === "highToLow"}
 							onChange={handlePrices}
 						/>
-						<label for="highToLow">High to low</label>
+						<label htmlFor="highToLow">High to low</label>
 					</div>
 				</div>
 				<div>
@@ -145,7 +145,7 @@ export default function ProductList() {
 											checked={selectedCategories.includes(cat)}
 											onChange={handleCategories}
 										/>
-										<label for={cat}>{cat}</label>
+										<label htmlFor={cat}>{cat}</label>
 									</div>
 								);
 							})}

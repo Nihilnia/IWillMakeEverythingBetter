@@ -41,18 +41,14 @@ export default function AuthContextProvider({ children }) {
 
 	function controlLogin(userCreds) {
 		const { username, password } = userCreds;
-		console.log("here");
 
-		const result = allUsers.find((user) => user.username === username);
+		const result = allUsers.filter((user) => user.username === username);
 
 		if (result) {
-			return true;
+			if (result.password === password) return true;
 		}
 		return false;
 	}
-
-	console.log("allUsers");
-	console.log(allUsers);
 
 	const ctxValues = {
 		allUsers: allUsers,

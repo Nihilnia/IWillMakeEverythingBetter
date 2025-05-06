@@ -18,7 +18,9 @@ export default function Login() {
 
 		if (result) {
 			console.log("success");
+			handleCurrentPage("home");
 		} else {
+			//DialogUI
 			console.log("wrong mf.");
 		}
 	}

@@ -14,20 +14,22 @@ function allUsersReducer(state, action) {
 		case "NEW_USER": {
 			const { username, password } = payload;
 
-			return [
-				...state,
-				{
-					id: Math.random(),
-					username: username,
-					password: password,
-				},
-			];
+			const newUser = {
+				id: Math.random(),
+				username: username,
+				password: password,
+			};
+
+			localStorage.setItem("users", JSON.stringify([...state, newUser]));
 		}
 	}
 }
 
 export default function AuthContextProvider({ children }) {
-	const [allUsers, dispatch] = useReducer(allUsersReducer, []);
+	const [allUsers, dispatch] = useReducer(
+		allUsersReducer,
+		JSON.parse(localStorage.getItem("users") || []),
+	);
 
 	function addUser(userCreds) {
 		dispatch({

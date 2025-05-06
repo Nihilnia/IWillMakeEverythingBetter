@@ -17,6 +17,7 @@ export default function RouterContextProvider({
 		setCurrentPage(page);
 	}
 
+	//Why do we need it?
 	useEffect(() => {
 		handleMCurrentPage(currentPage);
 	}, [currentPage]);

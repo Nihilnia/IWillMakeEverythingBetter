@@ -9,9 +9,12 @@ import { useContext } from "react";
 import Register from "./components/auth/Register";
 import { useState } from "react";
 
+import ProductList from "./components/products/ProductList";
+
 export default function App() {
 	const { currentPage } = useContext(RouterContext);
 
+	//Why do we need it?
 	const [mCurrentPage, setMCurrentPage] = useState("signIn");
 
 	function handleMCurrentPage(page) {
@@ -28,6 +31,7 @@ export default function App() {
 					{mCurrentPage === "signIn" && <Login />}
 					{mCurrentPage === "signUp" && <Register />}
 				</AuthContextProvider>
+				{mCurrentPage === "home" && <ProductList />}
 			</section>
 		</RouterContextProvider>
 	);

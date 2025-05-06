@@ -41,14 +41,14 @@ export default function AuthContextProvider({ children }) {
 
 	function controlLogin(userCreds) {
 		const { username, password } = userCreds;
+		console.log("here");
 
-		if (allUsers.includes(username)) {
-			allUsers.filter((user) => {
-				return user.password === password;
-			});
-		} else {
-			return false;
+		const result = allUsers.find((user) => user.username === username);
+
+		if (result) {
+			return true;
 		}
+		return false;
 	}
 
 	console.log("allUsers");

@@ -1,6 +1,6 @@
-import { useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
-export const TaskContext = useContext({
+export const TaskContext = createContext({
 	allTasks: [],
 	addTask: () => {},
 	editTask: () => {},
@@ -17,7 +17,7 @@ function TaskReducer(state, action) {
 			const { newTask } = payload;
 			updatedState.push({
 				id: Math.random().toString(),
-				completed: false,
+				isCompleted: false,
 				createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
 				...newTask,
 			});
@@ -52,7 +52,7 @@ export default function TaskContextProvider({ children }) {
 			priority: 0,
 			//0 'low' |1 'medium' |2 'high'
 			category: "programming",
-			completed: false,
+			isCompleted: false,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
 			dueDate: "1111-11-11",
 		},
@@ -63,7 +63,7 @@ export default function TaskContextProvider({ children }) {
 			priority: 2,
 			//0 'low' |1 'medium' |2 'high'
 			category: "programming",
-			completed: true,
+			isCompleted: true,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
 			dueDate: "2222-22-22",
 		},
@@ -74,7 +74,7 @@ export default function TaskContextProvider({ children }) {
 			priority: 3,
 			//0 'low' |1 'medium' |2 'high'
 			category: "programming",
-			completed: false,
+			isCompleted: false,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
 			dueDate: "3333-33-33",
 		},

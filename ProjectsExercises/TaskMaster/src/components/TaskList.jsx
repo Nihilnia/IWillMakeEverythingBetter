@@ -5,6 +5,8 @@ import TaskItem from "./TaskItem";
 export default function TaskList() {
 	const { allTasks } = useContext(TaskContext);
 
+	console.log(allTasks);
+
 	return (
 		<section>
 			{allTasks.map((task) => {

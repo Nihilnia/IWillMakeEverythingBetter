@@ -27,7 +27,7 @@ function TaskReducer(state, action) {
 		case "EDIT_TASK": {
 			const { taskID, newTaskDetails } = payload;
 			updatedState = updatedState.map((task) => {
-				return task.id === taskID ? { ...newTaskDetails } : task;
+				return task.id === taskID ? { id: taskID, ...newTaskDetails } : task;
 			});
 			break;
 		}
@@ -49,8 +49,7 @@ export default function TaskContextProvider({ children }) {
 			id: Math.random().toString(),
 			title: "Task_0",
 			description: "Description_0",
-			priority: 0,
-			//0 'low' |1 'medium' |2 'high'
+			priority: "low",
 			category: "programming",
 			isCompleted: false,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
@@ -60,23 +59,21 @@ export default function TaskContextProvider({ children }) {
 			id: Math.random().toString(),
 			title: "Task_1",
 			description: "Description_1",
-			priority: 2,
-			//0 'low' |1 'medium' |2 'high'
-			category: "programming",
+			priority: "medium",
+			category: "movie",
 			isCompleted: true,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
-			dueDate: "2222-22-22",
+			dueDate: "1111-11-11",
 		},
 		{
 			id: Math.random().toString(),
 			title: "Task_2",
 			description: "Description_1",
-			priority: 3,
-			//0 'low' |1 'medium' |2 'high'
-			category: "programming",
+			priority: "high",
+			category: "gaming",
 			isCompleted: false,
 			createdAt: new Date().toISOString().slice(0, 19).replace("T", " "),
-			dueDate: "3333-33-33",
+			dueDate: "1111-11-11",
 		},
 	]);
 

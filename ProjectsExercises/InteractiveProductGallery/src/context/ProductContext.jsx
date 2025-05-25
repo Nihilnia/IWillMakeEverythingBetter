@@ -1,7 +1,7 @@
-import { useContext, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
 import { allProducts as dbProducts } from "../database/products";
 
-export const ProductContext = useContext({
+export const ProductContext = createContext({
 	allProducts: [],
 	cart: [],
 	addToCart: [],
@@ -14,9 +14,13 @@ function CartReducer(state, action) {
 
 	switch (type) {
 		case "ADD_PRODUCT": {
-			const foundProduct = allProducts.filter((prd) => {
+			const foundProduct = dbProducts.filter((prd) => {
 				return prd.id === productID;
 			});
+
+			console.log("foundProduct");
+			console.log(foundProduct);
+
 			return [...state, { ...foundProduct }];
 		}
 
@@ -31,14 +35,16 @@ function CartReducer(state, action) {
 }
 
 export default function ProductContextProvider({ children }) {
-	const [allProducts, setAllProducts] = useState([...dbProducts]);
 	const [cart, dispatch] = useReducer(CartReducer, []);
+
+	console.log("cart");
+	console.log(cart);
 
 	function addToCart(productID) {
 		dispatch({
 			type: "ADD_PRODUCT",
 			payload: {
-				newProduct: newProduct,
+				productID: productID,
 			},
 		});
 	}
@@ -53,7 +59,7 @@ export default function ProductContextProvider({ children }) {
 	}
 
 	const ctxValues = {
-		allProducts: allProducts,
+		allProducts: dbProducts,
 		cart: cart,
 		addToCart: addToCart,
 		removeFromCart: removeFromCart,

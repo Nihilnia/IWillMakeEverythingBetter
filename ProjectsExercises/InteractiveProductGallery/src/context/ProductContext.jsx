@@ -14,14 +14,25 @@ function CartReducer(state, action) {
 
 	switch (type) {
 		case "ADD_PRODUCT": {
-			const foundProduct = dbProducts.filter((prd) => {
+			let shallowCopy = [...state];
+
+			const findProduct = shallowCopy.find((prd) => {
 				return prd.id === productID;
 			});
 
-			console.log("foundProduct");
-			console.log(foundProduct);
+			if (findProduct !== undefined) {
+				console.log("prd exists");
+				shallowCopy = shallowCopy.map((prd) => {
+					return prd.id === productID ? { ...prd, piece: prd.piece + 1 } : prd;
+				});
+				return shallowCopy;
+			}
+			console.log("prd not exists");
+			const getProduct = dbProducts.find((prd) => {
+				return prd.id === productID;
+			});
 
-			return [...state, { ...foundProduct }];
+			return [...shallowCopy, { ...getProduct, piece: 1 }];
 		}
 
 		case "REMOVE_PRODUCT": {

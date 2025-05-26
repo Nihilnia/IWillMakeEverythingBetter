@@ -8,12 +8,13 @@ export default function SearchBar({ onSearch }) {
 	}
 
 	return (
-		<div>
+		<div className="flex gap-4">
+			<span className="text-lg">Search any product</span>
 			<input
 				type="text"
-				placeholder="Search any product.."
 				ref={refSearch}
 				onChange={handleClickSearch}
+				className="bg-white text-black py-1 px-2 rounded"
 			/>
 		</div>
 	);

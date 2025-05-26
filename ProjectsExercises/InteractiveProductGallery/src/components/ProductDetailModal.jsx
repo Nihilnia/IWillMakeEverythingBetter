@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { createPortal } from "react-dom";
+import { ProductContext } from "../context/ProductContext";
 
 export default function ProductDetailModal({
 	product,
@@ -7,7 +8,7 @@ export default function ProductDetailModal({
 	onHideDetails,
 }) {
 	const { id, name, description, price, isInStock, image } = product;
-
+	const { addToCart } = useContext(ProductContext);
 	const refDialog = useRef();
 
 	if (refDialog.current) {
@@ -15,12 +16,18 @@ export default function ProductDetailModal({
 		else refDialog.current.close();
 	}
 
+	function handleAddToCart() {
+		addToCart(id);
+	}
+
 	return createPortal(
 		<dialog
 			ref={refDialog}
 			className="max-w-[%100] w-[30%] rounded absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 			onClose={onHideDetails}
-			onClick={onHideDetails}
+			onClick={(e) => {
+				if (e.target === refDialog.current) refDialog.current.close();
+			}}
 		>
 			<div>
 				<img src={image} alt={name} className="max-w-[100%]" />
@@ -36,7 +43,7 @@ export default function ProductDetailModal({
 					<span>Available: {isInStock ? "Yes" : "No"}</span>
 					<span>${price}</span>
 				</div>
-				<div>Add to cart</div>
+				<div onClick={handleAddToCart}>Add to cart</div>
 			</div>
 		</dialog>,
 		document.getElementById("modal"),

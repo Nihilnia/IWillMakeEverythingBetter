@@ -1,34 +1,26 @@
-import { useContext, useImperativeHandle, useRef } from "react";
+import { useRef } from "react";
 import { createPortal } from "react-dom";
-import { ProductContext } from "../context/ProductContext";
 
-export default function ProductDetailModal({ product, ref }) {
+export default function ProductDetailModal({
+	product,
+	isModal,
+	onHideDetails,
+}) {
+	const { id, name, description, price, isInStock, image } = product;
+
 	const refDialog = useRef();
 
-	const { id, name, description, price, isInStock, image } = product;
-	const { addToCart } = useContext(ProductContext);
-
-	useImperativeHandle(ref, () => {
-		return {
-			showDetails() {
-				refDialog.current.showModal();
-			},
-		};
-	});
-
-	function handleBackdropClick(e) {
-		if (e.target === refDialog.current) refDialog.current.close();
-	}
-
-	function handleAddToCart() {
-		addToCart(id);
+	if (refDialog.current) {
+		if (isModal) refDialog.current.showModal();
+		else refDialog.current.close();
 	}
 
 	return createPortal(
 		<dialog
 			ref={refDialog}
 			className="max-w-[%100] w-[30%] rounded absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-			onClick={handleBackdropClick}
+			onClose={onHideDetails}
+			onClick={onHideDetails}
 		>
 			<div>
 				<img src={image} alt={name} className="max-w-[100%]" />
@@ -44,7 +36,7 @@ export default function ProductDetailModal({ product, ref }) {
 					<span>Available: {isInStock ? "Yes" : "No"}</span>
 					<span>${price}</span>
 				</div>
-				<div onClick={handleAddToCart}>Add to cart</div>
+				<div>Add to cart</div>
 			</div>
 		</dialog>,
 		document.getElementById("modal"),

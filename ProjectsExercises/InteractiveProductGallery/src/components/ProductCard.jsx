@@ -4,15 +4,16 @@ import ProductDetailModal from "./ProductDetailModal";
 
 export default function ProductCard({ product }) {
 	const [isHover, setIsHover] = useState(false);
-	const { addToCart, removeFromCart } = useContext(ProductContext);
+	const [isModal, setIsModal] = useState(false);
 
 	const { id, name, description, price, isInStock, image } = product;
 
-	const refDetails = useRef();
+	function handleShowDetails() {
+		setIsModal(true);
+	}
 
-	function handleDetails() {
-		console.log("asdas");
-		refDetails.current.showDetails();
+	function handleHideDetails() {
+		setIsModal(false);
 	}
 
 	return (
@@ -29,23 +30,27 @@ export default function ProductCard({ product }) {
 					src={image}
 					alt={name}
 					className="w-full h-full object-cover
-            transform
-            transition-transform
-            duration-300
-            ease-in-out
-            group-hover:scale-115"
+								transform
+								transition-transform
+								duration-300
+								ease-in-out
+								group-hover:scale-115"
 				/>
 				{isHover && (
 					<div
 						className="absolute inset-0 bg-[rgba(0,0,0,0.3)]
-                    text-white flex items-center justify-center z-20"
-						onClick={handleDetails}
+                    			text-white flex items-center justify-center z-20"
+						onClick={handleShowDetails}
 					>
 						<p className="text-xl font-bold">See Details</p>
 					</div>
 				)}
 			</div>
-			<ProductDetailModal ref={refDetails} product={product} />
+			<ProductDetailModal
+				product={product}
+				isModal={isModal}
+				onHideDetails={handleHideDetails}
+			/>
 		</div>
 	);
 }

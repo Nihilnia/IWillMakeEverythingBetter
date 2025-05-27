@@ -12,6 +12,8 @@ function App() {
 
 	function handleChoosenCount(count) {
 		setChosenCount(count);
+		setChosenCount((prev) => prev + 12);
+		//This is works because we are getting the old snapshot of the state
 	}
 
 	return (

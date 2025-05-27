@@ -8,13 +8,15 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	//We set the initial value of the state as an empty array
 	//When component starts to get rendered we will fetch the data from the db
 
-	fetch("http://localhost:3000/places")
-		.then((response) => {
-			return response.json();
-		})
-		.then((respData) => {
-			setAvailablePlaces(respData.places);
-		});
+	useEffect(() => {
+		fetch("http://localhost:3000/places")
+			.then((response) => {
+				return response.json();
+			})
+			.then((respData) => {
+				setAvailablePlaces(respData.places);
+			});
+	}, []);
 
 	console.log("availablePlaces");
 	console.log(availablePlaces);
@@ -22,7 +24,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	return (
 		<Places
 			title="Available Places"
-			places={[]}
+			places={availablePlaces}
 			fallbackText="No places available."
 			onSelectPlace={onSelectPlace}
 		/>

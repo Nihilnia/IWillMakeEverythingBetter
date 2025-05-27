@@ -25,6 +25,7 @@ export default function CounterHistory({ history }) {
 		<ol>
 			{history.map((count) => (
 				<HistoryItem key={count.id} count={count.value} />
+				//If we use index as a key anytime we add new new count indexes are gonna change so every item will get re-rendered
 			))}
 		</ol>
 	);

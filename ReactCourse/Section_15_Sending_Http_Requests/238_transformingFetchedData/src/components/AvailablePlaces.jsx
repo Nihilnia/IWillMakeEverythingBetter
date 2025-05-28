@@ -20,29 +20,23 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
 				const respData = await resp.json();
 
-				setAvailablePlaces(respData.places);
+				navigator.geolocation.getCurrentPosition((pos) => {
+					const sortedPlaces = sortPlacesByDistance(
+						respData.places,
+						pos.coords.latitude,
+						pos.coords.longitude,
+					);
+
+					setAvailablePlaces(sortedPlaces);
+					setLoading(false);
+				});
 			} catch (err) {
 				setIsError(err.message || "Couldn' t fetch places, try again later.");
 			}
-
-			setLoading(false);
 		}
 
 		fetchPlaces();
 	}, []);
-
-	if (availablePlaces.length > 0) {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				const latitude = position.coords.latitude;
-				const longitude = position.coords.longitude;
-
-				setAvailablePlaces(
-					sortPlacesByDistance(availablePlaces, latitude, longitude),
-				);
-			});
-		}
-	}
 
 	if (isError)
 		return <Error title="Something went wrong.." message={isError} />;

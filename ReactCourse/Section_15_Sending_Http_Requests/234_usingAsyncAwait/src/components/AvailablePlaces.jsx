@@ -9,13 +9,13 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	//When component starts to get rendered we will fetch the data from the db
 
 	useEffect(() => {
-		fetch("http://localhost:3000/places")
-			.then((response) => {
-				return response.json();
-			})
-			.then((respData) => {
-				setAvailablePlaces(respData.places);
-			});
+		async function fetchPlaces() {
+			const response = await fetch("http://localhost:3000/places");
+			const respData = await response.json();
+			setAvailablePlaces(respData.places);
+		}
+
+		fetchPlaces();
 	}, []);
 
 	console.log("availablePlaces");

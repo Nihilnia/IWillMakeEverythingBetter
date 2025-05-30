@@ -7,7 +7,7 @@ import logoImg from "./assets/logo.png";
 import AvailablePlaces from "./components/AvailablePlaces.jsx";
 import Error from "./components/Error.jsx";
 
-import { updatedUserPlaces } from "./http.js";
+import { updateUserPlaces } from "./http.js";
 
 function App() {
 	const selectedPlace = useRef();
@@ -37,7 +37,7 @@ function App() {
 		});
 
 		try {
-			await updatedUserPlaces("http://localhost:3000/user-placess", [
+			await updateUserPlaces("http://localhost:3000/user-places", [
 				selectedPlace,
 				...userPlaces,
 			]);
@@ -49,13 +49,32 @@ function App() {
 		}
 	}
 
-	const handleRemovePlace = useCallback(async function handleRemovePlace() {
-		setUserPlaces((prevPickedPlaces) =>
-			prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id),
-		);
+	const handleRemovePlace = useCallback(
+		async function handleRemovePlace() {
+			setUserPlaces((prevPickedPlaces) =>
+				prevPickedPlaces.filter(
+					(place) => place.id !== selectedPlace.current.id,
+				),
+			);
 
-		setModalIsOpen(false);
-	}, []);
+			try {
+				await updateUserPlaces(
+					"http://localhost:3000/user-places",
+					userPlaces.filter((place) => {
+						return place.id !== selectedPlace.current.id;
+					}),
+				);
+			} catch (err) {
+				setUserPlaces(userPlaces);
+				setErrorUpdatingPlaces({
+					message: err.message || "Something went wrong while removing..",
+				});
+			}
+
+			setModalIsOpen(false);
+		},
+		[userPlaces],
+	);
 
 	function handleError() {
 		setErrorUpdatingPlaces(null);

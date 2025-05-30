@@ -10,7 +10,7 @@ export async function fetchAvailablePlaces(url) {
 	return data.places;
 }
 
-export async function updatedUserPlaces(url, places) {
+export async function updateUserPlaces(url, places) {
 	const response = await fetch(url, {
 		method: "PUT",
 		body: JSON.stringify({ places: places }),

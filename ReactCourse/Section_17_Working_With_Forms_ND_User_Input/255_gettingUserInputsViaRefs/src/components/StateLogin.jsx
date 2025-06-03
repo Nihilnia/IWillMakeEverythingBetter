@@ -1,18 +1,21 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function Login() {
-	const refEmail = useRef("");
-	const refPassword = useRef("");
+	const [userIntel, setUserIntel] = useState({
+		email: "",
+		password: "",
+	});
 
 	function handleForm(e) {
 		e.preventDefault();
 
-		const user = {
-			email: refEmail.current.value,
-			password: refPassword.current.value,
-		};
+		console.log(userIntel);
+	}
 
-		console.log(user);
+	function handleUserIntel(identifier, event) {
+		setUserIntel((prev) => {
+			return { ...prev, [identifier]: event.target.value };
+		});
 	}
 
 	return (
@@ -22,7 +25,13 @@ export default function Login() {
 			<div className="control-row">
 				<div className="control no-margin">
 					<label htmlFor="email">Email</label>
-					<input id="email" type="email" name="email" ref={refEmail} />
+					<input
+						id="email"
+						type="email"
+						name="email"
+						onChange={(e) => handleUserIntel("email", e)}
+						value={userIntel.email}
+					/>
 				</div>
 
 				<div className="control no-margin">
@@ -31,7 +40,8 @@ export default function Login() {
 						id="password"
 						type="password"
 						name="password"
-						ref={refPassword}
+						onChange={(e) => handleUserIntel("password", e)}
+						value={userIntel.password}
 					/>
 				</div>
 			</div>

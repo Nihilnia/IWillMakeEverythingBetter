@@ -11,6 +11,8 @@ export default function Login() {
 		password: false,
 	});
 
+	const isInvalidEmail = isLostFocus.email && !userIntel.email.includes("@");
+
 	function handleForm(e) {
 		e.preventDefault();
 
@@ -21,24 +23,15 @@ export default function Login() {
 		setUserIntel((prev) => {
 			return { ...prev, [identifier]: event.target.value };
 		});
+
+		setIsLostFocus((prev) => {
+			return { ...prev, [identifier]: false };
+		});
 	}
 
 	function handleLostFocus(identifier) {
 		setIsLostFocus((prev) => {
-			if (identifier === "email") {
-				if (!userIntel.email.includes("@")) {
-					return { ...prev, [identifier]: true };
-				}
-				return { ...prev, [identifier]: false };
-			}
-			if (identifier === "password") {
-				if (userIntel.password.length < 3) {
-					return { ...prev, [identifier]: true };
-				}
-				return { ...prev, [identifier]: false };
-			}
-
-			return prev;
+			return { ...prev, [identifier]: true };
 		});
 	}
 
@@ -57,7 +50,7 @@ export default function Login() {
 						onBlur={() => handleLostFocus("email")}
 						value={userIntel.email}
 					/>
-					{isLostFocus.email && (
+					{isInvalidEmail && (
 						<div className="control-error">
 							<p>Please anter a valid e-mail</p>
 						</div>
@@ -74,11 +67,6 @@ export default function Login() {
 						onBlur={() => handleLostFocus("password")}
 						value={userIntel.password}
 					/>
-					{isLostFocus.password && (
-						<div className="control-error">
-							<p>Password must contain at least three chars</p>
-						</div>
-					)}
 				</div>
 			</div>
 

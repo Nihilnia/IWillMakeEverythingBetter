@@ -8,13 +8,7 @@ export default function Signup() {
 		data.acquisition = acquisitionChannel;
 		console.log(data);
 
-		// const formIntel = {};
-
-		// fd.entries().forEach((f) => {
-		// 	formIntel[f[0]] = f[1];
-		// });
-
-		// console.log(formIntel);
+		e.target.reset();
 	}
 
 	return (

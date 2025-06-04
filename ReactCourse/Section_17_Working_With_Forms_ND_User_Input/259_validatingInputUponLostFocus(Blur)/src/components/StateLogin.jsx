@@ -6,8 +6,10 @@ export default function Login() {
 		password: "",
 	});
 
-	const isEmailInvalid =
-		userIntel.email !== "" && !userIntel.email.includes("@");
+	const [isLostFocus, setIsLostFocus] = useState({
+		email: false,
+		password: false,
+	});
 
 	function handleForm(e) {
 		e.preventDefault();
@@ -18,6 +20,25 @@ export default function Login() {
 	function handleUserIntel(identifier, event) {
 		setUserIntel((prev) => {
 			return { ...prev, [identifier]: event.target.value };
+		});
+	}
+
+	function handleLostFocus(identifier) {
+		setIsLostFocus((prev) => {
+			if (identifier === "email") {
+				if (!userIntel.email.includes("@")) {
+					return { ...prev, [identifier]: true };
+				}
+				return { ...prev, [identifier]: false };
+			}
+			if (identifier === "password") {
+				if (userIntel.password.length < 3) {
+					return { ...prev, [identifier]: true };
+				}
+				return { ...prev, [identifier]: false };
+			}
+
+			return prev;
 		});
 	}
 
@@ -33,9 +54,10 @@ export default function Login() {
 						type="email"
 						name="email"
 						onChange={(e) => handleUserIntel("email", e)}
+						onBlur={() => handleLostFocus("email")}
 						value={userIntel.email}
 					/>
-					{isEmailInvalid && (
+					{isLostFocus.email && (
 						<div className="control-error">
 							<p>Please anter a valid e-mail</p>
 						</div>
@@ -49,8 +71,14 @@ export default function Login() {
 						type="password"
 						name="password"
 						onChange={(e) => handleUserIntel("password", e)}
+						onBlur={() => handleLostFocus("password")}
 						value={userIntel.password}
 					/>
+					{isLostFocus.password && (
+						<div className="control-error">
+							<p>Password must contain at least three chars</p>
+						</div>
+					)}
 				</div>
 			</div>
 

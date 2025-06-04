@@ -6,6 +6,9 @@ export default function Login() {
 		password: "",
 	});
 
+	const isEmailInvalid =
+		userIntel.email !== "" && !userIntel.email.includes("@");
+
 	function handleForm(e) {
 		e.preventDefault();
 
@@ -32,6 +35,11 @@ export default function Login() {
 						onChange={(e) => handleUserIntel("email", e)}
 						value={userIntel.email}
 					/>
+					{isEmailInvalid && (
+						<div className="control-error">
+							<p>Please anter a valid e-mail</p>
+						</div>
+					)}
 				</div>
 
 				<div className="control no-margin">

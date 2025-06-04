@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 export default function Login() {
 	const [userIntel, setUserIntel] = useState({
@@ -6,32 +7,15 @@ export default function Login() {
 		password: "",
 	});
 
-	const [isLostFocus, setIsLostFocus] = useState({
-		email: false,
-		password: false,
-	});
-
-	const isInvalidEmail = isLostFocus.email && !userIntel.email.includes("@");
-
 	function handleForm(e) {
 		e.preventDefault();
 
 		console.log(userIntel);
 	}
 
-	function handleUserIntel(identifier, event) {
+	function handleUserIntel(identifier, value) {
 		setUserIntel((prev) => {
-			return { ...prev, [identifier]: event.target.value };
-		});
-
-		setIsLostFocus((prev) => {
-			return { ...prev, [identifier]: false };
-		});
-	}
-
-	function handleLostFocus(identifier) {
-		setIsLostFocus((prev) => {
-			return { ...prev, [identifier]: true };
+			return { ...prev, [identifier]: value };
 		});
 	}
 
@@ -41,31 +25,20 @@ export default function Login() {
 
 			<div className="control-row">
 				<div className="control no-margin">
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						type="email"
+					<Input
+						label="E-MAIL"
 						name="email"
-						onChange={(e) => handleUserIntel("email", e)}
-						onBlur={() => handleLostFocus("email")}
-						value={userIntel.email}
+						errorMsg="Please enter a valid email"
+						onHandleUserIntel={handleUserIntel}
 					/>
-					{isInvalidEmail && (
-						<div className="control-error">
-							<p>Please anter a valid e-mail</p>
-						</div>
-					)}
 				</div>
 
 				<div className="control no-margin">
-					<label htmlFor="password">Password</label>
-					<input
-						id="password"
-						type="password"
+					<Input
+						label="PASS-WORD"
 						name="password"
-						onChange={(e) => handleUserIntel("password", e)}
-						onBlur={() => handleLostFocus("password")}
-						value={userIntel.password}
+						errorMsg="Please enter a valid password"
+						onHandleUserIntel={handleUserIntel}
 					/>
 				</div>
 			</div>
@@ -74,7 +47,9 @@ export default function Login() {
 				<button type="reset" className="button button-flat">
 					Reset
 				</button>
-				<button className="button">Login</button>
+				<button className="button" type="submit">
+					Login
+				</button>
 			</p>
 		</form>
 	);

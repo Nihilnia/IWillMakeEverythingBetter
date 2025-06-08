@@ -1,46 +1,36 @@
-import { useState } from "react";
 import Input from "./Input";
 
 import { isEmail, hasMinLength, isNotEmpty } from "../util/validation.js";
+import useInput from "../hooks/useInput.js";
 
 export default function Login() {
-	const [userIntel, setUserIntel] = useState({
-		email: "",
-		password: "",
+	const {
+		value: emailValue,
+		handleUserIntel: handleEmailChange,
+		handleLostFocus: handleLostFocusEmail,
+		hasError: isEmailInvalid,
+	} = useInput("", (value) => {
+		return isEmail(value) && isNotEmpty(value);
 	});
 
-	const [isLostFocus, setIsLostFocus] = useState({
-		email: false,
-		password: false,
+	const {
+		value: passwordValue,
+		handleUserIntel: handlePasswordChange,
+		handleLostFocus: handleLostFocusPassword,
+		hasError: isPasswordInvalid,
+	} = useInput("", (value) => {
+		return hasMinLength(value, 6);
 	});
-
-	const isInvalidEmail =
-		isLostFocus.email &&
-		!isEmail(userIntel.email) &&
-		isNotEmpty(userIntel.email);
-	const isInvalidPassowrd =
-		isLostFocus.password && !hasMinLength(userIntel.password, 6);
 
 	function handleForm(e) {
 		e.preventDefault();
 
-		console.log(userIntel);
-	}
+		if (!isEmailInvalid || !isPasswordInvalid) {
+			return;
+		}
 
-	function handleUserIntel(identifier, event) {
-		setUserIntel((prev) => {
-			return { ...prev, [identifier]: event.target.value };
-		});
-
-		setIsLostFocus((prev) => {
-			return { ...prev, [identifier]: false };
-		});
-	}
-
-	function handleLostFocus(identifier) {
-		setIsLostFocus((prev) => {
-			return { ...prev, [identifier]: true };
-		});
+		console.log("Email", emailValue);
+		console.log("Password", passwordValue);
 	}
 
 	return (
@@ -53,22 +43,22 @@ export default function Login() {
 					id="email"
 					type="email"
 					name="email"
-					onChange={(e) => handleUserIntel("email", e)}
-					onBlur={() => handleLostFocus("email")}
-					value={userIntel.email}
-					error={isInvalidEmail && "Please enter a valid email"}
+					onChange={handleEmailChange}
+					onBlur={handleLostFocusEmail}
+					value={emailValue}
+					error={isEmailInvalid && "Please enter a valid email"}
 				/>
 				<Input
 					label="Password"
 					id="password"
 					type="password"
 					name="password"
-					onChange={(e) => handleUserIntel("password", e)}
-					onBlur={() => handleLostFocus("password")}
-					value={userIntel.password}
+					onChange={handlePasswordChange}
+					onBlur={handleLostFocusPassword}
+					value={passwordValue}
 					error={
-						isInvalidPassowrd &&
-						`Password must be at least 6 char. Rn ${userIntel.password.trim().length}`
+						isPasswordInvalid &&
+						`Password must be at least 6 char. Rn ${passwordValue.trim().length}`
 					}
 				/>
 			</div>

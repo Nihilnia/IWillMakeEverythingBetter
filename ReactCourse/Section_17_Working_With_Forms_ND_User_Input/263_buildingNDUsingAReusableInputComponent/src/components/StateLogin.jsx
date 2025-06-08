@@ -7,15 +7,34 @@ export default function Login() {
 		password: "",
 	});
 
+	const [isLostFocus, setIsLostFocus] = useState({
+		email: false,
+		password: false,
+	});
+
+	const isInvalidEmail = isLostFocus.email && !userIntel.email.includes("@");
+	const isInvalidPassowrd =
+		isLostFocus.password && userIntel.password.trim().length < 6;
+
 	function handleForm(e) {
 		e.preventDefault();
 
 		console.log(userIntel);
 	}
 
-	function handleUserIntel(identifier, value) {
+	function handleUserIntel(identifier, event) {
 		setUserIntel((prev) => {
-			return { ...prev, [identifier]: value };
+			return { ...prev, [identifier]: event.target.value };
+		});
+
+		setIsLostFocus((prev) => {
+			return { ...prev, [identifier]: false };
+		});
+	}
+
+	function handleLostFocus(identifier) {
+		setIsLostFocus((prev) => {
+			return { ...prev, [identifier]: true };
 		});
 	}
 
@@ -24,32 +43,36 @@ export default function Login() {
 			<h2>Login</h2>
 
 			<div className="control-row">
-				<div className="control no-margin">
-					<Input
-						label="E-MAIL"
-						name="email"
-						errorMsg="Please enter a valid email"
-						onHandleUserIntel={handleUserIntel}
-					/>
-				</div>
-
-				<div className="control no-margin">
-					<Input
-						label="PASS-WORD"
-						name="password"
-						errorMsg="Please enter a valid password"
-						onHandleUserIntel={handleUserIntel}
-					/>
-				</div>
+				<Input
+					label="Email"
+					id="email"
+					type="email"
+					name="email"
+					onChange={(e) => handleUserIntel("email", e)}
+					onBlur={() => handleLostFocus("email")}
+					value={userIntel.email}
+					error={isInvalidEmail && "Please enter a valid email"}
+				/>
+				<Input
+					label="Password"
+					id="password"
+					type="password"
+					name="password"
+					onChange={(e) => handleUserIntel("password", e)}
+					onBlur={() => handleLostFocus("password")}
+					value={userIntel.password}
+					error={
+						isInvalidPassowrd &&
+						`Password must be at least 6 char. Rn ${userIntel.password.trim().length}`
+					}
+				/>
 			</div>
 
 			<p className="form-actions">
 				<button type="reset" className="button button-flat">
 					Reset
 				</button>
-				<button className="button" type="submit">
-					Login
-				</button>
+				<button className="button">Login</button>
 			</p>
 		</form>
 	);

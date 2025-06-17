@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Gloria() {
   const [output, setOutput] = useState("");
@@ -15,10 +15,10 @@ export default function Gloria() {
     refInput.current.focus();
   }, [output]);
 
-  function handleClick() {
+  const handleClick = useCallback(() => {
     setOutput(refInput.current.value);
     refInput.current.value = "";
-  }
+  }, []);
 
   return (
     <>

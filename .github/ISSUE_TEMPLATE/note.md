@@ -10,10 +10,17 @@ assignees: "projectGloria"
 
 ## Why do we need it?
 
-[Detailed explanation, code snippets, etc.]
-
 ## Anatomy
 
 ```jsx
 
 ```
+
+## Notes & Reflections
+
+
+## Confidence Level
+
+- [ ] **Beginner**: Can explain the concept
+- [ ] **Intermediate**: Can write basic code
+- [ ] **Advanced**: Can use in real projects

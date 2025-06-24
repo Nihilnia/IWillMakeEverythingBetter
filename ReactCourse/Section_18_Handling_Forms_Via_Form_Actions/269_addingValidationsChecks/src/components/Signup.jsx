@@ -1,7 +1,43 @@
+import { isEmail, isNotEmpty, hasMinLength, isEqualToOtherValue } from "../util/validation.js";
+
 export default function Signup() {
-  function submitAction(formData){
-    const enteredEmail = formData.get('email'); //input' s name
-    console.log(enteredEmail)
+  function submitAction(formData) {
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirm-password");
+    const firstName = formData.get("first-name");
+    const lastName = formData.get("last-name");
+    const role = formData.get("role");
+    const terms = formData.get("terms");
+    const acquisition = formData.getAll("acquisition");
+
+    const errors = [];
+
+    if (!isEmail.isEmail) {
+      errors.push("Invalid email");
+    }
+
+    if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
+      errors.push("You must provide a password with at least 6 characters.");
+    }
+
+    if (!isEqualToOtherValue(password, confirmPassword)) {
+      errors.push("Passwords do not match.");
+    }
+    if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
+      errors.push("Please provide both of your first name and last name");
+    }
+
+    if (!isNotEmpty(role)) {
+      errors.push("Please select a role");
+    }
+    if (!terms) {
+      errors.push("Please accept terms");
+    }
+
+    if (!acquisition.length > 0) {
+      errors.push("Please select at least one acqusiton channel");
+    }
   }
 
   return (
@@ -22,11 +58,7 @@ export default function Signup() {
 
         <div className="control">
           <label htmlFor="confirm-password">Confirm Password</label>
-          <input
-            id="confirm-password"
-            type="password"
-            name="confirm-password"
-          />
+          <input id="confirm-password" type="password" name="confirm-password" />
         </div>
       </div>
 
@@ -58,22 +90,12 @@ export default function Signup() {
       <fieldset>
         <legend>How did you find us?</legend>
         <div className="control">
-          <input
-            type="checkbox"
-            id="google"
-            name="acquisition"
-            value="google"
-          />
+          <input type="checkbox" id="google" name="acquisition" value="google" />
           <label htmlFor="google">Google</label>
         </div>
 
         <div className="control">
-          <input
-            type="checkbox"
-            id="friend"
-            name="acquisition"
-            value="friend"
-          />
+          <input type="checkbox" id="friend" name="acquisition" value="friend" />
           <label htmlFor="friend">Referred by friend</label>
         </div>
 
@@ -85,8 +107,8 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms" />I
-          agree to the terms and conditions
+          <input type="checkbox" id="terms-and-conditions" name="terms" />I agree to the terms and
+          conditions
         </label>
       </div>
 

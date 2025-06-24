@@ -19,12 +19,11 @@ function UserReducer(state, action) {
     case "REMOVE_USER": {
       const { userID } = payload;
 
-      let updatedUserList = [...state];
-      updatedUserList = updatedUserList.filter((user) => {
-        return user.id !== userID;
-      });
+      return state.filter((user) => user.id !== userID);
+    }
 
-      return updatedUserList;
+    default: {
+      return state; // Always return current state for unknown actions
     }
   }
 }

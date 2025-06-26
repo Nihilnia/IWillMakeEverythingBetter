@@ -25,6 +25,7 @@ export default function Signup() {
     if (!isEqualToOtherValue(password, confirmPassword)) {
       errors.push("Passwords do not match.");
     }
+
     if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
       errors.push("Please provide both of your first name and last name");
     }
@@ -32,6 +33,7 @@ export default function Signup() {
     if (!isNotEmpty(role)) {
       errors.push("Please select a role");
     }
+
     if (!terms) {
       errors.push("Please accept terms");
     }
@@ -39,9 +41,6 @@ export default function Signup() {
     if (!acquisition.length > 0) {
       errors.push("Please select at least one acqusiton channel");
     }
-
-    console.log("prevFormState");
-    console.log(prevFormState);
 
     if (errors.length > 0) {
       return { errors: errors };
@@ -51,9 +50,6 @@ export default function Signup() {
   }
 
   const [formState, formAction, pending] = useActionState(submitAction, { errors: null });
-
-  console.log("formState");
-  console.log(formState);
 
   return (
     <form action={formAction}>
@@ -130,7 +126,7 @@ export default function Signup() {
       {formState.errors && (
         <ul className="error">
           {formState.errors.map((err) => {
-            return <ul key={err}>{err}</ul>;
+            return <li key={err}>{err}</li>;
           })}
         </ul>
       )}

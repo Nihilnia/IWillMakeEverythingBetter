@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Lato:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Lato:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -6,10 +6,10 @@
 
 body {
   margin: 0;
-  font-family: "Lato", serif;
+  font-family: 'Lato', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0c0c0d;
+ background-color: #0c0c0d;
   color: #d9e2f1;
   min-height: 100vh;
 }
@@ -29,7 +29,7 @@ header img {
 }
 
 header h1 {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   font-size: 3rem;
   margin: 1rem 0;
@@ -89,16 +89,16 @@ fieldset {
   color: #142020;
 }
 
-.control:has(input[type="checkbox"]) {
+.control:has(input[type='checkbox']) {
   display: flex;
   align-items: center;
 }
 
-.control:has(input[type="checkbox"]) label {
+.control:has(input[type='checkbox']) label {
   margin: 0;
 }
 
-.control input[type="checkbox"] {
+.control input[type='checkbox'] {
   display: inline-block;
   width: auto;
   max-width: none;

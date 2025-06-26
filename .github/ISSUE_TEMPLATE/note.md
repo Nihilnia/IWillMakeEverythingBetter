@@ -6,6 +6,12 @@ labels: Note
 assignees: "projectGloria"
 ---
 
+## Confidence Level
+
+- [ ] **Beginner**: Can explain the concept
+- [ ] **Intermediate**: Can write basic code
+- [ ] **Advanced**: Can use in real projects
+
 # What is it?
 
 ## Why do we need it?
@@ -17,10 +23,3 @@ assignees: "projectGloria"
 ```
 
 ## Notes & Reflections
-
-
-## Confidence Level
-
-- [ ] **Beginner**: Can explain the concept
-- [ ] **Intermediate**: Can write basic code
-- [ ] **Advanced**: Can use in real projects

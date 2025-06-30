@@ -1,18 +1,21 @@
-import { useActionState } from "react";
+import { useActionState, useContext } from "react";
+import { OpinionsContext } from "../store/opinions-context";
 
 function hasEnoughLength(length, value) {
   return value.length >= length;
 }
 
 export function NewOpinion() {
-  function handleFormSubmit(prevFormState, formData) {
-    const username = formData.get("userName");
+  const { addOpinion } = useContext(OpinionsContext);
+
+  async function handleFormSubmit(prevFormState, formData) {
+    const userName = formData.get("userName");
     const title = formData.get("title");
     const body = formData.get("body");
 
     const errors = [];
 
-    if (!hasEnoughLength(3, username)) {
+    if (!hasEnoughLength(3, userName)) {
       errors.push("Username must be at least 3 char.");
     }
     if (!hasEnoughLength(6, title)) {
@@ -26,12 +29,19 @@ export function NewOpinion() {
       return {
         errors,
         enteredValues: {
-          username,
+          userName,
           title,
           body,
         },
       };
     }
+
+    //Sending data to backEnd
+    await addOpinion({
+      userName,
+      title,
+      body,
+    });
 
     return {
       errors: null,
@@ -53,7 +63,7 @@ export function NewOpinion() {
               type="text"
               id="userName"
               name="userName"
-              defaultValue={formState.enteredValues?.username}
+              defaultValue={formState.enteredValues?.userName}
             />
           </p>
 

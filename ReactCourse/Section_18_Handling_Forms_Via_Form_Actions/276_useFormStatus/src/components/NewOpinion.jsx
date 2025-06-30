@@ -1,5 +1,6 @@
 import { useActionState, useContext } from "react";
 import { OpinionsContext } from "../store/opinions-context";
+import Submit from "./Submit";
 
 function hasEnoughLength(length, value) {
   return value.length >= length;
@@ -90,9 +91,7 @@ export function NewOpinion() {
           </ul>
         )}
 
-        <p className="actions">
-          <button type="submit">Submit</button>
-        </p>
+        <Submit />
       </form>
     </div>
   );

@@ -29,31 +29,27 @@ export default function Form() {
 
     const { username, password, phase, termsCons } = enteredValues;
 
+    const currentErrors = [];
+
     if (username.length < 3) {
-      setErrors((prev) => {
-        return [...prev, "Username must be at least 3 char"];
-      });
+      currentErrors.push("Username must be at least 3 char");
     }
 
     if (password.length < 6) {
-      setErrors((prev) => {
-        return [...prev, "Password must be at least 6 char"];
-      });
+      currentErrors.push("Password must be at least 6 char");
     }
 
     if (phase === "") {
-      setErrors((prev) => {
-        return [...prev, "Please select a phase"];
-      });
+      currentErrors.push("Please select a phase");
     }
 
     if (!termsCons) {
-      setErrors((prev) => {
-        return [...prev, "Terms and conditions must be accepted"];
-      });
+      currentErrors.push("Terms and conditions must be accepted");
     }
 
-    if (username.length >= 3 && password.length >= 6 && phase !== "" && termsCons) {
+    if (currentErrors.length > 0) {
+      setErrors(currentErrors);
+    } else {
       setIsFormSubmitted(true);
       setEnteredValues(initialFormState);
     }

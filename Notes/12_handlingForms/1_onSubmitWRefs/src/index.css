@@ -17,6 +17,8 @@ body {
   align-items: center; /* Centers vertically */
   min-height: 100vh; /* Ensures the container takes full viewport height */
   width: 100vw; /* Ensures the container takes full viewport width */
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 form {
@@ -44,4 +46,12 @@ select {
 
 select {
   padding: 3px;
+}
+
+ul {
+  list-style-type: none;
+  color: orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 }

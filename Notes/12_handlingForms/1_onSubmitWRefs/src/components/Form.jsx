@@ -24,37 +24,28 @@ export default function Form() {
     const selectedPhase = phase.current.value;
     const isTermsCons = termsCons.current.checked;
 
+    let currentErrors = [];
+
     if (enteredUsername.length < 3) {
-      setErrors((prev) => {
-        return [...prev, "Username must be at least 3 char"];
-      });
+      currentErrors.push("Username must be at least 3 char");
     }
 
     if (enteredPassword.length < 6) {
-      setErrors((prev) => {
-        return [...prev, "Password must be at least 6 char"];
-      });
+      currentErrors.push("Password must be at least 6 char");
     }
 
     if (selectedPhase === "") {
-      setErrors((prev) => {
-        return [...prev, "Please select a phase"];
-      });
+      currentErrors.push("Please select a phase");
     }
 
     if (!isTermsCons) {
-      setErrors((prev) => {
-        return [...prev, "Terms and conditions must be accepted"];
-      });
+      currentErrors.push("Terms and conditions must be accepted");
     }
 
-    //If conditions are okay it' s ready to send to back- end
-    if (
-      enteredUsername.length >= 3 &&
-      enteredPassword.length >= 6 &&
-      selectedPhase !== "" &&
-      isTermsCons
-    ) {
+    if (currentErrors.length > 0) {
+      setErrors(currentErrors);
+    } else {
+      //If conditions are okay it' s ready to send to back- end
       const newUser = {
         username: enteredUsername,
         password: enteredPassword,

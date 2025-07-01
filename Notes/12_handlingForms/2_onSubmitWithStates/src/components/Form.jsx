@@ -1,89 +1,98 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+
+const initialFormState = {
+  username: "",
+  password: "",
+  phase: "",
+  termsCons: false,
+};
 
 export default function Form() {
+  const [enteredValues, setEnteredValues] = useState(initialFormState);
   const [errors, setErrors] = useState([]);
-  //just created a state for errors for both check if theres error and update the UI with it
+
+  function handleInputChanges(e) {
+    setEnteredValues((prev) => {
+      if (e.target.name === "termsCons") {
+        return { ...prev, [e.target.name]: !prev.termsCons };
+      }
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  }
 
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-
-  const username = useRef("");
-  const password = useRef("");
-  const phase = useRef("");
-  const termsCons = useRef("");
-
-  console.log("username");
-  console.log(username);
 
   function handleForm(e) {
     e.preventDefault();
 
     setErrors([]); //Resetting state at every submit because we are always checking them
 
-    const enteredUsername = username.current.value;
-    const enteredPassword = password.current.value;
-    const selectedPhase = phase.current.value;
-    const isTermsCons = termsCons.current.checked;
+    const { username, password, phase, termsCons } = enteredValues;
 
-    if (enteredUsername.length < 3) {
+    if (username.length < 3) {
       setErrors((prev) => {
         return [...prev, "Username must be at least 3 char"];
       });
     }
 
-    if (enteredPassword.length < 6) {
+    if (password.length < 6) {
       setErrors((prev) => {
         return [...prev, "Password must be at least 6 char"];
       });
     }
 
-    if (selectedPhase === "") {
+    if (phase === "") {
       setErrors((prev) => {
         return [...prev, "Please select a phase"];
       });
     }
 
-    if (!isTermsCons) {
+    if (!termsCons) {
       setErrors((prev) => {
         return [...prev, "Terms and conditions must be accepted"];
       });
     }
 
-    //If conditions are okay it' s ready to send to back- end
-    if (
-      enteredUsername.length >= 3 &&
-      enteredPassword.length >= 6 &&
-      selectedPhase !== "" &&
-      isTermsCons
-    ) {
-      const newUser = {
-        username: enteredUsername,
-        password: enteredPassword,
-        phase: selectedPhase,
-      };
-
-      console.log(newUser);
+    if (username.length >= 3 && password.length >= 6 && phase !== "" && termsCons) {
       setIsFormSubmitted(true);
-
-      e.target.reset();
+      setEnteredValues(initialFormState);
     }
   }
 
-  console.log(errors);
+  function handleResetForm() {
+    setEnteredValues(initialFormState);
+    setErrors([]);
+    setIsFormSubmitted(false);
+  }
+
+  console.log(enteredValues);
 
   return (
     <section className="form">
       <form onSubmit={handleForm}>
         <div>
           <label htmlFor="username">Username:</label>
-          <input ref={username} type="text" id="username" name="username" />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            onChange={handleInputChanges}
+            value={enteredValues.username}
+          />
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input ref={password} type="password" id="password" name="password" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={handleInputChanges}
+            value={enteredValues.password}
+          />
         </div>
         <div>
           <label htmlFor="phase">Phase:</label>
-          <select ref={phase} id="phase" name="phase" defaultValue="">
+          <select id="phase" name="phase" onChange={handleInputChanges} value={enteredValues.phase}>
             <option value="" disabled>
               Plase select..
             </option>
@@ -94,15 +103,18 @@ export default function Form() {
         <div>
           <label htmlFor="termsCons">Terms and conditions</label>
           <input
-            ref={termsCons}
             type="checkbox"
             id="termsCons"
             name="termsCons"
             value="termsCons"
+            onChange={handleInputChanges}
+            defaultChecked={enteredValues.termsCons}
           />
         </div>
         <div>
-          <button type="reset">Reset</button>
+          <button type="reset" onClick={handleResetForm}>
+            Reset
+          </button>
           <button type="submit">Enter</button>
         </div>
       </form>

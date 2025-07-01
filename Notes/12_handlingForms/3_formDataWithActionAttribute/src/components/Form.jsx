@@ -1,33 +1,19 @@
 import { useState } from "react";
 
-const initialFormState = {
-  username: "",
-  password: "",
-  phase: "",
-  termsCons: false,
-};
-
 export default function Form() {
-  const [enteredValues, setEnteredValues] = useState(initialFormState);
   const [errors, setErrors] = useState([]);
-
-  function handleInputChanges(e) {
-    setEnteredValues((prev) => {
-      if (e.target.name === "termsCons") {
-        return { ...prev, [e.target.name]: !prev.termsCons };
-      }
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  }
 
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-  function handleForm(e) {
-    e.preventDefault();
+  function handleForm(formData) {
+    //e.preventDefault(); is default on action
 
     setErrors([]); //Resetting state at every submit because we are always checking them
 
-    const { username, password, phase, termsCons } = enteredValues;
+    const username = formData.get("username");
+    const password = formData.get("password");
+    const phase = formData.get("phase");
+    const termsCons = formData.get("termsCons");
 
     const currentErrors = [];
 
@@ -39,7 +25,7 @@ export default function Form() {
       currentErrors.push("Password must be at least 6 char");
     }
 
-    if (phase === "") {
+    if (!phase) {
       currentErrors.push("Please select a phase");
     }
 
@@ -50,45 +36,25 @@ export default function Form() {
     if (currentErrors.length > 0) {
       setErrors(currentErrors);
     } else {
+      //form submitted without errors, ready to send to back- end
       setIsFormSubmitted(true);
-      setEnteredValues(initialFormState);
     }
   }
 
-  function handleResetForm() {
-    setEnteredValues(initialFormState);
-    setErrors([]);
-    setIsFormSubmitted(false);
-  }
-
-  console.log(enteredValues);
-
   return (
     <section className="form">
-      <form onSubmit={handleForm}>
+      <form action={handleForm}>
         <div>
           <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            onChange={handleInputChanges}
-            value={enteredValues.username}
-          />
+          <input type="text" id="username" name="username" />
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={handleInputChanges}
-            value={enteredValues.password}
-          />
+          <input type="password" id="password" name="password" />
         </div>
         <div>
           <label htmlFor="phase">Phase:</label>
-          <select id="phase" name="phase" onChange={handleInputChanges} value={enteredValues.phase}>
+          <select id="phase" name="phase" defaultValue="">
             <option value="" disabled>
               Plase select..
             </option>
@@ -98,19 +64,10 @@ export default function Form() {
         </div>
         <div>
           <label htmlFor="termsCons">Terms and conditions</label>
-          <input
-            type="checkbox"
-            id="termsCons"
-            name="termsCons"
-            value="termsCons"
-            onChange={handleInputChanges}
-            defaultChecked={enteredValues.termsCons}
-          />
+          <input type="checkbox" id="termsCons" name="termsCons" />
         </div>
         <div>
-          <button type="reset" onClick={handleResetForm}>
-            Reset
-          </button>
+          <button type="reset">Reset</button>
           <button type="submit">Enter</button>
         </div>
       </form>

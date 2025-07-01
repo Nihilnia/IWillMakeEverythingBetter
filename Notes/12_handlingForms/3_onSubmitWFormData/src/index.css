@@ -1,0 +1,57 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #0c0c0d;
+  color: #fff;
+}
+
+.form {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  min-height: 100vh; /* Ensures the container takes full viewport height */
+  width: 100vw; /* Ensures the container takes full viewport width */
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+form {
+  background-color: #fff;
+  max-width: fit-content;
+  border-radius: 10px;
+  color: #0c0c0d;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+form > div {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+input,
+select {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+select {
+  padding: 3px;
+}
+
+ul {
+  list-style-type: none;
+  color: orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}

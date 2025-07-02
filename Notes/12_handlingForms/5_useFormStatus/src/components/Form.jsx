@@ -1,7 +1,12 @@
 import { useActionState } from "react";
+import Submit from "./Submit";
 
 export default function Form() {
-  function handleForm(prevFormState, formData) {
+  async function handleForm(prevFormState, formData) {
+    console.log("Form submitted!");
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log("Delay finished!");
+
     const username = formData.get("username");
     const password = formData.get("password");
     const phase = formData.get("phase");
@@ -26,7 +31,7 @@ export default function Form() {
       };
     }
 
-    return { errors: null };
+    return { errors: null, isSubmitted: true };
   }
 
   const [formState, formAction, pending] = useActionState(handleForm, { errors: null });
@@ -73,7 +78,7 @@ export default function Form() {
         </div>
         <div>
           <button type="reset">Reset</button>
-          <button type="submit">Enter</button>
+          <Submit />
         </div>
       </form>
       {formState.errors && (
@@ -83,11 +88,11 @@ export default function Form() {
           })}
         </ul>
       )}
-      {/* {isFormSubmitted && (
+      {formState.isSubmitted && (
         <ul>
           <li>Form submitted succesfully.</li>
         </ul>
-      )} */}
+      )}
     </section>
   );
 }

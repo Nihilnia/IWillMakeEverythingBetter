@@ -1,12 +1,9 @@
 import { useActionState } from "react";
 import Submit from "./Submit";
+import Review from "./Review";
 
 export default function Form() {
   async function handleForm(prevFormState, formData) {
-    console.log("Form submitted!");
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log("Delay finished!");
-
     const username = formData.get("username");
     const password = formData.get("password");
     const phase = formData.get("phase");
@@ -93,6 +90,7 @@ export default function Form() {
           <li>Form submitted succesfully.</li>
         </ul>
       )}
+      <Review />
     </section>
   );
 }

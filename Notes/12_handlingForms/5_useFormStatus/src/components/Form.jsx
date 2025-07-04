@@ -4,6 +4,12 @@ import Review from "./Review";
 
 export default function Form() {
   async function handleForm(prevFormState, formData) {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 3000);
+    });
+
     const username = formData.get("username");
     const password = formData.get("password");
     const phase = formData.get("phase");

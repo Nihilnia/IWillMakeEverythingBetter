@@ -1,3 +1,12 @@
+import FoodList from "./components/FoodList";
+import Navbar from "./components/Navbar";
+import FoodContextProvider from "./context/FoodContext";
+
 export default function App() {
-  return <h2 className="text-amber-200">asdasd</h2>;
+  return (
+    <FoodContextProvider>
+      <Navbar />
+      <FoodList />
+    </FoodContextProvider>
+  );
 }

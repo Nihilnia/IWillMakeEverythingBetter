@@ -16,10 +16,6 @@ function FoodContextReducer(state, action) {
     return f.id === id;
   });
 
-  const foundFood = foodList.find((f) => {
-    return f.id === id;
-  });
-
   switch (type) {
     case "ADD_FOOD": {
       if (alreadyInCart) {
@@ -30,22 +26,29 @@ function FoodContextReducer(state, action) {
         return newCart;
       }
 
+      const foundFood = foodList.find((f) => {
+        return f.id === id;
+      });
+
       return [...state, { ...foundFood, piece: 1 }];
     }
 
     case "REMOVE_FOOD": {
       let copyCart = [...state];
 
-      if (alreadyInCart) {
-        copyCart = copyCart.map((f) => {
-          return f.id === id ? { ...f, piece: f.piece - 1 } : f;
-        });
-
-        return copyCart;
-      }
-      copyCart = copyCart.filter((f) => {
-        return f.id !== id;
+      const foundFood = copyCart.find((f) => {
+        return f.id === id;
       });
+
+      if (foundFood.piece === 1) {
+        copyCart = copyCart.filter((f) => {
+          return f.id !== foundFood.id;
+        });
+      } else {
+        copyCart = copyCart.map((f) => {
+          return f.id === foundFood.id ? { ...f, piece: foundFood.piece - 1 } : f;
+        });
+      }
 
       return copyCart;
     }

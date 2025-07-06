@@ -20,7 +20,7 @@ function FoodContextReducer(state, action) {
     case "ADD_FOOD": {
       if (alreadyInCart) {
         const newCart = state.map((f) => {
-          return f.id === id ? { ...f, piece: f.piece + 1 } : f;
+          return f.id === id ? { ...f, piece: f.piece + 1, price: f.price * (f.piece + 1) } : f;
         });
 
         return newCart;

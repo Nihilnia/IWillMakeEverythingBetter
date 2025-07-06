@@ -19,19 +19,21 @@ function FoodContextReducer(state, action) {
 
   switch (type) {
     case "ADD_FOOD": {
+      //Already in cart, just adjust
       if (alreadyInCart) {
         const newCart = state.map((f) => {
-          return f.id === id ? { ...f, piece: f.piece + 1, price: f.price * (f.piece + 1) } : f;
+          return f.id === id ? { ...f, piece: f.piece + 1, total: f.price * (f.piece + 1) } : f;
         });
 
         return newCart;
       }
 
+      //Not in cart, get info of the food and add to cart
       const foundFood = foodList.find((f) => {
         return f.id === id;
       });
 
-      return [...state, { ...foundFood, piece: 1 }];
+      return [...state, { ...foundFood, piece: 1, total: foundFood.price }];
     }
 
     case "REMOVE_FOOD": {
@@ -89,7 +91,7 @@ export default function FoodContextProvider({ children }) {
     addFoodToCart: addFoodToCart,
     removeFoodFromCart: removeFoodFromCart,
     total: cart.reduce((accumulator, food) => {
-      return accumulator + food.price;
+      return accumulator + food.total;
     }, 0),
   };
 

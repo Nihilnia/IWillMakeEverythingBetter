@@ -5,6 +5,9 @@ import { ShoppingBasket } from "lucide-react";
 
 export default function Cart({ onSetIsCartOpen }) {
   const { cart } = useContext(FoodContext);
+  const cartPiece = cart.reduce((acc, food) => {
+    return acc + food.piece;
+  }, 0);
 
   return (
     <div>
@@ -16,7 +19,7 @@ export default function Cart({ onSetIsCartOpen }) {
             text-white font-medium transition-all duration-200 hover:shadow-lg flex items-center gap-2 group"
       >
         <ShoppingBasket className="w-4 h-4 group-hover:scale-110 transition-transform" />
-        Cart ({cart.length})
+        Cart ({cartPiece})
       </button>
     </div>
   );

@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { FoodContext } from "../context/FoodContext";
 
 export default function CartDialog({ onSetIsCartOpen }) {
-  const { cart } = useContext(FoodContext);
+  const { cart, total } = useContext(FoodContext);
   const dialogRef = useRef(); // 1. Create a ref for the dialog element
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function CartDialog({ onSetIsCartOpen }) {
             Close
           </button>
           {/* Add onClick handler */}
-          <button type="button">Checkout</button>
+          <button type="button">Checkout ({total})</button>
         </div>
       </div>
     );

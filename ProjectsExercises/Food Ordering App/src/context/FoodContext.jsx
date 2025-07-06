@@ -6,6 +6,7 @@ export const FoodContext = createContext({
   cart: [],
   addFoodToCart: () => {},
   removeFoodFromCart: () => {},
+  total: 0,
 });
 
 function FoodContextReducer(state, action) {
@@ -87,6 +88,9 @@ export default function FoodContextProvider({ children }) {
     cart: cart,
     addFoodToCart: addFoodToCart,
     removeFoodFromCart: removeFoodFromCart,
+    total: cart.reduce((accumulator, food) => {
+      return accumulator + food.price;
+    }, 0),
   };
 
   return <FoodContext.Provider value={ctxValues}>{children}</FoodContext.Provider>;

@@ -1,6 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;500;600;700&display=swap");
+
 @import "tailwindcss";
 
 body {
   background-color: #0c0c0d;
   color: #fff;
+}
+
+/* Custom font utilities */
+.font-heading {
+  font-family: "Playfair Display", serif;
+}
+
+.font-body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/* Food app component styles */
+.hero-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #000;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: #000;
+}
+
+.food-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.body-text {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #000;
+  line-height: 1.6;
+}
+
+.food-text {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.body-text-lg {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.125rem;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+.caption {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.button-text {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Food-specific styling */
+.menu-item-name {
+  font-family: "Playfair Display", serif;
+  font-weight: 500;
+  font-size: 1.125rem;
+  color: #000;
+}
+
+.menu-item-description {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #d1d5db;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.price-text {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: #10b981;
+}
+
+.restaurant-name {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
 }

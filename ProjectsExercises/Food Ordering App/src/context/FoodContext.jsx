@@ -41,7 +41,7 @@ function FoodContextReducer(state, action) {
         return f.id === id;
       });
 
-      if (foundFood.piece === 1) {
+      if (foundFood?.piece === 1) {
         copyCart = copyCart.filter((f) => {
           return f.id !== foundFood.id;
         });

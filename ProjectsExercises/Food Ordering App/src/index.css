@@ -118,3 +118,52 @@ body {
     font-size: 2.5rem;
   }
 }
+
+.notification {
+  /* Initial state: invisible and below its final position */
+  opacity: 0;
+  transform: translateY(50px); /* Start 50px below its final position */
+
+  /* Apply the animation directly */
+  animation: bounceInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Longer duration, custom easing for bounce */
+
+  /* Existing styles */
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px); /* Overshoot upwards */
+  }
+  80% {
+    transform: translateY(5px); /* Bounce back down a little */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Settle at final position */
+  }
+}
+
+/* Example of how to use it with different types */
+.notification.info {
+  background-color: #2196f3; /* Blue for info */
+}
+
+.notification.warning {
+  background-color: #ff9800; /* Orange for warning */
+}
+
+.notification.error {
+  background-color: #f44336; /* Red for error */
+}

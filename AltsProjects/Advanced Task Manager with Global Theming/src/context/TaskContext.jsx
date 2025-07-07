@@ -46,7 +46,40 @@ function TaskCRUDReducer(state, action) {
 }
 
 export default function TaskContextProvider({ children }) {
-  const [allTasks, dispatch] = useReducer(TaskCRUDReducer, []);
+  const [allTasks, dispatch] = useReducer(TaskCRUDReducer, [
+    {
+      id: Math.random(),
+      title: "titleZero",
+      description: "descZero",
+      dueDate: "00/00/0000",
+      priority: 0,
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "titleOne",
+      description: "descOne",
+      dueDate: "12/25/2024",
+      priority: 1,
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "titleTwo",
+      description: "descTwo",
+      dueDate: "01/15/2025",
+      priority: 2,
+      isCompleted: true,
+    },
+    {
+      id: Math.random(),
+      title: "titleThree",
+      description: "descThree",
+      dueDate: "03/01/2025",
+      priority: 3,
+      isCompleted: false,
+    },
+  ]);
 
   function addTask(newTask) {
     dispatch({

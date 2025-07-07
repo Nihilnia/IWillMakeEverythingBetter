@@ -22,7 +22,7 @@ export default function TaskCard({ task }) {
   console.log(operationChoice);
 
   return (
-    <div className="bg-amber-600 rounded-lg p-4 hover:bg-amber-200">
+    <div className="bg-amber-600 rounded-lg p-4 hover:bg-amber-200 card-fade-in">
       <h2>{id}</h2>
       <h2>{title}</h2>
       <h2>{description}</h2>

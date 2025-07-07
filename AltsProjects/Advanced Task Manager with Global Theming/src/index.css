@@ -18,3 +18,20 @@ textarea {
   column-gap: 20px;
   margin-bottom: 10px;
 }
+
+/* Define the keyframes for your fade-in animation */
+@keyframes fadeInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px); /* Start slightly below its final position */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at its final position */
+  }
+}
+
+/* Apply the animation to your component's class */
+.card-fade-in {
+  animation: fadeInFromBottom 0.5s ease-out forwards;
+}

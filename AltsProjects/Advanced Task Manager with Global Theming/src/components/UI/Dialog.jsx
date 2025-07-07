@@ -14,7 +14,11 @@ export default function Dialog({ onHandleClose, children }) {
   }
 
   return (
-    <dialog ref={refDialog} onClose={handleClose}>
+    <dialog
+      ref={refDialog}
+      onClose={handleClose}
+      className="flex items-center justify-center fixed inset-0 m-auto"
+    >
       {children}
     </dialog>
   );

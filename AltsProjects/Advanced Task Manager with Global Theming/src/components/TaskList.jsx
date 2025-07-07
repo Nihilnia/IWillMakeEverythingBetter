@@ -26,7 +26,7 @@ export default function TaskList() {
       </button>
       {isDialog && (
         <Dialog onHandleClose={handleDialog}>
-          <TaskForm onHandleClose={handleDialog} />
+          <TaskForm onHandleClose={handleDialog} operation="ADD_TASK" buttonTitle="Add New Task" />
         </Dialog>
       )}
     </section>

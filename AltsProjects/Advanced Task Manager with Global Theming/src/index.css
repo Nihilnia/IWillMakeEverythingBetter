@@ -3,10 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body {
-  background-color: #0c0c0d;
-}
-
 input,
 textarea {
   background-color: #0c0c0d;

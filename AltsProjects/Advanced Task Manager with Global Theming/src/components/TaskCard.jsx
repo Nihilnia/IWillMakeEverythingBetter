@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Dialog from "./UI/Dialog";
+import Dialog from "./UI/dDialog";
 import TaskForm from "./TaskForm";
 
 export default function TaskCard({ task }) {

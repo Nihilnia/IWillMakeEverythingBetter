@@ -1,5 +1,6 @@
 import { useActionState, useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
+import Datepicker from "./UI/Datepicker";
 
 export default function TaskForm({ operation, task, buttonTitle, onHandleClose }) {
   const { addTask, editTask, removeTask } = useContext(TaskContext);
@@ -9,6 +10,26 @@ export default function TaskForm({ operation, task, buttonTitle, onHandleClose }
     const description = formData.get("description");
     const dueDate = formData.get("dueDate");
     const priority = formData.get("priority");
+
+    const errors = [];
+    if (title.length < 3) {
+      errors.push("Title must contain at least three characters");
+    }
+    if (description.length < 6) {
+      errors.push("Description must contain at least six characters");
+    }
+
+    if (errors.length > 0) {
+      return {
+        errors,
+        enteredValues: {
+          title,
+          description,
+          dueDate,
+          priority,
+        },
+      };
+    }
 
     const newTask = {
       title,
@@ -32,6 +53,7 @@ export default function TaskForm({ operation, task, buttonTitle, onHandleClose }
     }
 
     onHandleClose();
+    return { errors: null };
   }
 
   const [formState, formAction, pending] = useActionState(handleFormAction, { errors: null });
@@ -58,11 +80,9 @@ export default function TaskForm({ operation, task, buttonTitle, onHandleClose }
         </div>
         <div className="form-group">
           <label htmlFor="dueDate">Due Date:</label>
-          <input
-            type="date"
-            name="dueDate"
-            defaultValue={task ? task.dueDate : formState.enteredValues?.dueDate}
-            disabled={operation === "REMOVE_TASK"}
+          <Datepicker
+            defValue={task ? task.dueDate : formState.enteredValues?.dueDate}
+            isDisabled={operation === "REMOVE_TASK"}
           />
         </div>
         <div className="form-group">
@@ -76,10 +96,19 @@ export default function TaskForm({ operation, task, buttonTitle, onHandleClose }
             <option value="high">High</option>
           </select>
         </div>
-        <div>
+        <div className="flex flex-row justify-end mb-4">
           <button type="submit">{buttonTitle}</button>
         </div>
       </form>
+      {formState.errors && (
+        <div className="text-amber-600">
+          <ul>
+            {formState.errors.map((err) => {
+              return <li key={err}>{err}</li>;
+            })}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }

@@ -6,6 +6,8 @@ import TaskForm from "./TaskForm";
 
 import { Plus } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+
 export default function TaskList() {
   const { allTasks } = useContext(TaskContext);
   const [isDialog, setIsDialog] = useState(false);
@@ -23,14 +25,9 @@ export default function TaskList() {
       {allTasks.map((task) => {
         return <TaskCard key={task.id} task={task} />;
       })}
-      <button
-        type="button"
-        onClick={handleDialog}
-        className="flex flex-row items-center bg-blue-600 rounded-sm px-3 py-1 hover:bg-blue-00"
-      >
-        <Plus className="w-4 h-4 mr-2" />
-        Create Task
-      </button>
+      <Button onClick={handleDialog} variant="outline">
+        Button
+      </Button>
       {isDialog && (
         <Dialog onHandleClose={handleDialog}>
           <TaskForm onHandleClose={handleDialog} operation="ADD_TASK" buttonTitle="Add New Task" />

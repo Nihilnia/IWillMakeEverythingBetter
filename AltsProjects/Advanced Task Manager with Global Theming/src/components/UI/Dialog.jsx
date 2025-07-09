@@ -15,7 +15,11 @@ export default function Dialog({ children, onHandleCloseDialog }) {
   }
 
   return (
-    <dialog ref={refDialog} onClose={handleOnClose}>
+    <dialog
+      ref={refDialog}
+      onClose={handleOnClose}
+      class="m-auto p-4 rounded-lg backdrop:bg-black/50"
+    >
       {children}
     </dialog>
   );

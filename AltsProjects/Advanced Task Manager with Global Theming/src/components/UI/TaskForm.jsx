@@ -1,5 +1,9 @@
 import { useActionState, useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import Input from "./Input";
+import Textarea from "./Textarea";
+import Label from "./Label";
+import Button from "./Button";
 
 export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTask }) {
   const { addTask, editTask } = useContext(TaskContext);
@@ -46,18 +50,18 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTas
   const [formState, formAction, pending] = useActionState(handleForm, { errors: null });
 
   return (
-    <form action={formAction}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
+    <form action={formAction} className="flex flex-col gap-4">
+      <div className="grid grid-cols-2">
+        <Label htmlFor="title">Title:</Label>
+        <Input
           type="text"
           name="title"
           defaultValue={incomingTask ? incomingTask.title : formState.enteredValues?.title}
         />
       </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
+      <div className="grid grid-cols-2">
+        <Label htmlFor="description">Description:</Label>
+        <Textarea
           type="text"
           name="description"
           defaultValue={
@@ -65,16 +69,16 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTas
           }
         />
       </div>
-      <div>
-        <label htmlFor="dueDate">Due Date:</label>
-        <input
+      <div className="grid grid-cols-2">
+        <Label htmlFor="dueDate">Due Date:</Label>
+        <Input
           type="date"
           name="dueDate"
           defaultValue={incomingTask ? incomingTask.dueDate : formState.enteredValues?.dueDate}
         />
       </div>
-      <div>
-        <label htmlFor="priority">Priority:</label>
+      <div className="grid grid-cols-2">
+        <Label htmlFor="priority">Priority:</Label>
         <select
           name="priority"
           defaultValue={incomingTask ? incomingTask.priority : formState.enteredValues?.priority}
@@ -84,8 +88,11 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTas
           <option value="high">High</option>
         </select>
       </div>
-      <div>
-        <button type="submit">{buttonTitle}</button>
+      <div className="flex justify-end gap-2">
+        <Button type="button" variation={"cancel"}>
+          Cancel
+        </Button>
+        <Button type="submit">{buttonTitle}</Button>
       </div>
       {formState.errors && (
         <ul>

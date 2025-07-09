@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Dialog from "./UI/dDialog";
+import Dialog from "./UI/Dialog";
 import TaskForm from "./TaskForm";
 
 export default function TaskCard({ task }) {
@@ -17,9 +17,6 @@ export default function TaskCard({ task }) {
       return !prev;
     });
   }
-
-  console.log("operationChoice");
-  console.log(operationChoice);
 
   return (
     <div className="bg-amber-600 rounded-lg p-4 hover:bg-amber-200 card-fade-in">
@@ -55,7 +52,7 @@ export default function TaskCard({ task }) {
             operation={operationChoice}
             task={task}
             onHandleClose={handleDialogToggle}
-            buttonTitle={(operationChoice === "EDIT_TASK" ? "Edit" : "Remove") + " Task"}
+            buttonTitle={operationChoice}
           />
         </Dialog>
       )}

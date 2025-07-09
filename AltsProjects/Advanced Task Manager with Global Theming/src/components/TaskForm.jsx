@@ -2,7 +2,7 @@ import { useActionState, useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
 import Datepicker from "./UI/Datepicker";
 
-export default function TaskForm({ operation, task, buttonTitle, onHandleClose }) {
+export default function TaskForm({ operation, task, buttonTitle = "Add", onHandleClose }) {
   const { addTask, editTask, removeTask } = useContext(TaskContext);
 
   function handleFormAction(prevFormState, formData) {
@@ -40,6 +40,7 @@ export default function TaskForm({ operation, task, buttonTitle, onHandleClose }
 
     switch (operation) {
       case "ADD_TASK": {
+        console.log("worked");
         addTask(newTask);
         break;
       }

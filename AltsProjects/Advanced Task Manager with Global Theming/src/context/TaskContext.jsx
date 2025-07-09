@@ -48,6 +48,9 @@ function TaskCRUDReducer(state, action) {
 export default function TaskContextProvider({ children }) {
   const [allTasks, dispatch] = useReducer(TaskCRUDReducer, []);
 
+  console.log("allTasks");
+  console.log(allTasks);
+
   function addTask(newTask) {
     dispatch({
       type: "ADD_TASK",

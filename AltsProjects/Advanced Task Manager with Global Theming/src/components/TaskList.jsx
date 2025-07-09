@@ -3,6 +3,7 @@ import { TaskContext } from "../context/TaskContext";
 import TaskCard from "./TaskCard";
 import Dialog from "./UI/Dialog";
 import TaskForm from "./UI/TaskForm";
+import Button from "./UI/Button";
 
 export default function TaskList() {
   const { allTasks, allTasksCount } = useContext(TaskContext);
@@ -18,9 +19,14 @@ export default function TaskList() {
   return (
     <section>
       {allTasksCount === 0 && (
-        <button type="button" onClick={handleToggleDialog}>
-          Add New Task
-        </button>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="flex flex-col items-center gap-3">
+            <h2>You do not have any task yet.</h2>
+            <Button type="button" onClick={handleToggleDialog}>
+              Start with adding one!
+            </Button>
+          </div>
+        </div>
       )}
       {allTasksCount > 0 &&
         allTasks.map((task) => {

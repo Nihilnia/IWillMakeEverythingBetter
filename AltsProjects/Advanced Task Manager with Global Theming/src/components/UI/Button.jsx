@@ -1,4 +1,4 @@
-export default function Button({ props, variation, children }) {
+export default function Button({ variation, children, ...props }) {
   let buttonClasses = "px-2 py-1 rounded";
 
   switch (variation) {

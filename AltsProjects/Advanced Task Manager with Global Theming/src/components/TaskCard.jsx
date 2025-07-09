@@ -1,25 +1,15 @@
-import { useContext } from "react";
-import { TaskContext } from "../context/TaskContext";
+import { useState } from "react";
+import Dialog from "./UI/Dialog";
+import TaskForm from "./UI/TaskForm";
 
 export default function TaskCard({ task }) {
   const { id, title, description, dueDate, priority, isCompleted } = task;
-  const { editTask, removeTask } = useContext(TaskContext);
+  const [isDialog, setIsDialog] = useState(false);
 
-  function handleTaskOp(e) {
-    const choice = e.target.name;
-    if (choice === "EDIT_TASK") {
-      const newDetails = {
-        title: "AAABBBCC",
-        description: "AAABBBCC",
-        dueDate: "0000-11-22",
-        priority: "higher",
-        isCompleted: true,
-      };
-
-      editTask(id, newDetails);
-    } else {
-      removeTask(id);
-    }
+  function handleToggleDialog() {
+    setIsDialog((prev) => {
+      return !prev;
+    });
   }
 
   return (
@@ -29,12 +19,21 @@ export default function TaskCard({ task }) {
       <h2>dueDate: {dueDate}</h2>
       <h2>priority: {priority}</h2>
       <h2>isCompleted: {isCompleted ? "y" : "n"}</h2>
-      <button onClick={handleTaskOp} type="button" name="REMOVE_TASK">
+      <button onClick={handleToggleDialog} type="button">
         Remove
       </button>
-      <button onClick={handleTaskOp} type="button" name="EDIT_TASK">
+      <button onClick={handleToggleDialog} type="button">
         Edit
       </button>
+      {isDialog && (
+        <Dialog>
+          <TaskForm
+            incomingTask={task}
+            buttonTitle={"Update Task"}
+            onHandleCloseDialog={handleToggleDialog}
+          />
+        </Dialog>
+      )}
     </div>
   );
 }

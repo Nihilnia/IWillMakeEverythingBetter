@@ -1,8 +1,8 @@
 import { useActionState, useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
 
-export default function TaskForm({ buttonTitle, onHandleCloseDialog }) {
-  const { addTask } = useContext(TaskContext);
+export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTask }) {
+  const { addTask, editTask } = useContext(TaskContext);
 
   function handleForm(prevFormSate, formData) {
     const title = formData.get("title");
@@ -34,7 +34,12 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog }) {
       };
     }
 
-    addTask(taskObj);
+    if (incomingTask) {
+      editTask(incomingTask.id, taskObj);
+    } else {
+      addTask(taskObj);
+    }
+
     onHandleCloseDialog();
   }
 
@@ -44,23 +49,36 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog }) {
     <form action={formAction}>
       <div>
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" defaultValue={formState.enteredValues?.title} />
+        <input
+          type="text"
+          name="title"
+          defaultValue={incomingTask ? incomingTask.title : formState.enteredValues?.title}
+        />
       </div>
       <div>
         <label htmlFor="description">Description:</label>
         <textarea
           type="text"
           name="description"
-          defaultValue={formState.enteredValues?.description}
+          defaultValue={
+            incomingTask ? incomingTask.description : formState.enteredValues?.description
+          }
         />
       </div>
       <div>
         <label htmlFor="dueDate">Due Date:</label>
-        <input type="date" name="dueDate" defaultValue={formState.enteredValues?.dueDate} />
+        <input
+          type="date"
+          name="dueDate"
+          defaultValue={incomingTask ? incomingTask.dueDate : formState.enteredValues?.dueDate}
+        />
       </div>
       <div>
         <label htmlFor="priority">Priority:</label>
-        <select name="priority" defaultValue={formState.enteredValues?.priority}>
+        <select
+          name="priority"
+          defaultValue={incomingTask ? incomingTask.priority : formState.enteredValues?.priority}
+        >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>

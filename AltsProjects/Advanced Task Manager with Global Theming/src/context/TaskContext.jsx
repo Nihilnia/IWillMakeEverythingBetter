@@ -38,7 +38,16 @@ function TaskCRUDReducer(state, action) {
 }
 
 export default function TaskContextProvider({ children }) {
-  const [allTasks, dispatch] = useReducer(TaskCRUDReducer, []);
+  const [allTasks, dispatch] = useReducer(TaskCRUDReducer, [
+    {
+      id: Math.random(),
+      title: "Task Number Zero",
+      description: "Lorem ipsum dolar si amet.",
+      dueDate: "00-11-2222",
+      priority: "medium",
+      isCompleted: false,
+    },
+  ]);
 
   function addTask(newTask) {
     dispatch({

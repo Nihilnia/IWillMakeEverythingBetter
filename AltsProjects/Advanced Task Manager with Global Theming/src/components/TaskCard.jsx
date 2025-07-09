@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import Dialog from "./UI/Dialog";
 import TaskForm from "./UI/TaskForm";
 import { TaskContext } from "../context/TaskContext";
+import Button from "./UI/Button";
 
 export default function TaskCard({ task }) {
   const { removeTask } = useContext(TaskContext);
@@ -22,29 +23,29 @@ export default function TaskCard({ task }) {
   }
 
   return (
-    <div>
+    <div className="border border-amber-300 w-fit px-3 py-2 rounded">
       <h2>Title: {title}</h2>
-      <h2>description: {description}</h2>
-      <h2>dueDate: {dueDate}</h2>
-      <h2>priority: {priority}</h2>
-      <h2>isCompleted: {isCompleted ? "y" : "n"}</h2>
-      <button onClick={handleToggleDialog} type="button" name="remove">
+      <h2>Description: {description}</h2>
+      <h2>Due Date: {dueDate}</h2>
+      <h2>Priority: {priority}</h2>
+      <h2>Status: {isCompleted ? "Completed" : "Waiting to complete"}</h2>
+      <Button onClick={handleToggleDialog} type="button" name="remove">
         Remove
-      </button>
-      <button onClick={handleToggleDialog} type="button" name="edit">
+      </Button>
+      <Button onClick={handleToggleDialog} type="button" name="edit">
         Edit
-      </button>
+      </Button>
       {openDialog && (
         <Dialog>
           {openDialog === "remove" ? (
             <div>
               <h2>Are you sure?</h2>
-              <button type="button" onClick={handleRemoveTask}>
+              <Button type="button" onClick={handleRemoveTask}>
                 Yes
-              </button>
-              <button type="button" onClick={handleToggleDialog}>
+              </Button>
+              <Button type="button" onClick={handleToggleDialog}>
                 Cancel
-              </button>
+              </Button>
             </div>
           ) : (
             <TaskForm

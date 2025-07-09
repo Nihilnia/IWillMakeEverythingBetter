@@ -1,25 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import TaskCard from "./TaskCard";
+import Dialog from "./UI/Dialog";
+import TaskForm from "./UI/TaskForm";
 
 export default function TaskList() {
-  const { allTasks, allTasksCount, addTask } = useContext(TaskContext);
+  const { allTasks, allTasksCount } = useContext(TaskContext);
 
-  function handleAddNewTask() {
-    const newTask = {
-      title: "Title_0",
-      description: "Desc_0",
-      priority: "Pri_0",
-      dueDate: "date_0",
-    };
+  const [isDialog, setIsDialog] = useState(false);
 
-    addTask(newTask);
+  function handleToggleDialog() {
+    setIsDialog((prev) => {
+      return !prev;
+    });
   }
 
   return (
     <section>
       {allTasksCount === 0 && (
-        <button type="button" onClick={handleAddNewTask}>
+        <button type="button" onClick={handleToggleDialog}>
           Add New Task
         </button>
       )}
@@ -27,6 +26,11 @@ export default function TaskList() {
         allTasks.map((task) => {
           return <TaskCard key={task.id} task={task} />;
         })}
+      {isDialog && (
+        <Dialog onHandleCloseDialog={handleToggleDialog}>
+          <TaskForm buttonTitle={"Add New Task"} onHandleCloseDialog={handleToggleDialog} />
+        </Dialog>
+      )}
     </section>
   );
 }

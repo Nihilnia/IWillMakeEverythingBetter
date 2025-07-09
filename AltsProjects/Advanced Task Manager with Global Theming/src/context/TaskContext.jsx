@@ -32,7 +32,7 @@ function TaskCRUDReducer(state, action) {
       });
 
       const taskWithNewDetails = {
-        ...foundTask,
+        id: id,
         ...newDetails,
       };
 

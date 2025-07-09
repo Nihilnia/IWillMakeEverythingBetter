@@ -11,6 +11,9 @@ export default function TaskForm({ operation, task, buttonTitle = "Add", onHandl
     const dueDate = formData.get("dueDate");
     const priority = formData.get("priority");
 
+    console.log("formData");
+    console.log(formData);
+
     const errors = [];
     if (title.length < 3) {
       errors.push("Title must contain at least three characters");
@@ -50,6 +53,7 @@ export default function TaskForm({ operation, task, buttonTitle = "Add", onHandl
       }
       case "REMOVE_TASK": {
         removeTask(task.id);
+        break;
       }
     }
 

@@ -4,8 +4,7 @@ import TaskForm from "./UI/TaskForm";
 import { TaskContext } from "../context/TaskContext";
 import Button from "./UI/Button";
 
-import { Pencil } from "lucide-react";
-import { X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 export default function TaskCard({ task }) {
   const { removeTask } = useContext(TaskContext);
@@ -34,20 +33,18 @@ export default function TaskCard({ task }) {
       onMouseLeave={() => {
         setIsHover(false);
       }}
-      className="border border-gray-300 w-fit px-3 py-2 rounded bg-gray-200 text-black shadow-amber-200"
+      className="flex flex-row items-center p-3 gap-20 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-200"
     >
-      <h2>Title: {title}</h2>
-      <h2>Description: {description}</h2>
-      <h2>Due Date: {dueDate}</h2>
-      <h2>Priority: {priority}</h2>
-      <h2>Status: {isCompleted ? "Completed" : "Waiting to complete"}</h2>
-
-      {isHover && (
-        <div className="flex flex-row gap-4 justify-end items-center ">
-          <X onClick={handleToggleDialog} size={20} data-icon-name="remove" />
-          <Pencil onClick={handleToggleDialog} size={15} data-icon-name="edit" />
-        </div>
-      )}
+      <div className="flex flex-row gap-3 items-center">
+        <input
+          type="checkbox"
+          className="appearance-none bg-transparent border border-white/30 checked:bg-blue-500 checked:border-blue-500 rounded-sm w-4 h-4 text-white focus:ring-blue-500 focus:ring-2"
+        />
+        <p>{title}</p>
+      </div>
+      <div>
+        <Trash2 className="h-4 w-4" />
+      </div>
 
       {openDialog && (
         <Dialog onHandleCloseDialog={handleToggleDialog}>

@@ -47,6 +47,14 @@ export default function TaskContextProvider({ children }) {
       priority: "medium",
       isCompleted: false,
     },
+    {
+      id: Math.random(),
+      title: "Task Number One",
+      description: "Lorem ipsum dolar si amet.",
+      dueDate: "00-11-2222",
+      priority: "medium",
+      isCompleted: false,
+    },
   ]);
 
   function addTask(newTask) {

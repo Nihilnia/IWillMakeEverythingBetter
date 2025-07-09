@@ -89,7 +89,7 @@ export default function TaskForm({ buttonTitle, onHandleCloseDialog, incomingTas
         </select>
       </div>
       <div className="flex justify-end gap-2">
-        <Button type="button" variation={"cancel"}>
+        <Button type="button" variation={"cancel"} onClick={onHandleCloseDialog}>
           Cancel
         </Button>
         <Button type="submit">{buttonTitle}</Button>

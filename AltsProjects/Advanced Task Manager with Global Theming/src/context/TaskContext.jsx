@@ -51,7 +51,7 @@ export default function TaskContextProvider({ children }) {
 
   function editTask(taskID, newDetails) {
     dispatch({
-      type: "ADD_TASK",
+      type: "EDIT_TASK",
       payload: {
         taskID,
         newDetails,
@@ -61,7 +61,7 @@ export default function TaskContextProvider({ children }) {
 
   function removeTask(taskID) {
     dispatch({
-      type: "ADD_TASK",
+      type: "REMOVE_TASK",
       payload: {
         taskID,
       },

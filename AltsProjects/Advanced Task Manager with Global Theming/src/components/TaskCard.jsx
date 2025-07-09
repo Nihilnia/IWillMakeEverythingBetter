@@ -4,25 +4,15 @@ import TaskForm from "./UI/TaskForm";
 import { TaskContext } from "../context/TaskContext";
 import Button from "./UI/Button";
 
-import { Trash2 } from "lucide-react";
+import { Trash, Edit3 } from "lucide-react";
 
-export default function TaskCard({ task }) {
+export default function TaskCard({ task, onHandeToggleDialog }) {
   const { removeTask } = useContext(TaskContext);
   const { id, title, description, dueDate, priority, isCompleted } = task;
-  const [openDialog, setOpenDialog] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
   function handleToggleDialog(e) {
-    if (e) {
-      setOpenDialog(e.currentTarget.dataset.iconName);
-    } else {
-      setOpenDialog(false);
-    }
-  }
-
-  function handleRemoveTask() {
-    removeTask(id);
-    setOpenDialog(false);
+    onHandeToggleDialog(e, task);
   }
 
   return (
@@ -43,8 +33,13 @@ export default function TaskCard({ task }) {
           />
           <p>{title}</p>
         </div>
-        <div>
-          <Trash2 className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <Trash
+            className="h-4 w-4 transform translate-y-[-0.5px]"
+            data-choice="remove"
+            onClick={handleToggleDialog}
+          />
+          <Edit3 className="h-4 w-4" data-choice="edit" onClick={handleToggleDialog} />
         </div>
       </div>
       {/* Details */}
@@ -54,27 +49,6 @@ export default function TaskCard({ task }) {
           <p className="text-sm">{dueDate}</p>
           <p className="text-sm">{priority}</p>
         </div>
-      )}
-      {openDialog && (
-        <Dialog onHandleCloseDialog={handleToggleDialog}>
-          {openDialog === "remove" ? (
-            <div>
-              <h2>Are you sure?</h2>
-              <Button type="button" onClick={handleRemoveTask}>
-                Yes
-              </Button>
-              <Button type="button" onClick={handleToggleDialog}>
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <TaskForm
-              incomingTask={task}
-              buttonTitle={"Update Task"}
-              onHandleCloseDialog={handleToggleDialog}
-            />
-          )}
-        </Dialog>
       )}
     </div>
   );

@@ -6,6 +6,8 @@ export const TaskContext = createContext({
   editTask: () => {},
   removeTask: () => {},
   allTasksCount: 0,
+  completedCount: 0,
+  waitingCount: 0,
 });
 
 function TaskCRUDReducer(state, action) {
@@ -91,6 +93,12 @@ export default function TaskContextProvider({ children }) {
     editTask,
     removeTask,
     allTasksCount: allTasks.length,
+    completedCount: allTasks.reduce((accumulator, currentValue) => {
+      return currentValue.isCompleted ? accumulator + 1 : accumulator;
+    }, 0),
+    waitingCount: allTasks.reduce((accumulator, currentValue) => {
+      return !currentValue.isCompleted ? accumulator + 1 : accumulator;
+    }, 0),
   };
 
   return <TaskContext.Provider value={ctxValues}>{children}</TaskContext.Provider>;

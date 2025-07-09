@@ -8,7 +8,7 @@ import Button from "./UI/Button";
 import { Plus } from "lucide-react";
 
 export default function TaskList() {
-  const { allTasks, allTasksCount } = useContext(TaskContext);
+  const { allTasks, allTasksCount, completedCount, waitingCount } = useContext(TaskContext);
 
   const [isDialog, setIsDialog] = useState(false);
 
@@ -27,7 +27,7 @@ export default function TaskList() {
           <TaskForm onHandleCloseDialog={handleToggleDialog} />
         </div>
       )}
-      <div class="backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl shadow-2xl p-6 flex flex-col gap-3">
+      <div className="backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl shadow-2xl p-6 flex flex-col gap-3">
         <div>
           <h2 class="text-3xl font-semibold">My Tasks</h2>
           <p>Stay organized and productive</p>
@@ -43,6 +43,11 @@ export default function TaskList() {
           allTasks.map((task) => {
             return <TaskCard key={task.id} task={task} />;
           })}
+        <div className="flex gap-10 mt-4">
+          <p className="text-sm">Tasks: {allTasksCount}</p>
+          <p className="text-sm">Completed: {completedCount}</p>
+          <p className="text-sm">Waiting: {waitingCount}</p>
+        </div>
       </div>
     </section>
   );

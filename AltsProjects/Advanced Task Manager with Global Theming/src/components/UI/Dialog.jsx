@@ -18,7 +18,7 @@ export default function Dialog({ children, onHandleCloseDialog }) {
     <dialog
       ref={refDialog}
       onClose={handleOnClose}
-      class="m-auto p-4 rounded-lg backdrop:bg-black/50"
+      className="m-auto p-4 rounded-lg backdrop:bg-black/50"
     >
       {children}
     </dialog>

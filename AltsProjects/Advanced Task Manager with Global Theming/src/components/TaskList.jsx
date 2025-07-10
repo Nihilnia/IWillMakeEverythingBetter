@@ -1,14 +1,19 @@
 import { useContext, useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import TaskCard from "./UI/TaskCard";
-import Button from "./UI/Button";
 import TaskForm from "./TaskForm";
-
-import { Plus } from "lucide-react";
 import Input from "./UI/Input";
 
+import { Plus } from "lucide-react";
+
+import UseAnimations from "react-useanimations";
+import activity from "react-useanimations/lib/activity";
+import loading from "react-useanimations/lib/loading";
+import arrowUp from "react-useanimations/lib/arrowUp";
+
 export default function TaskList() {
-  const { allTasks, addTask } = useContext(TaskContext);
+  const { allTasks, allTasksCount, completedTasksCount, waitingTasksCount } =
+    useContext(TaskContext);
   const [isDialog, setIsDialog] = useState(false);
 
   function handleToggleDialog(e, task) {
@@ -62,6 +67,22 @@ export default function TaskList() {
           {allTasks.map((task) => {
             return <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />;
           })}
+        </div>
+        <div className="text-amber-50">
+          <div className="flex flex-col justify-center items-center">
+            <UseAnimations animation={activity} size={30} strokeColor="white" />
+            <p>{allTasksCount} tasks total</p>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex flex-col items-center">
+              <UseAnimations animation={arrowUp} size={24} strokeColor="white" />
+              <p>Completed: {completedTasksCount}</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <UseAnimations animation={loading} size={24} strokeColor="white" />
+              <p>Waiting: {waitingTasksCount}</p>
+            </div>
+          </div>
         </div>
       </section>
       {isDialog?.op === "REMOVE_TASK" && (

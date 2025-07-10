@@ -11,6 +11,9 @@ import activity from "react-useanimations/lib/activity";
 import loading from "react-useanimations/lib/loading";
 import arrowUp from "react-useanimations/lib/arrowUp";
 
+import checkCheckIcon from "/icons/check-check.svg";
+import AnimatedSvg from "./animations/AnimatedSvg";
+
 export default function TaskList() {
   const { allTasks, allTasksCount, completedTasksCount, waitingTasksCount } =
     useContext(TaskContext);
@@ -75,7 +78,7 @@ export default function TaskList() {
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col items-center">
-              <UseAnimations animation={arrowUp} size={24} strokeColor="white" />
+              <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
               <p>Completed: {completedTasksCount}</p>
             </div>
             <div className="flex flex-col items-center">

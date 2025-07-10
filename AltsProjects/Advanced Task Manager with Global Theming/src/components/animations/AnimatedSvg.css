@@ -1,0 +1,81 @@
+.animated-svg {
+  /* Keep existing transition for general property changes if desired,
+     but the animation keyframes will largely override this for animated properties. */
+  /* transition: transform 0.5s ease-in-out; */
+}
+
+/* New Pulse and Sway Animation */
+@keyframes pulseSway {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8); /* Start slightly below, smaller, and invisible */
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* Fade in and scale up to normal size */
+  }
+  30% {
+    transform: translateX(-10px) scale(1.05); /* Sway left and slightly larger */
+  }
+  50% {
+    transform: translateX(10px) scale(1); /* Sway right and back to normal scale */
+  }
+  70% {
+    transform: translateX(-5px) scale(1.02); /* Sway slightly left again */
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* Return to original state before fading out */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8); /* Fade out, slightly above, and smaller */
+  }
+}
+
+.animated-svg.pulse-sway {
+  animation: pulseSway 6s ease-in-out infinite; /* Apply the new animation over a longer duration */
+}
+
+/* You can remove or keep previous animations (spin, fade-slide-loop) as needed */
+/* Existing spin animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animated-svg.spin {
+  animation: spin 4s linear infinite;
+}
+
+/* Existing fade-slide-loop animation */
+@keyframes fadeFromLeftToRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  25% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+.animated-svg.fade-slide-loop {
+  animation: fadeFromLeftToRight 4s ease-in-out infinite;
+}
+
+.filter-white-svg {
+  filter: brightness(0) invert(1);
+}

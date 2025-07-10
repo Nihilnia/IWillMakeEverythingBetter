@@ -1,11 +1,22 @@
-import { useActionState, useContext } from "react";
+import { useActionState, useContext, useEffect, useState } from "react";
 import Button from "./UI/Button";
 import { TaskContext } from "../context/TaskContext";
 import Input from "./UI/Input";
 import FormItemsWrapper from "./UI/FormItemsWrapper";
 
+import "./TaskForm.css";
+
 export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
   const { addTask, editTask, removeTask } = useContext(TaskContext);
+  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowForm(true);
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   let headline = null;
 
@@ -72,9 +83,9 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
   return (
     <form
       action={formAction}
-      className="
-      flex flex-col gap-4
-      backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl shadow-2xl p-6 text-red-50"
+      className={`flex flex-col gap-4 backdrop-blur-xl bg-white/10 border
+       border-white/30 rounded-2xl shadow-2xl p-6 text-red-50
+       fade-in-element ${showForm ? "is-visible" : ""}`}
     >
       <h1 className="text-xl font-bold text-white mb-2">{headline}</h1>
       <FormItemsWrapper>

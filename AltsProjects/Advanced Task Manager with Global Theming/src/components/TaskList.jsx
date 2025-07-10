@@ -64,7 +64,7 @@ export default function TaskList() {
             <h1 className="text-2xl font-bold text-white mb-2">My Tasks</h1>
             <p className="text-white/70 text-sm">Stay organized and productive</p>
             <div className="flex items-center gap-x-5 mt-4">
-              <Input onKeyDown={handleAddTask} />
+              <Input onKeyDown={handleAddTask} placeholder={"Add a new note.."} />
               <div
                 className="bg-white/10 bg-clip-padding backdrop-filter 
     backdrop-blur-md bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100

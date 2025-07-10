@@ -1,0 +1,8 @@
+.fade-in-element {
+  opacity: 0;
+  transition: opacity 0.5s ease-in; /* Transition the opacity over 0.5 seconds */
+}
+
+.fade-in-element.is-visible {
+  opacity: 1;
+}

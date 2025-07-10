@@ -22,9 +22,6 @@ export default function TaskList() {
     }
   }
 
-  console.log("isDialog");
-  console.log(isDialog);
-
   return (
     <section className="flex gap-6">
       {isDialog === "add" && (

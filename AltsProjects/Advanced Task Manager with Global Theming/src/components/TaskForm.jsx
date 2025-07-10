@@ -69,9 +69,6 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
 
   const [formState, formAction, pending] = useActionState(handleForm, { errors: null });
 
-  console.log("formState");
-  console.log(formState);
-
   return (
     <form
       action={formAction}
@@ -108,7 +105,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
         />
       </FormItemsWrapper>
       <FormItemsWrapper>
-        <label htmlFor="priority">priority</label>
+        <label htmlFor="priority">Priority</label>
         <select
           name="priority"
           defaultValue={taskToEdit ? taskToEdit.priority : formState.enteredValues?.priority}

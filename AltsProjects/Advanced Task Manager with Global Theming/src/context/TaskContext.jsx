@@ -41,27 +41,27 @@ export default function TaskContextProvider({ children }) {
   const [allTasks, dispatch] = useReducer(TaskCRUDReducer, [
     {
       id: Math.random(),
-      title: "taskZero",
-      description: "Lorem ipsum dolar si amet",
-      dueDate: "11-22-3333",
-      priority: 1,
+      title: "Water the plants",
+      description: "Remember to water all indoor and outdoor plants, especially the basil.",
+      dueDate: "2025-07-10",
+      priority: 1, // High priority for daily tasks
       isCompleted: false,
     },
     {
       id: Math.random(),
-      title: "taskOne",
-      description: "Lorem ipsum dolar si amet",
-      dueDate: "22-33-4444",
-      priority: 2,
+      title: "Prepare dinner",
+      description: "Plan for a quick and healthy meal, perhaps pasta with vegetables.",
+      dueDate: "2025-07-10",
+      priority: 2, // Medium priority
+      isCompleted: false,
+    },
+    {
+      id: Math.random(),
+      title: "Check emails",
+      description: "Go through work and personal emails. Respond to urgent ones.",
+      dueDate: "2025-07-10",
+      priority: 3, // Lower priority, but still daily
       isCompleted: true,
-    },
-    {
-      id: Math.random(),
-      title: "taskTwo",
-      description: "Lorem ipsum dolar si amet",
-      dueDate: "33-44-5555",
-      priority: 3,
-      isCompleted: false,
     },
   ]);
 

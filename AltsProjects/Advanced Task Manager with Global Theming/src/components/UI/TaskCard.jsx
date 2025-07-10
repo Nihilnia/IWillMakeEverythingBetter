@@ -1,14 +1,11 @@
-import { useContext, useState } from "react";
-import Button from "./Button";
+import { useContext } from "react";
 
 import { Trash2, Pencil } from "lucide-react";
 import { TaskContext } from "../../context/TaskContext";
 
 export default function TaskCard({ task, onHandleCloseDialog }) {
-  const { id, title, description, dueDate, priority, isCompleted } = task;
+  const { id, title, isCompleted } = task;
   const { editTask } = useContext(TaskContext);
-
-  const [isHover, setIsHover] = useState(false);
 
   function handleClick(e) {
     onHandleCloseDialog(e, task);
@@ -20,9 +17,6 @@ export default function TaskCard({ task, onHandleCloseDialog }) {
       isCompleted: !task.isCompleted,
     });
   }
-
-  console.log("task");
-  console.log(task);
 
   return (
     <div
@@ -36,11 +30,16 @@ export default function TaskCard({ task, onHandleCloseDialog }) {
         <div className="flex items-center gap-x-2">
           <input
             type="checkbox"
-            defaultChecked={isCompleted}
-            onClick={handleToggleCompleted}
+            checked={isCompleted}
+            onChange={handleToggleCompleted}
             className="appearance-none border border-amber-50 rounded-sm w-4 h-4 checked:bg-blue-500 checked:border-transparent focus:outline-none"
           />
-          <p className={isCompleted && "line-through"}>{title}</p>
+          <p
+            className={`hover:cursor-pointer ${isCompleted && "line-through"}`}
+            onClick={handleToggleCompleted}
+          >
+            {title}
+          </p>
         </div>
 
         <div className="flex gap-x-1">
@@ -48,14 +47,6 @@ export default function TaskCard({ task, onHandleCloseDialog }) {
           <Trash2 data-op-name="REMOVE_TASK" onClick={handleClick} className="h-4 w-4" />
         </div>
       </div>
-      {isHover && (
-        <div>
-          <p>{description}</p>
-          <p>{dueDate}</p>
-          <p>{priority}</p>
-          <p>{isCompleted}</p>
-        </div>
-      )}
     </div>
   );
 }

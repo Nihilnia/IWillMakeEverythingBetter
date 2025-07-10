@@ -21,7 +21,7 @@ function TaskCRUDReducer(state, action) {
 
     case "EDIT_TASK": {
       return state.map((task) => {
-        return task.id === taskID ? { id: taskID, ...newTaskDetails } : task;
+        return task.id === taskID ? { ...task, ...newTaskDetails } : task;
       });
     }
 

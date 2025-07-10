@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./Button";
 
 import { Trash2, Pencil } from "lucide-react";
+import { TaskContext } from "../../context/TaskContext";
 
 export default function TaskCard({ task, onHandleCloseDialog }) {
   const { id, title, description, dueDate, priority, isCompleted } = task;
+  const { editTask } = useContext(TaskContext);
 
   const [isHover, setIsHover] = useState(false);
 
   function handleClick(e) {
     onHandleCloseDialog(e, task);
   }
+
+  function handleToggleCompleted() {
+    editTask(id, {
+      ...task,
+      isCompleted: !task.isCompleted,
+    });
+  }
+
+  console.log("task");
+  console.log(task);
 
   return (
     <div
@@ -25,6 +37,7 @@ export default function TaskCard({ task, onHandleCloseDialog }) {
           <input
             type="checkbox"
             defaultChecked={isCompleted}
+            onClick={handleToggleCompleted}
             className="appearance-none border border-amber-50 rounded-sm w-4 h-4 checked:bg-blue-500 checked:border-transparent focus:outline-none"
           />
           <p className={isCompleted && "line-through"}>{title}</p>

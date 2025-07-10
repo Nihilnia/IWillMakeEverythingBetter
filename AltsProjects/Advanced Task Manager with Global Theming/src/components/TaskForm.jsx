@@ -31,8 +31,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
     const priority = formData.get("priority");
 
     const errors = [];
-    if (title.length < 3) errors.push("Title must contain at least three characters");
-    if (description.length < 6) errors.push("Description must contain at least three characters");
+    if (title.length < 1) errors.push("Title is missing.");
 
     const taskObj = {
       title,
@@ -69,6 +68,9 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
   }
 
   const [formState, formAction, pending] = useActionState(handleForm, { errors: null });
+
+  console.log("formState");
+  console.log(formState);
 
   return (
     <form
@@ -125,9 +127,9 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
         <Button title={"Yes"} type={"submit"} />
       </div>
       {formState.errors && (
-        <ul>
+        <ul className="flex justify-end text-rose-600">
           {formState.errors.map((err) => {
-            <li key={err}>{err}</li>;
+            return <li key={err}>{err}</li>;
           })}
         </ul>
       )}

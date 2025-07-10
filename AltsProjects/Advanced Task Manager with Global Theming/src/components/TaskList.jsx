@@ -15,7 +15,7 @@ import checkCheckIcon from "/icons/check-check.svg";
 import AnimatedSvg from "./animations/AnimatedSvg";
 
 export default function TaskList() {
-  const { allTasks, allTasksCount, completedTasksCount, waitingTasksCount } =
+  const { allTasks, addTask, allTasksCount, completedTasksCount, waitingTasksCount } =
     useContext(TaskContext);
   const [isDialog, setIsDialog] = useState(false);
 
@@ -39,6 +39,14 @@ export default function TaskList() {
     }
   }
 
+  function handleAddTask(e) {
+    if (e.key === "Enter") {
+      addTask({
+        title: e.target.value,
+      });
+    }
+  }
+
   return (
     <div className="flex items-center justify-center h-screen gap-x-8">
       {isDialog?.op === "EDIT_TASK" && (
@@ -56,7 +64,7 @@ export default function TaskList() {
             <h1 className="text-2xl font-bold text-white mb-2">My Tasks</h1>
             <p className="text-white/70 text-sm">Stay organized and productive</p>
             <div className="flex items-center gap-x-5 mt-4">
-              <Input />
+              <Input onKeyDown={handleAddTask} />
               <div
                 className="bg-white/10 bg-clip-padding backdrop-filter 
     backdrop-blur-md bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100

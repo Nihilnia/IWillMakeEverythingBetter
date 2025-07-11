@@ -74,7 +74,7 @@ export default function TaskList() {
 
   return (
     <div
-      className={`flex h-screen items-center justify-center gap-x-8 ${isMount ? "pump-effect" : ""}`}
+      className={`flex max-w-[90%]  flex-col lg:flex-row items-center justify-center gap-x-8 gap-y-4 ${isMount ? "pump-effect" : ""}`}
     >
       {isDialog?.op === "EDIT_TASK" && (
         <section className="flex flex-col items-center justify-center">
@@ -85,13 +85,17 @@ export default function TaskList() {
           />
         </section>
       )}
-      <section className="rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
+      <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
         <div className="flex flex-col gap-4 p-4">
           <div>
             <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
             <p className="text-sm text-white/70">Stay organized and productive</p>
             <div className="mt-4 flex items-center gap-x-5">
-              <Input onKeyDown={handleAddTask} placeholder={"Add a new note.."} />
+              <Input
+                onKeyDown={handleAddTask}
+                placeholder={"Add a new note.."}
+                className="flex-1 min-w-0"
+              />
               <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
                 <Plus />
               </div>
@@ -119,7 +123,7 @@ export default function TaskList() {
         </div>
       </section>
       {isDialog?.op === "REMOVE_TASK" && (
-        <section className="">
+        <section>
           <TaskForm
             onHandleCloseDialog={handleToggleDialog}
             taskToEdit={isDialog?.task}

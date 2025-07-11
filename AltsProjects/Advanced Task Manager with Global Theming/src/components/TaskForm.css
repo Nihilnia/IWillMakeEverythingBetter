@@ -6,3 +6,8 @@
 .fade-in-element.is-visible {
   opacity: 1;
 }
+
+.fade-out-element {
+  opacity: 0; 
+  transition: opacity 0.5s ease-out; 
+}

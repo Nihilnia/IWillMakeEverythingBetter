@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import TaskCard from "./UI/TaskCard";
 import TaskForm from "./TaskForm";
@@ -6,10 +6,11 @@ import Input from "./UI/Input";
 
 import { Plus } from "lucide-react";
 
+import "./TaskList.css";
+
 import UseAnimations from "react-useanimations";
 import activity from "react-useanimations/lib/activity";
 import loading from "react-useanimations/lib/loading";
-import arrowUp from "react-useanimations/lib/arrowUp";
 
 import checkCheckIcon from "/icons/check-check.svg";
 import AnimatedSvg from "./animations/AnimatedSvg";
@@ -18,25 +19,49 @@ export default function TaskList() {
   const { allTasks, addTask, allTasksCount, completedTasksCount, waitingTasksCount } =
     useContext(TaskContext);
   const [isDialog, setIsDialog] = useState(false);
+  const [isMount, setIsMount] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsMount(true);
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      setIsMount(false);
+    };
+  }, [isDialog]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsMount(true);
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      setIsMount(false);
+    };
+  }, [allTasks]);
 
   function handleToggleDialog(e, task) {
     const op = e?.currentTarget.dataset.opName;
 
-    //User want to make change on a task, not adding op
-    if (task) {
-      setIsDialog({
+    //If same task selected do not update the dialog; but if different op selected then update
+    setIsDialog(() => {
+      if (task === isDialog.task) {
+        if (op !== isDialog.op) {
+          return {
+            op,
+            task,
+          };
+        }
+        return isDialog;
+      }
+      return {
         op,
         task,
-      });
-    } else if (op) {
-      setIsDialog({
-        op,
-      });
-    } else {
-      setIsDialog((prev) => {
-        return !prev;
-      });
-    }
+      };
+    });
   }
 
   function handleAddTask(e) {
@@ -48,7 +73,9 @@ export default function TaskList() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen gap-x-8">
+    <div
+      className={`flex h-screen items-center justify-center gap-x-8 ${isMount ? "pump-effect" : ""}`}
+    >
       {isDialog?.op === "EDIT_TASK" && (
         <section className="flex flex-col items-center justify-center">
           <TaskForm
@@ -58,19 +85,14 @@ export default function TaskList() {
           />
         </section>
       )}
-      <section className="backdrop-blur-xl bg-white/10 border border-white/30 rounded-2xl shadow-2xl p-6">
+      <section className="rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
         <div className="flex flex-col gap-4 p-4">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-2">My Tasks</h1>
-            <p className="text-white/70 text-sm">Stay organized and productive</p>
-            <div className="flex items-center gap-x-5 mt-4">
+            <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
+            <p className="text-sm text-white/70">Stay organized and productive</p>
+            <div className="mt-4 flex items-center gap-x-5">
               <Input onKeyDown={handleAddTask} placeholder={"Add a new note.."} />
-              <div
-                className="bg-white/10 bg-clip-padding backdrop-filter 
-    backdrop-blur-md bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100
-    rounded-lg
-    p-2 text-amber-50"
-              >
+              <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
                 <Plus />
               </div>
             </div>
@@ -80,7 +102,7 @@ export default function TaskList() {
           })}
         </div>
         <div className="text-amber-50">
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col items-center justify-center">
             <UseAnimations animation={activity} size={30} strokeColor="white" />
             <p>{allTasksCount} tasks total</p>
           </div>

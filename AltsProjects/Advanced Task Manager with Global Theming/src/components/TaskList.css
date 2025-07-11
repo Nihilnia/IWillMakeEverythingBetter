@@ -1,0 +1,19 @@
+/* TaskList.css */
+
+/* ... existing styles like .shake-effect ... */
+
+.pump-effect {
+  animation: pump 0.3s ease-out; /* Adjust duration as needed */
+}
+
+@keyframes pump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05); /* Scales up to 105% of its size */
+  }
+  100% {
+    transform: scale(1);
+  }
+}

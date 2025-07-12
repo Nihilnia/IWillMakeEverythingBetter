@@ -21,6 +21,8 @@ export default function TaskList() {
   const [isDialog, setIsDialog] = useState(false);
   const [isMount, setIsMount] = useState(false);
 
+  const [newNote, setNewNote] = useState("");
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsMount(true);
@@ -65,9 +67,20 @@ export default function TaskList() {
   }
 
   function handleAddTask(e) {
-    if (e.key === "Enter") {
+    const enteredValue = e.target.value;
+
+    if (enteredValue) {
+      setNewNote(enteredValue);
+
+      if (e.key === "Enter" && enteredValue.length > 0) {
+        addTask({
+          title: enteredValue,
+        });
+        setNewNote("");
+      }
+    } else if (newNote.length > 0) {
       addTask({
-        title: e.target.value,
+        title: newNote,
       });
     }
   }
@@ -94,10 +107,12 @@ export default function TaskList() {
               <Input
                 onKeyDown={handleAddTask}
                 placeholder={"Add a new note.."}
-                className="flex-1 min-w-0"
+                className="min-w-0 flex-1"
+                value={newNote}
+                onChange={handleAddTask}
               />
               <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
-                <Plus />
+                <Plus className="cursor-pointer" onClick={handleAddTask} data-op-name="ADD_TASK" />
               </div>
             </div>
           </div>

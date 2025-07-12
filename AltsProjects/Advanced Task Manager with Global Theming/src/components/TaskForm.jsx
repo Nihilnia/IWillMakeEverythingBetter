@@ -22,7 +22,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
   }, []);
 
   useEffect(() => {
-    setCurrentTask(taskToEdit);
+    if (taskToEdit) setCurrentTask(taskToEdit);
   }, [taskToEdit]);
 
   let headline = null;
@@ -113,7 +113,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
         />
       </FormItemsWrapper>
       <FormItemsWrapper>
-        <label htmlFor="description">Title</label>
+        <label htmlFor="description">Description</label>
         <textarea
           name="description"
           className="w-full rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
@@ -134,7 +134,12 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
         <label htmlFor="priority">Priority</label>
         <select
           name="priority"
-          defaultValue={currentTask ? currentTask.priority : formState.enteredValues?.priority}
+          value={currentTask ? currentTask.priority : formState.enteredValues?.priority}
+          onChange={(e) => {
+            setCurrentTask((prev) => {
+              return { ...(prev || {}), priority: e.target.value };
+            });
+          }}
           className="w-full rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter"
         >
           <option value="low">Low</option>

@@ -44,7 +44,7 @@ export default function TaskContextProvider({ children }) {
       title: "Water the plants",
       description: "Remember to water all indoor and outdoor plants, especially the basil.",
       dueDate: "2025-07-10",
-      priority: 1, // High priority for daily tasks
+      priority: "low",
       isCompleted: false,
     },
     {
@@ -52,7 +52,7 @@ export default function TaskContextProvider({ children }) {
       title: "Prepare dinner",
       description: "Plan for a quick and healthy meal, perhaps pasta with vegetables.",
       dueDate: "2025-07-10",
-      priority: 2, // Medium priority
+      priority: "medium",
       isCompleted: false,
     },
     {
@@ -60,7 +60,7 @@ export default function TaskContextProvider({ children }) {
       title: "Check emails",
       description: "Go through work and personal emails. Respond to urgent ones.",
       dueDate: "2025-07-10",
-      priority: 3, // Lower priority, but still daily
+      priority: "high",
       isCompleted: true,
     },
   ]);
@@ -92,6 +92,9 @@ export default function TaskContextProvider({ children }) {
       },
     });
   }
+
+  console.log("allTasks");
+  console.log(allTasks);
 
   const ctxValues = {
     allTasks,

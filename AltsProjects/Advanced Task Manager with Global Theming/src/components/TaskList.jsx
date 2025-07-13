@@ -87,7 +87,7 @@ export default function TaskList() {
 
   return (
     <div
-      className={`flex max-w-[90%]  flex-col lg:flex-row items-center justify-center gap-x-8 gap-y-4 ${isMount ? "pump-effect" : ""}`}
+      className={`flex max-w-[90%] flex-col items-center justify-center gap-x-8 gap-y-4 lg:flex-row ${isMount ? "pump-effect" : ""}`}
     >
       {isDialog?.op === "EDIT_TASK" && (
         <section className="flex flex-col items-center justify-center">

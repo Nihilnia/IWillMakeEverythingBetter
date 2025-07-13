@@ -2,6 +2,7 @@ import TaskList from "./components/TaskList";
 import TaskContextProvider from "./context/TaskContext";
 
 import "./app.css";
+import Utilities from "./components/Utilities";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
     >
       <TaskContextProvider>
         <TaskList />
+        <Utilities />
       </TaskContextProvider>
     </section>
   );

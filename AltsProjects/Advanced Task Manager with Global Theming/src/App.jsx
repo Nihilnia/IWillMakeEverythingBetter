@@ -1,10 +1,10 @@
-import TaskList from "./components/TaskList";
 import TaskContextProvider from "./context/TaskContext";
 
 import "./app.css";
 import DynamicGradient from "./components/utilities/DynamicGradient";
 import { useState } from "react";
 import DynamicBGImage from "./components/utilities/DynamicBGImage";
+import TaskPage from "./pages/TaskPage";
 
 export default function App() {
   const [isGradientBackground, setIsGradientBackground] = useState(true);
@@ -45,7 +45,7 @@ export default function App() {
       style={gradientOrImage}
     >
       <TaskContextProvider>
-        <TaskList />
+        <TaskPage />
         <div className="flex flex-col gap-y-1 absolute bottom-2 right-2">
           <DynamicGradient onHandleNewColors={handleNewColors} />
           <DynamicBGImage onHandleUploadedImage={HandleUploadedImage} />

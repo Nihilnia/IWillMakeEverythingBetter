@@ -1,232 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { TaskContext } from "../context/TaskContext";
-import TaskCard from "./UI/TaskCard";
-import TaskForm from "./TaskForm";
-import Input from "./UI/Input";
-
-import { Plus } from "lucide-react";
-
 import "./TaskList.css";
 
-import UseAnimations from "react-useanimations";
-import activity from "react-useanimations/lib/activity";
-import loading from "react-useanimations/lib/loading";
+import NewTask from "./NewTask";
+import TaskCard from "./UI/TaskCard";
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
+import TaskStatistics from "./TaskStatistics";
 
-import checkCheckIcon from "/icons/check-check.svg";
-import AnimatedSvg from "./animations/AnimatedSvg";
-
-export default function TaskList() {
-  const { allTasks, addTask, allTasksCount, completedTasksCount, waitingTasksCount } =
-    useContext(TaskContext);
-  const [isDialog, setIsDialog] = useState(false);
-  const [isMount, setIsMount] = useState(false);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-
-  const [newNote, setNewNote] = useState("");
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsMount(true);
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-      setIsMount(false);
-    };
-  }, [isDialog]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsMount(true);
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-      setIsMount(false);
-    };
-  }, [allTasks]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 64rem)"); // 1024px
-
-    const handleScreenChange = (e) => {
-      setIsLargeScreen(e.matches);
-    };
-
-    // Set initial state
-    setIsLargeScreen(mediaQuery.matches);
-
-    // Listen for changes
-    mediaQuery.addEventListener("change", handleScreenChange);
-
-    // Clean up event listener on component unmount
-    return () => {
-      mediaQuery.removeEventListener("change", handleScreenChange);
-    };
-  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
-
-  function handleToggleDialog(e, task) {
-    const op = e?.currentTarget.dataset.opName;
-
-    //If same task selected do not update the dialog; but if different op selected then update
-    setIsDialog(() => {
-      if (task === isDialog.task) {
-        if (op !== isDialog.op) {
-          return {
-            op,
-            task,
-          };
-        }
-        return isDialog;
-      } else if (task) {
-        return {
-          op,
-          task,
-        };
-      } else {
-        return false;
-      }
-    });
-  }
-
-  console.log("isDialog");
-  console.log(isDialog);
-
-  function handleAddTask(e) {
-    const enteredValue = e.target.value;
-
-    if (enteredValue) {
-      setNewNote(enteredValue);
-
-      if (e.key === "Enter" && enteredValue.length > 0) {
-        addTask({
-          title: enteredValue,
-        });
-        setNewNote("");
-      }
-    } else if (newNote.length > 0) {
-      addTask({
-        title: newNote,
-      });
-    }
-  }
+export default function TaskList({ onHandleToggleDialog }) {
+  const { allTasks } = useContext(TaskContext);
 
   return (
-    <div
-      className={`flex max-w-[90%] flex-col items-center justify-center gap-x-8 gap-y-4 lg:flex-row ${isMount ? "pump-effect" : ""}`}
-    >
-      {isDialog?.op === "EDIT_TASK" && (
-        <section className="flex flex-col items-center justify-center">
-          <TaskForm
-            onHandleCloseDialog={handleToggleDialog}
-            taskToEdit={isDialog?.task}
-            op={isDialog.op}
-          />
-        </section>
-      )}
-      {!isLargeScreen && !isDialog ? (
-        <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col gap-4 p-4">
-            <div>
-              <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
-              <p className="text-sm text-white/70">Stay organized and productive</p>
-              <div className="mt-4 flex items-center gap-x-5">
-                <Input
-                  onKeyDown={handleAddTask}
-                  placeholder={"Add a new note.."}
-                  className="min-w-0 flex-1"
-                  value={newNote}
-                  onChange={handleAddTask}
-                />
-                <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
-                  <Plus
-                    className="cursor-pointer"
-                    onClick={handleAddTask}
-                    data-op-name="ADD_TASK"
-                  />
-                </div>
-              </div>
-            </div>
-            {allTasks.map((task) => {
-              return (
-                <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />
-              );
-            })}
-          </div>
-          <div className="text-amber-50 m-4">
-            <div className="flex flex-col items-center justify-center">
-              <UseAnimations animation={activity} size={30} strokeColor="white" />
-              <p>{allTasksCount} tasks total</p>
-            </div>
-            <div className="flex justify-between">
-              <div className="flex flex-col items-center">
-                <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
-                <p>Completed: {completedTasksCount}</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <UseAnimations animation={loading} size={24} strokeColor="white" />
-                <p>Waiting: {waitingTasksCount}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
-      {isLargeScreen && (
-        <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col gap-4 p-4">
-            <div>
-              <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
-              <p className="text-sm text-white/70">Stay organized and productive</p>
-              <div className="mt-4 flex items-center gap-x-5">
-                <Input
-                  onKeyDown={handleAddTask}
-                  placeholder={"Add a new note.."}
-                  className="min-w-0 flex-1"
-                  value={newNote}
-                  onChange={handleAddTask}
-                />
-                <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
-                  <Plus
-                    className="cursor-pointer"
-                    onClick={handleAddTask}
-                    data-op-name="ADD_TASK"
-                  />
-                </div>
-              </div>
-            </div>
-            {allTasks.map((task) => {
-              return (
-                <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />
-              );
-            })}
-          </div>
-          <div className="text-amber-50 m-4">
-            <div className="flex flex-col items-center justify-center">
-              <UseAnimations animation={activity} size={30} strokeColor="white" />
-              <p>{allTasksCount} tasks total</p>
-            </div>
-            <div className="flex justify-between">
-              <div className="flex flex-col items-center">
-                <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
-                <p>Completed: {completedTasksCount}</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <UseAnimations animation={loading} size={24} strokeColor="white" />
-                <p>Waiting: {waitingTasksCount}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-      {isDialog?.op === "REMOVE_TASK" && (
-        <section>
-          <TaskForm
-            onHandleCloseDialog={handleToggleDialog}
-            taskToEdit={isDialog?.task}
-            op={isDialog.op}
-          />
-        </section>
-      )}
-    </div>
+    <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
+      <div className="flex flex-col gap-4 p-4">
+        <div>
+          <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
+          <p className="text-sm text-white/70">Stay organized and productive</p>
+          <NewTask />
+        </div>
+        {allTasks.map((task) => {
+          return <TaskCard key={task.id} task={task} onHandleCloseDialog={onHandleToggleDialog} />;
+        })}
+      </div>
+      <TaskStatistics />
+    </section>
   );
 }

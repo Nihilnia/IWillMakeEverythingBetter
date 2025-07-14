@@ -3,12 +3,12 @@ import { useContext } from "react";
 import { Trash2, Pencil } from "lucide-react";
 import { TaskContext } from "../../context/TaskContext";
 
-export default function TaskCard({ task, onHandleCloseDialog }) {
+export default function TaskCard({ task }) {
   const { id, title, isCompleted } = task;
-  const { editTask } = useContext(TaskContext);
+  const { editTask, handleSetDialog } = useContext(TaskContext);
 
   function handleClick(e) {
-    onHandleCloseDialog(e, task);
+    handleSetDialog(e, task);
   }
 
   function handleToggleCompleted() {

@@ -6,11 +6,10 @@ import FormItemsWrapper from "./UI/FormItemsWrapper";
 
 import "./TaskForm.css";
 
-export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
-  const { addTask, editTask, removeTask } = useContext(TaskContext);
+export default function TaskForm({ taskToEdit, op }) {
+  const { addTask, editTask, removeTask, handleSetDialog } = useContext(TaskContext);
   const [showForm, setShowForm] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
-
   const [currentTask, setCurrentTask] = useState(null);
 
   useEffect(() => {
@@ -48,7 +47,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
 
   function handleTransitionEnd() {
     if (isExiting) {
-      onHandleCloseDialog();
+      handleSetDialog();
     }
   }
 
@@ -91,7 +90,7 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
       }
     }
 
-    onHandleCloseDialog();
+    handleSetDialog();
     return { errors: null };
   }
 

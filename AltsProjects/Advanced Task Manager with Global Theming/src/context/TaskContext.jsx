@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const TaskContext = createContext({
   allTasks: [],
@@ -8,6 +8,8 @@ export const TaskContext = createContext({
   allTasksCount: 0,
   completedTasksCount: 0,
   waitingTasksCount: 0,
+  dialog: false,
+  handleSetDialog: () => {},
 });
 
 function TaskCRUDReducer(state, action) {
@@ -65,6 +67,34 @@ export default function TaskContextProvider({ children }) {
     },
   ]);
 
+  const [dialog, setDialog] = useState(false);
+
+  console.log("dialog");
+  console.log(dialog);
+
+  function handleSetDialog(e, task) {
+    const op = e?.currentTarget.dataset.opName;
+
+    setDialog(() => {
+      if (task === dialog.task) {
+        if (op !== dialog.op) {
+          return {
+            op,
+            task,
+          };
+        }
+        return dialog;
+      } else if (task) {
+        return {
+          op,
+          task,
+        };
+      } else {
+        return false;
+      }
+    });
+  }
+
   function addTask(newTaskDetails) {
     dispatch({
       type: "ADD_TASK",
@@ -93,9 +123,6 @@ export default function TaskContextProvider({ children }) {
     });
   }
 
-  console.log("allTasks");
-  console.log(allTasks);
-
   const ctxValues = {
     allTasks,
     addTask,
@@ -108,6 +135,8 @@ export default function TaskContextProvider({ children }) {
     waitingTasksCount: allTasks.reduce((accumulator, currentItem) => {
       return !currentItem.isCompleted ? accumulator + 1 : accumulator;
     }, 0),
+    dialog: dialog,
+    handleSetDialog: handleSetDialog,
   };
 
   return <TaskContext.Provider value={ctxValues}>{children}</TaskContext.Provider>;

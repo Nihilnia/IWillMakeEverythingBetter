@@ -6,8 +6,8 @@ import { useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
 import TaskStatistics from "./TaskStatistics";
 
-export default function TaskList({ onHandleToggleDialog }) {
-  const { allTasks } = useContext(TaskContext);
+export default function TaskList() {
+  const { allTasks, handleSetDialog } = useContext(TaskContext);
 
   return (
     <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
@@ -18,7 +18,7 @@ export default function TaskList({ onHandleToggleDialog }) {
           <NewTask />
         </div>
         {allTasks.map((task) => {
-          return <TaskCard key={task.id} task={task} onHandleCloseDialog={onHandleToggleDialog} />;
+          return <TaskCard key={task.id} task={task} onHandleCloseDialog={handleSetDialog} />;
         })}
       </div>
       <TaskStatistics />

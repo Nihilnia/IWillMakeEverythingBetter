@@ -6,9 +6,8 @@ import TaskForm from "../components/TaskForm";
 import TaskList from "../components/TaskList";
 
 export default function TaskPage() {
-  const { allTasks } = useContext(TaskContext);
+  const { allTasks, dialog } = useContext(TaskContext);
 
-  const [isDialog, setIsDialog] = useState(false);
   const [isMount, setIsMount] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
@@ -21,7 +20,7 @@ export default function TaskPage() {
       clearTimeout(timer);
       setIsMount(false);
     };
-  }, [isDialog]);
+  }, [dialog]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,54 +52,14 @@ export default function TaskPage() {
     };
   }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
 
-  function handleToggleDialog(e, task) {
-    const op = e?.currentTarget.dataset.opName;
-
-    //If same task selected do not update the dialog; but if different op selected then update
-    setIsDialog(() => {
-      if (task === isDialog.task) {
-        if (op !== isDialog.op) {
-          return {
-            op,
-            task,
-          };
-        }
-        return isDialog;
-      } else if (task) {
-        return {
-          op,
-          task,
-        };
-      } else {
-        return false;
-      }
-    });
-  }
-
   return (
     <div
       className={`flex max-w-[90%] flex-col items-center justify-center gap-x-8 gap-y-4 lg:flex-row ${isMount ? "pump-effect" : ""}`}
     >
-      {isDialog?.op === "EDIT_TASK" && (
-        <section className="flex flex-col items-center justify-center">
-          <TaskForm
-            onHandleCloseDialog={handleToggleDialog}
-            taskToEdit={isDialog?.task}
-            op={isDialog.op}
-          />
-        </section>
-      )}
-      {!isLargeScreen && !isDialog ? <TaskList onHandleToggleDialog={handleToggleDialog} /> : null}
-      {isLargeScreen && <TaskList onHandleToggleDialog={handleToggleDialog} />}
-      {isDialog?.op === "REMOVE_TASK" && (
-        <section>
-          <TaskForm
-            onHandleCloseDialog={handleToggleDialog}
-            taskToEdit={isDialog?.task}
-            op={isDialog.op}
-          />
-        </section>
-      )}
+      {dialog?.op === "EDIT_TASK" && <TaskForm taskToEdit={dialog?.task} op={dialog.op} />}
+      {!isLargeScreen && !dialog ? <TaskList /> : null}
+      {isLargeScreen && <TaskList />}
+      {dialog?.op === "REMOVE_TASK" && <TaskForm taskToEdit={dialog?.task} op={dialog.op} />}
     </div>
   );
 }

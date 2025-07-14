@@ -20,6 +20,7 @@ export default function TaskList() {
     useContext(TaskContext);
   const [isDialog, setIsDialog] = useState(false);
   const [isMount, setIsMount] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const [newNote, setNewNote] = useState("");
 
@@ -45,6 +46,25 @@ export default function TaskList() {
     };
   }, [allTasks]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 64rem)"); // 1024px
+
+    const handleScreenChange = (e) => {
+      setIsLargeScreen(e.matches);
+    };
+
+    // Set initial state
+    setIsLargeScreen(mediaQuery.matches);
+
+    // Listen for changes
+    mediaQuery.addEventListener("change", handleScreenChange);
+
+    // Clean up event listener on component unmount
+    return () => {
+      mediaQuery.removeEventListener("change", handleScreenChange);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
+
   function handleToggleDialog(e, task) {
     const op = e?.currentTarget.dataset.opName;
 
@@ -58,13 +78,19 @@ export default function TaskList() {
           };
         }
         return isDialog;
+      } else if (task) {
+        return {
+          op,
+          task,
+        };
+      } else {
+        return false;
       }
-      return {
-        op,
-        task,
-      };
     });
   }
+
+  console.log("isDialog");
+  console.log(isDialog);
 
   function handleAddTask(e) {
     const enteredValue = e.target.value;
@@ -98,45 +124,100 @@ export default function TaskList() {
           />
         </section>
       )}
-      <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
-        <div className="flex flex-col gap-4 p-4">
-          <div>
-            <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
-            <p className="text-sm text-white/70">Stay organized and productive</p>
-            <div className="mt-4 flex items-center gap-x-5">
-              <Input
-                onKeyDown={handleAddTask}
-                placeholder={"Add a new note.."}
-                className="min-w-0 flex-1"
-                value={newNote}
-                onChange={handleAddTask}
-              />
-              <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
-                <Plus className="cursor-pointer" onClick={handleAddTask} data-op-name="ADD_TASK" />
+      {!isLargeScreen && !isDialog ? (
+        <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
+          <div className="flex flex-col gap-4 p-4">
+            <div>
+              <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
+              <p className="text-sm text-white/70">Stay organized and productive</p>
+              <div className="mt-4 flex items-center gap-x-5">
+                <Input
+                  onKeyDown={handleAddTask}
+                  placeholder={"Add a new note.."}
+                  className="min-w-0 flex-1"
+                  value={newNote}
+                  onChange={handleAddTask}
+                />
+                <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
+                  <Plus
+                    className="cursor-pointer"
+                    onClick={handleAddTask}
+                    data-op-name="ADD_TASK"
+                  />
+                </div>
+              </div>
+            </div>
+            {allTasks.map((task) => {
+              return (
+                <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />
+              );
+            })}
+          </div>
+          <div className="text-amber-50 m-4">
+            <div className="flex flex-col items-center justify-center">
+              <UseAnimations animation={activity} size={30} strokeColor="white" />
+              <p>{allTasksCount} tasks total</p>
+            </div>
+            <div className="flex justify-between">
+              <div className="flex flex-col items-center">
+                <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
+                <p>Completed: {completedTasksCount}</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <UseAnimations animation={loading} size={24} strokeColor="white" />
+                <p>Waiting: {waitingTasksCount}</p>
               </div>
             </div>
           </div>
-          {allTasks.map((task) => {
-            return <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />;
-          })}
-        </div>
-        <div className="text-amber-50">
-          <div className="flex flex-col items-center justify-center">
-            <UseAnimations animation={activity} size={30} strokeColor="white" />
-            <p>{allTasksCount} tasks total</p>
-          </div>
-          <div className="flex justify-between">
-            <div className="flex flex-col items-center">
-              <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
-              <p>Completed: {completedTasksCount}</p>
+        </section>
+      ) : null}
+      {isLargeScreen && (
+        <section className="max-w-[100%] rounded-2xl border border-white/30 bg-white/10 p-6 shadow-2xl backdrop-blur-xl">
+          <div className="flex flex-col gap-4 p-4">
+            <div>
+              <h1 className="mb-2 font-bold text-2xl text-white">My Tasks</h1>
+              <p className="text-sm text-white/70">Stay organized and productive</p>
+              <div className="mt-4 flex items-center gap-x-5">
+                <Input
+                  onKeyDown={handleAddTask}
+                  placeholder={"Add a new note.."}
+                  className="min-w-0 flex-1"
+                  value={newNote}
+                  onChange={handleAddTask}
+                />
+                <div className="rounded-lg bg-white/10 bg-opacity-10 bg-clip-padding p-2 text-amber-50 backdrop-blur-md backdrop-contrast-100 backdrop-saturate-100 backdrop-filter">
+                  <Plus
+                    className="cursor-pointer"
+                    onClick={handleAddTask}
+                    data-op-name="ADD_TASK"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col items-center">
-              <UseAnimations animation={loading} size={24} strokeColor="white" />
-              <p>Waiting: {waitingTasksCount}</p>
+            {allTasks.map((task) => {
+              return (
+                <TaskCard key={task.id} task={task} onHandleCloseDialog={handleToggleDialog} />
+              );
+            })}
+          </div>
+          <div className="text-amber-50 m-4">
+            <div className="flex flex-col items-center justify-center">
+              <UseAnimations animation={activity} size={30} strokeColor="white" />
+              <p>{allTasksCount} tasks total</p>
+            </div>
+            <div className="flex justify-between">
+              <div className="flex flex-col items-center">
+                <AnimatedSvg src={checkCheckIcon} alt="Check Icon" className="pulse-sway" />
+                <p>Completed: {completedTasksCount}</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <UseAnimations animation={loading} size={24} strokeColor="white" />
+                <p>Waiting: {waitingTasksCount}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       {isDialog?.op === "REMOVE_TASK" && (
         <section>
           <TaskForm

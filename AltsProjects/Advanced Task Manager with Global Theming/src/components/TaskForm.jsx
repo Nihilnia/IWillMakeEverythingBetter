@@ -100,7 +100,8 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
   return (
     <form
       action={formAction}
-      className={`fade-in-element flex flex-col gap-4 rounded-2xl border border-white/30 bg-white/10 p-6 text-red-50 shadow-2xl backdrop-blur-xl ${showForm && !isExiting ? "is-visible" : ""} ${isExiting ? "fade-out-element" : ""}`}
+      className={`fade-in-element flex flex-col gap-4 rounded-2xl border border-white/30 bg-white/10 p-6 text-red-50 
+        shadow-2xl backdrop-blur-xl ${showForm && !isExiting ? "is-visible" : ""} ${isExiting ? "fade-out-element" : ""}`}
       onTransitionEnd={handleTransitionEnd}
     >
       <h1 className="mb-2 font-bold text-white text-xl">{headline}</h1>

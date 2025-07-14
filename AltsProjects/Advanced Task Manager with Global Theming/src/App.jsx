@@ -21,8 +21,13 @@ export default function App() {
   };
 
   function HandleUploadedImage(image) {
-    setUserImage(image);
-    setIsGradientBackground(false);
+    if (image) {
+      setUserImage(image);
+      setIsGradientBackground(false);
+    } else {
+      setUserImage(null);
+      setIsGradientBackground(true);
+    }
   }
 
   const backgroundImage = {
@@ -41,7 +46,7 @@ export default function App() {
     >
       <TaskContextProvider>
         <TaskList />
-        <div className="absolute bottom-0 right-0">
+        <div className="flex flex-col gap-y-1 absolute bottom-2 right-2">
           <DynamicGradient onHandleNewColors={handleNewColors} />
           <DynamicBGImage onHandleUploadedImage={HandleUploadedImage} />
         </div>

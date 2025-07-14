@@ -21,6 +21,11 @@ export default function DynamicBGImage({ onHandleUploadedImage }) {
     refInput.current.click();
   }
 
+  function handleRemoveImage() {
+    setUploadedImage(null);
+    onHandleUploadedImage(null);
+  }
+
   useEffect(() => {
     if (uploadedImage) onHandleUploadedImage(uploadedImage);
   }, [uploadedImage]);
@@ -35,7 +40,12 @@ export default function DynamicBGImage({ onHandleUploadedImage }) {
         ref={refInput}
         style={{ display: "none" }}
       />
-      <Button onClick={handleCustomButtonClick}>{uploadedImage ? "Change" : "Upload"} image</Button>
+      <div className="flex flex-col gap-y-1">
+        <Button onClick={handleCustomButtonClick} className="w-full flex-1/2">
+          {uploadedImage ? "Change" : "Upload"} image
+        </Button>
+        {uploadedImage && <Button onClick={handleRemoveImage}>Remove image</Button>}
+      </div>
     </div>
   );
 }

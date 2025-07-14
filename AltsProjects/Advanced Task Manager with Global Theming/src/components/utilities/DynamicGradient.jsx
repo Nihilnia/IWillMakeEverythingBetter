@@ -29,8 +29,8 @@ export default function Utilities({ onHandleNewColors }) {
   }
 
   return (
-    <section>
+    <div>
       <Button onClick={handleNewColors}>Change gradient</Button>
-    </section>
+    </div>
   );
 }

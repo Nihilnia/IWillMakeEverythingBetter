@@ -148,8 +148,10 @@ export default function TaskForm({ onHandleCloseDialog, taskToEdit, op }) {
         </select>
       </FormItemsWrapper>
       <div>
-        <Button title={"Cancel"} type={"button"} onClick={handleCancelClick} />
-        <Button title={"Yes"} type={"submit"} />
+        <Button type={"button"} onClick={handleCancelClick}>
+          Cancel
+        </Button>
+        <Button type={"submit"}>Yes</Button>
       </div>
       {formState.errors && (
         <ul className="flex justify-end text-rose-600">

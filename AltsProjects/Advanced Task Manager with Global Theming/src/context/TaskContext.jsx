@@ -1,5 +1,32 @@
 import { createContext, useReducer, useState } from "react";
 
+const dummyData = [
+  {
+    id: Math.random(),
+    title: "Water the plants",
+    description: "Remember to water all indoor and outdoor plants, especially the basil.",
+    dueDate: "2025-07-10",
+    priority: "low",
+    isCompleted: false,
+  },
+  {
+    id: Math.random(),
+    title: "Prepare dinner",
+    description: "Plan for a quick and healthy meal, perhaps pasta with vegetables.",
+    dueDate: "2025-07-10",
+    priority: "medium",
+    isCompleted: true,
+  },
+  {
+    id: Math.random(),
+    title: "Check emails",
+    description: "Go through work and personal emails. Respond to urgent ones.",
+    dueDate: "2025-07-10",
+    priority: "high",
+    isCompleted: false,
+  },
+];
+
 export const TaskContext = createContext({
   allTasks: [],
   addTask: () => {},
@@ -12,65 +39,54 @@ export const TaskContext = createContext({
   handleSetDialog: () => {},
 });
 
+function addToLocalDB(item) {
+  localStorage.setItem("myTasks", JSON.stringify(item));
+}
+
 function TaskCRUDReducer(state, action) {
   const { type, payload } = action;
   const { taskID, newTaskDetails } = payload;
 
+  let updatedList = [...state];
+
   switch (type) {
     case "ADD_TASK": {
-      return [...state, { id: Math.random(), isCompleted: false, ...newTaskDetails }];
+      const newTask = { ...newTaskDetails, id: Math.random(), isCompleted: false };
+
+      addToLocalDB([newTask]);
+      updatedList = JSON.parse(localStorage.getItem("myTasks"));
+      break;
     }
 
     case "EDIT_TASK": {
-      return state.map((task) => {
-        return task.id === taskID ? { ...task, ...newTaskDetails } : task;
+      updatedList = updatedList.map((task) => {
+        return task.id === taskID ? { ...newTaskDetails, id: taskID } : task;
       });
+      break;
     }
 
     case "REMOVE_TASK": {
-      return state.filter((task) => {
+      updatedList = updatedList.filter((task) => {
         return task.id !== taskID;
       });
+      break;
     }
 
     default: {
       return state;
     }
   }
+
+  return updatedList;
 }
 
 export default function TaskContextProvider({ children }) {
-  const [allTasks, dispatch] = useReducer(TaskCRUDReducer, [
-    {
-      id: Math.random(),
-      title: "Water the plants",
-      description: "Remember to water all indoor and outdoor plants, especially the basil.",
-      dueDate: "2025-07-10",
-      priority: "low",
-      isCompleted: false,
-    },
-    {
-      id: Math.random(),
-      title: "Prepare dinner",
-      description: "Plan for a quick and healthy meal, perhaps pasta with vegetables.",
-      dueDate: "2025-07-10",
-      priority: "medium",
-      isCompleted: false,
-    },
-    {
-      id: Math.random(),
-      title: "Check emails",
-      description: "Go through work and personal emails. Respond to urgent ones.",
-      dueDate: "2025-07-10",
-      priority: "high",
-      isCompleted: true,
-    },
-  ]);
+  const [allTasks, dispatch] = useReducer(
+    TaskCRUDReducer,
+    JSON.parse(localStorage.getItem("myTasks")) || dummyData
+  );
 
   const [dialog, setDialog] = useState(false);
-
-  console.log("dialog");
-  console.log(dialog);
 
   function handleSetDialog(e, task) {
     const op = e?.currentTarget.dataset.opName;

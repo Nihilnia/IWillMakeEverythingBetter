@@ -21,11 +21,15 @@ export default function Utilities({ onHandleNewColors }) {
   function handleNewColors() {
     const randomNumber = getRandomNumb(0, 9);
 
-    onHandleNewColors([
+    const pickedGradient = [
       threeColorGradientLists[randomNumber][0],
       threeColorGradientLists[randomNumber][1],
       threeColorGradientLists[randomNumber][2],
-    ]);
+    ];
+
+    localStorage.setItem("selectedGradient", JSON.stringify(pickedGradient));
+
+    onHandleNewColors(pickedGradient);
   }
 
   return (

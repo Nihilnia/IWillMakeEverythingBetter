@@ -15,7 +15,9 @@ export default function TaskPage() {
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const [isGradientBackground, setIsGradientBackground] = useState(true);
-  const [gradientColors, setGradientColors] = useState(["a78bfa", "ec4899", "ef4444"]);
+  const [gradientColors, setGradientColors] = useState(
+    JSON.parse(localStorage.getItem("selectedGradient")) || ["a78bfa", "ec4899", "ef4444"]
+  );
   const [userImage, setUserImage] = useState(null);
 
   function handleNewColors(newColors) {

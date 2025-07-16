@@ -77,6 +77,7 @@ function TaskCRUDReducer(state, action) {
     }
   }
 
+  addToLocalDB(updatedList);
   return updatedList;
 }
 

@@ -20,6 +20,13 @@ export default function TaskList() {
         {allTasks.map((task) => {
           return <TaskCard key={task.id} task={task} onHandleCloseDialog={handleSetDialog} />;
         })}
+        {!localStorage.getItem("myTasks") && (
+          <div className="text-center text-xs text-amber-50 opacity-70">
+            <p>This tasks are for the demo purposes only.</p>
+            <p>You can edit or remove them.</p>
+            <p>After adding your first task they will disappear.</p>
+          </div>
+        )}
       </div>
       <TaskStatistics />
     </section>

@@ -147,7 +147,10 @@ export default function TaskForm({ taskToEdit, op }) {
           <option value="high">High</option>
         </select>
       </FormItemsWrapper>
-      <div>
+      <div className="text-center text-xs text-amber-50 opacity-70">
+        <p>Do you want to {op === "EDIT_TASK" ? "edit" : "remove"} this task?</p>
+      </div>
+      <div className="flex gap-2 justify-center mt-[-10px]">
         <Button type={"button"} onClick={handleCancelClick}>
           Cancel
         </Button>

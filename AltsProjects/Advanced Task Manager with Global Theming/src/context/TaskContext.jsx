@@ -53,8 +53,12 @@ function TaskCRUDReducer(state, action) {
     case "ADD_TASK": {
       const newTask = { ...newTaskDetails, id: Math.random(), isCompleted: false };
 
-      addToLocalDB([newTask]);
-      updatedList = JSON.parse(localStorage.getItem("myTasks"));
+      if (localStorage.getItem("myTasks")) {
+        updatedList = [...updatedList, newTask];
+      } else {
+        updatedList = [newTask];
+      }
+
       break;
     }
 

@@ -23,6 +23,7 @@ export default function NewTask() {
       addTask({
         title: newNote,
       });
+      setNewNote("");
     }
   }
 

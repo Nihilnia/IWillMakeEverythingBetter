@@ -36,12 +36,22 @@ export default function FoodContextProvider({ children }) {
   }, []);
 
   function addFood(id) {
-    const foundMeal = availableFoods.filter((meal) => {
+    const selectedFood = availableFoods.find((meal) => {
       return meal.id === id;
     });
 
     setCart((prev) => {
-      return [...prev, foundMeal];
+      const isInCart = prev.find((meal) => {
+        return meal.id === id;
+      });
+
+      if (isInCart) {
+        return prev.map((meal) => {
+          return meal.id === id ? { ...meal, piece: meal.piece + 1 } : meal;
+        });
+      }
+
+      return [...prev, { ...selectedFood, piece: 1 }];
     });
   }
 
@@ -52,9 +62,11 @@ export default function FoodContextProvider({ children }) {
     addFood,
     removeFood,
     cart,
-    cartLength: cart.length,
+    cartLength: cart.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.piece;
+    }, 0),
     totalPrice: cart.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.price;
+      return accumulator + currentValue.price * currentValue.piece;
     }, 0),
   };
 

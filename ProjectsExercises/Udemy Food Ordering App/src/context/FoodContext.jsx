@@ -5,6 +5,7 @@ export const FoodContext = createContext({
   addFood: () => {},
   removeFood: () => {},
   cart: [],
+  cartLength: 0,
   totalPrice: 0,
 });
 
@@ -34,10 +35,15 @@ export default function FoodContextProvider({ children }) {
     fetchData();
   }, []);
 
-  console.log("availableFoods");
-  console.log(availableFoods);
+  function addFood(id) {
+    const foundMeal = availableFoods.filter((meal) => {
+      return meal.id === id;
+    });
 
-  function addFood() {}
+    setCart((prev) => {
+      return [...prev, foundMeal];
+    });
+  }
 
   function removeFood() {}
 
@@ -46,6 +52,7 @@ export default function FoodContextProvider({ children }) {
     addFood,
     removeFood,
     cart,
+    cartLength: cart.length,
     totalPrice: cart.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.price;
     }, 0),

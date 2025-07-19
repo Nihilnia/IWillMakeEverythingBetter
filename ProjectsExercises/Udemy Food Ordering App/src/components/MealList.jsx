@@ -6,10 +6,10 @@ export default function MealList() {
   const { availableFoods } = useContext(FoodContext);
 
   return (
-    <div>
+    <section id="meals">
       {availableFoods.map((meal) => {
         return <MealCard key={meal.id} meal={meal} />;
       })}
-    </div>
+    </section>
   );
 }

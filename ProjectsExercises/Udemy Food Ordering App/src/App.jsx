@@ -1,9 +1,12 @@
+import MealList from "./components/MealList";
+import FoodContextProvider from "./context/FoodContext";
+
 function App() {
   return (
     <>
-      <h1>You got this 💪</h1>
-      <p>Stuck? Not sure how to proceed?</p>
-      <p>Don't worry - we've all been there. Let's build it together!</p>
+      <FoodContextProvider>
+        <MealList />
+      </FoodContextProvider>
     </>
   );
 }

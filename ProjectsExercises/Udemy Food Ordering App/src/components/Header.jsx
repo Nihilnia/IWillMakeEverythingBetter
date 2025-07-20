@@ -12,7 +12,7 @@ export default function Header() {
   const refDialog = useRef(null);
 
   function onHandleDialog() {
-    handleDialog("cart", refDialog);
+    handleDialog(refDialog);
   }
 
   return (
@@ -23,11 +23,10 @@ export default function Header() {
       <button type="button" onClick={onHandleDialog}>
         Cart ({cartLength})
       </button>
-      {dialogOptions.whichDialog === "cart" && (
-        <Dialog ref={refDialog}>
-          <Cart />
-        </Dialog>
-      )}
+
+      <Dialog ref={refDialog}>
+        <Cart />
+      </Dialog>
     </section>
   );
 }

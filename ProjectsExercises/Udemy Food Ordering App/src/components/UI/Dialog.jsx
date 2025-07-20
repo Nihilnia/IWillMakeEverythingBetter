@@ -1,7 +1,10 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
+import { DialogContext } from "../../context/DialogContext";
 
 const Dialog = forwardRef(function Dialog({ children }, ref) {
+  const { handleDialog } = useContext(DialogContext);
+
   const refDialog = useRef(null);
 
   useImperativeHandle(
@@ -19,14 +22,12 @@ const Dialog = forwardRef(function Dialog({ children }, ref) {
     []
   );
 
-  useEffect(() => {
-    if (refDialog.current && refDialog.current.open) {
-      refDialog.current.close();
-    }
-  }, []);
+  function handleClose() {
+    handleDialog(null);
+  }
 
   return createPortal(
-    <dialog ref={refDialog} onClose={() => refDialog.current.close()}>
+    <dialog ref={refDialog} onClose={handleClose}>
       {children}
     </dialog>,
     document.getElementById("modal")

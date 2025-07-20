@@ -7,12 +7,12 @@ import { DialogContext } from "../context/DialogContext";
 export default function Cart() {
   const { cart, cartLength, totalPrice } = useContext(FoodContext);
 
-  const { dialogOptions, handleDialog } = useContext(DialogContext);
+  const { handleDialog } = useContext(DialogContext);
 
   const refDialog = useRef(null);
 
   function onHandleDialog() {
-    handleDialog("checkout", refDialog);
+    handleDialog(refDialog);
   }
 
   return (
@@ -44,11 +44,10 @@ export default function Cart() {
           Checkout
         </button>
       </div>
-      {dialogOptions.whichDialog === "checkout" && (
-        <Dialog ref={refDialog}>
-          <CheckoutForm />
-        </Dialog>
-      )}
+
+      <Dialog ref={refDialog}>
+        <CheckoutForm />
+      </Dialog>
     </section>
   );
 }

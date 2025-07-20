@@ -1,29 +1,32 @@
 import { createContext, useEffect, useState } from "react";
 
 export const DialogContext = createContext({
-  dialogOptions: {},
   handleDialog: () => {},
 });
 
 export default function DialogContextProvider({ children }) {
-  const [dialogOptions, setDialogOptions] = useState({ whichDialog: false, sourceRef: null });
+  const [sourceRef, setSourceRef] = useState(null);
 
-  function handleDialog(whichDialog, source) {
-    setDialogOptions({ whichDialog, sourceRef: source });
+  function handleDialog(sourceRef) {
+    setSourceRef(sourceRef);
   }
 
   useEffect(() => {
-    if (dialogOptions.sourceRef?.current) {
-      dialogOptions.sourceRef.current.showDialog();
+    if (sourceRef?.current) {
+      sourceRef.current.showDialog();
     }
-  }, [dialogOptions]);
+
+    return () => {
+      sourceRef?.current.hideDialog();
+    };
+  }, [sourceRef]);
 
   const ctxValues = {
-    dialogOptions,
     handleDialog,
   };
 
-  console.log(dialogOptions);
+  console.log("sourceRef");
+  console.log(sourceRef);
 
   return <DialogContext.Provider value={ctxValues}>{children}</DialogContext.Provider>;
 }

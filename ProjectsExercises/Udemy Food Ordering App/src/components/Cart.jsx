@@ -1,8 +1,19 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { FoodContext } from "../context/FoodContext";
+import Dialog from "./UI/Dialog";
+import CheckoutForm from "./CheckoutForm";
+import { DialogContext } from "../context/DialogContext";
 
 export default function Cart() {
   const { cart, cartLength, totalPrice } = useContext(FoodContext);
+
+  const { dialogOptions, handleDialog } = useContext(DialogContext);
+
+  const refDialog = useRef(null);
+
+  function onHandleDialog() {
+    handleDialog("checkout", refDialog);
+  }
 
   return (
     <section className="cart">
@@ -23,7 +34,21 @@ export default function Cart() {
         })}
       </ul>
       <div>Total meals: {cartLength}</div>
+
       <div>Total price: {totalPrice}</div>
+      <div>
+        <button className="button" type="button">
+          Close
+        </button>
+        <button className="button" type="button" onClick={onHandleDialog}>
+          Checkout
+        </button>
+      </div>
+      {dialogOptions.whichDialog === "checkout" && (
+        <Dialog ref={refDialog}>
+          <CheckoutForm />
+        </Dialog>
+      )}
     </section>
   );
 }

@@ -1,13 +1,16 @@
 import Header from "./components/Header";
 import MealList from "./components/MealList";
+import DialogContextProvider from "./context/DialogContext";
 import FoodContextProvider from "./context/FoodContext";
 
 function App() {
   return (
     <>
       <FoodContextProvider>
-        <Header />
-        <MealList />
+        <DialogContextProvider>
+          <Header />
+          <MealList />
+        </DialogContextProvider>
       </FoodContextProvider>
     </>
   );

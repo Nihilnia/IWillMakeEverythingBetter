@@ -7,6 +7,7 @@ export const FoodContext = createContext({
   cart: [],
   cartLength: 0,
   totalPrice: 0,
+  foodInfoFromCart: () => {},
 });
 
 export default function FoodContextProvider({ children }) {
@@ -55,7 +56,29 @@ export default function FoodContextProvider({ children }) {
     });
   }
 
-  function removeFood() {}
+  function removeFood(id) {
+    setCart((prev) => {
+      const foundFood = prev.find((food) => {
+        return food.id === id;
+      });
+
+      if (foundFood.piece > 1) {
+        return prev.map((food) => {
+          return food.id === id ? { ...foundFood, piece: foundFood.piece - 1 } : food;
+        });
+      }
+
+      return prev.filter((food) => {
+        return food.id !== id;
+      });
+    });
+  }
+
+  function foodInfoFromCart(id) {
+    return cart.find((food) => {
+      return id === food.id;
+    });
+  }
 
   const ctxValues = {
     availableFoods,
@@ -68,6 +91,7 @@ export default function FoodContextProvider({ children }) {
     totalPrice: cart.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.price * currentValue.piece;
     }, 0),
+    foodInfoFromCart,
   };
 
   return <FoodContext.Provider value={ctxValues}>{children}</FoodContext.Provider>;

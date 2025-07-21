@@ -5,7 +5,7 @@ import CheckoutForm from "./CheckoutForm";
 import { DialogContext } from "../context/DialogContext";
 
 export default function Cart() {
-  const { cart, cartLength, totalPrice } = useContext(FoodContext);
+  const { addFood, removeFood, cart, cartLength, totalPrice } = useContext(FoodContext);
 
   const { handleDialog } = useContext(DialogContext);
 

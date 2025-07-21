@@ -23,7 +23,7 @@ const Dialog = forwardRef(function Dialog({ children }, ref) {
   );
 
   function handleClose() {
-    clearActiveDialog(ref);
+    clearActiveDialog();
   }
 
   return createPortal(

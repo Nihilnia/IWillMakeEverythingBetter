@@ -7,7 +7,7 @@ import { DialogContext } from "../context/DialogContext";
 export default function Header() {
   const { cartLength } = useContext(FoodContext);
 
-  const { dialogOptions, handleDialog } = useContext(DialogContext);
+  const { handleDialog } = useContext(DialogContext);
 
   const refDialog = useRef(null);
 

@@ -40,6 +40,9 @@ export default function DialogContextProvider({ children }) {
     refActiveDialog.current = null;
   }
 
+  console.log("refActiveDialog");
+  console.log(refActiveDialog);
+
   const ctxValues = {
     handleDialog,
     // Renamed clearActiveDialog to clearActiveDialogReference and it's internal to the context

@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 export const DialogContext = createContext({
   handleDialog: () => {},
+  clearActiveDialog: () => {},
 });
 
 export default function DialogContextProvider({ children }) {
@@ -9,6 +10,14 @@ export default function DialogContextProvider({ children }) {
 
   function handleDialog(sourceRef) {
     setSourceRef(sourceRef);
+  }
+
+  function clearActiveDialog() {
+    if (sourceRef?.current?.open === false) {
+      setSourceRef(null);
+    } else if (!sourceRef?.current) {
+      setSourceRef(null);
+    }
   }
 
   useEffect(() => {
@@ -23,6 +32,7 @@ export default function DialogContextProvider({ children }) {
 
   const ctxValues = {
     handleDialog,
+    clearActiveDialog,
   };
 
   console.log("sourceRef");

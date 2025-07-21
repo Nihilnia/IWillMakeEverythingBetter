@@ -1,9 +1,9 @@
-import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useContext, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
 import { DialogContext } from "../../context/DialogContext";
 
 const Dialog = forwardRef(function Dialog({ children }, ref) {
-  const { handleDialog } = useContext(DialogContext);
+  const { clearActiveDialog } = useContext(DialogContext);
 
   const refDialog = useRef(null);
 
@@ -23,7 +23,7 @@ const Dialog = forwardRef(function Dialog({ children }, ref) {
   );
 
   function handleClose() {
-    handleDialog(null);
+    clearActiveDialog(ref);
   }
 
   return createPortal(

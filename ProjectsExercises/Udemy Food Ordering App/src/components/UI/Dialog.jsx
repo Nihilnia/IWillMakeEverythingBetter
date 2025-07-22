@@ -7,10 +7,6 @@ const Dialog = forwardRef(function Dialog({ children }, ref) {
 
   const { clearActiveDialog } = useContext(DialogContext);
 
-  function handleClose() {
-    clearActiveDialog(ref);
-  }
-
   useImperativeHandle(ref, () => {
     return {
       showDialog() {
@@ -23,7 +19,7 @@ const Dialog = forwardRef(function Dialog({ children }, ref) {
   });
 
   return createPortal(
-    <dialog ref={refDialog} onClose={handleClose}>
+    <dialog ref={refDialog} className="modal">
       {children}
     </dialog>,
     document.getElementById("modal")

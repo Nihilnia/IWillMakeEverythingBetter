@@ -21,7 +21,11 @@ export default function DialogContextProvider({ children }) {
 
   function clearActiveDialog() {
     console.log("clearActiveDialog");
-    refCurrentDialog.current = null;
+
+    if (refCurrentDialog.current) {
+      refCurrentDialog.current.hideDialog();
+      refCurrentDialog.current = null; // Clear the reference
+    }
   }
 
   const ctxValues = {

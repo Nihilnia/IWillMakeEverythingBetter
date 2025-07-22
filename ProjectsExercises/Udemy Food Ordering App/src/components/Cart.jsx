@@ -5,7 +5,7 @@ import Dialog from "./UI/Dialog";
 
 export default function Cart() {
   const { cart } = useContext(FoodContext);
-  const { handleShowDialog } = useContext(DialogContext);
+  const { handleShowDialog, clearActiveDialog } = useContext(DialogContext);
 
   const reff = useRef(null);
 
@@ -13,16 +13,36 @@ export default function Cart() {
     handleShowDialog(reff);
   }
 
+  function handleCloseCart() {
+    clearActiveDialog();
+  }
+
   return (
     <section className="cart">
-      <h2>Cart</h2>
+      <h2>Your Cart</h2>
       <ul>
         {cart.map((order) => {
-          return <li key={order.id}>{order.name}</li>;
+          const { id, name, price, piece } = order;
+          return (
+            <li key={id} className="cart-item">
+              <p>
+                {name} - {piece} x ${price}
+              </p>
+              <div className="cart-item-actions">
+                <button type="button">-</button>
+                <p>{piece}</p>
+                <button type="button">+</button>
+              </div>
+            </li>
+          );
         })}
       </ul>
-      <div>
-        <button type="button" onClick={handleOpenCheckout}>
+
+      <div className="modal-actions">
+        <button type="button" className="text-button" onClick={handleCloseCart}>
+          Close
+        </button>
+        <button type="button" className="button" onClick={handleOpenCheckout}>
           Checkout
         </button>
       </div>

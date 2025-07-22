@@ -18,12 +18,13 @@ export default function Header() {
     <section id="main-header">
       <div id="title">
         <img src="/logo.jpg" alt="asdasd" />
-        <h3>Food Order App</h3>
+        <h1>Food Order App</h1>
       </div>
       <div>
-        <button type="button" onClick={handleOpenCart}>
+        {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+        <h3 className="button-text" onClick={handleOpenCart}>
           Cart ({cartLength})
-        </button>
+        </h3>
       </div>
       <Dialog ref={reff}>
         <Cart />

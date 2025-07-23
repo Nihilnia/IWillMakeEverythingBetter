@@ -1,4 +1,5 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useReducer } from "react";
+import useFetch from "../hooks/useFetch";
 
 export const FoodContext = createContext({
   availableFoods: [],
@@ -56,35 +57,11 @@ function FoodCRUDReducer(state, action) {
 }
 
 export default function FoodContextProvider({ children }) {
-  const [availableFoods, setAvailableFoods] = useState([]);
+  const { fetchedData, fetchError, loading } = useFetch("http://localhost:3000/meals");
   const [cart, dispatch] = useReducer(FoodCRUDReducer, []);
 
-  const [fetchErros, setFetchErros] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetch("http://localhost:3000/meals");
-        if (!result.ok) {
-          throw new Error(`Something went wrong while fetching the data: ${result}`);
-        }
-
-        const data = await result.json();
-
-        setAvailableFoods(data);
-      } catch (err) {
-        setFetchErros(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   function addToCart(id) {
-    const selectedFood = availableFoods.find((food) => {
+    const selectedFood = fetchedData.find((food) => {
       return food.id === id;
     });
 
@@ -96,7 +73,7 @@ export default function FoodContextProvider({ children }) {
     });
   }
   function removeFromCart(id) {
-    const selectedFood = availableFoods.find((food) => {
+    const selectedFood = fetchedData.find((food) => {
       return food.id === id;
     });
 
@@ -117,7 +94,7 @@ export default function FoodContextProvider({ children }) {
   }
 
   const ctxValues = {
-    availableFoods,
+    availableFoods: fetchedData || [],
     cart,
     addToCart,
     removeFromCart,

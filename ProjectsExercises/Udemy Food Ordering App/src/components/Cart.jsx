@@ -2,9 +2,10 @@ import { useContext, useRef } from "react";
 import { FoodContext } from "../context/FoodContext";
 import { DialogContext } from "../context/DialogContext";
 import Dialog from "./UI/Dialog";
+import CheckoutForm from "./CheckoutForm";
 
 export default function Cart() {
-  const { cart } = useContext(FoodContext);
+  const { cart, addToCart, removeFromCart, cartTotalPrice } = useContext(FoodContext);
   const { handleShowDialog, clearActiveDialog } = useContext(DialogContext);
 
   const reff = useRef(null);
@@ -15,6 +16,13 @@ export default function Cart() {
 
   function handleCloseCart() {
     clearActiveDialog();
+  }
+
+  function handleAddToCart(id) {
+    addToCart(id);
+  }
+  function handleRemoveFromCart(id) {
+    removeFromCart(id);
   }
 
   return (
@@ -29,15 +37,31 @@ export default function Cart() {
                 {name} - {piece} x ${price}
               </p>
               <div className="cart-item-actions">
-                <button type="button">-</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleRemoveFromCart(id);
+                  }}
+                >
+                  -
+                </button>
                 <p>{piece}</p>
-                <button type="button">+</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleAddToCart(id);
+                  }}
+                >
+                  +
+                </button>
               </div>
             </li>
           );
         })}
       </ul>
-
+      <div className="cart-total">
+        <p>Total: ${cartTotalPrice}</p>
+      </div>
       <div className="modal-actions">
         <button type="button" className="text-button" onClick={handleCloseCart}>
           Close
@@ -47,7 +71,7 @@ export default function Cart() {
         </button>
       </div>
       <Dialog ref={reff}>
-        <h2>Checkout</h2>
+        <CheckoutForm />
       </Dialog>
     </section>
   );

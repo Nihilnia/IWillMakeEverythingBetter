@@ -54,7 +54,8 @@ export default function CheckoutForm() {
     }
 
     //Send to api and show dialog
-    handleOpenThanksDialog(refDialog);
+    handleShowDialog(refDialog);
+    return { errors: null };
   }
 
   const [formState, formAction, pending] = useActionState(handleForm, { errors: null });
@@ -66,15 +67,15 @@ export default function CheckoutForm() {
         <p>Total amount: ${cartTotalPrice}</p>
         <div className="control">
           <label htmlFor="fullName">Full Name:</label>
-          <input type="text" name="fullName" defaultValue={formState.enteredValues?.fullName} />
+          <input type="text" name="fullName" defaultValue={formState?.enteredValues?.fullName} />
         </div>
         <div className="control">
           <label htmlFor="email">E-mail Address:</label>
-          <input type="email" name="email" defaultValue={formState.enteredValues?.email} />
+          <input type="email" name="email" defaultValue={formState?.enteredValues?.email} />
         </div>
         <div className="control">
           <label htmlFor="street">Street:</label>
-          <input type="text" name="street" defaultValue={formState.enteredValues?.street} />
+          <input type="text" name="street" defaultValue={formState?.enteredValues?.street} />
         </div>
         <div className="control-row">
           <div className="control">
@@ -82,12 +83,12 @@ export default function CheckoutForm() {
             <input
               type="text"
               name="postalCode"
-              defaultValue={formState.enteredValues?.postalCode}
+              defaultValue={formState?.enteredValues?.postalCode}
             />
           </div>
           <div className="control">
             <label htmlFor="city">City:</label>
-            <input type="text" name="city" defaultValue={formState.enteredValues?.city} />
+            <input type="text" name="city" defaultValue={formState?.enteredValues?.city} />
           </div>
         </div>
         <div className="modal-actions">

@@ -22,9 +22,9 @@ export default function Header() {
       </div>
       <div>
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-        <h3 className="button-text" onClick={handleOpenCart}>
+        <button className="text-button" onClick={handleOpenCart}>
           Cart ({cartLength})
-        </h3>
+        </button>
       </div>
       <Dialog ref={reff}>
         <Cart />

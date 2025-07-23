@@ -3,10 +3,13 @@ import { FoodContext } from "../context/FoodContext";
 import { useActionState } from "react";
 import { DialogContext } from "../context/DialogContext";
 import Dialog from "./UI/Dialog";
+import useFetch from "../hooks/useFetch";
 
 export default function CheckoutForm() {
-  const { cartTotalPrice } = useContext(FoodContext);
+  const { cart, cartTotalPrice } = useContext(FoodContext);
   const { handleShowDialog, clearActiveDialog } = useContext(DialogContext);
+
+  const { fetchData } = useFetch();
 
   const refDialog = useRef(null);
 
@@ -55,6 +58,19 @@ export default function CheckoutForm() {
 
     //Send to api and show dialog
     handleShowDialog(refDialog);
+    const dataToSend = {
+      order: {
+        items: cart,
+        customer: {
+          name: fullName,
+          email: email,
+          street: street,
+          "postal-code": postalCode,
+          city: city,
+        },
+      },
+    };
+    fetchData("send", "http://localhost:3000/orders", dataToSend);
     return { errors: null };
   }
 

@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import useFetch from "../hooks/useFetch";
 
 export const FoodContext = createContext({
@@ -57,8 +57,12 @@ function FoodCRUDReducer(state, action) {
 }
 
 export default function FoodContextProvider({ children }) {
-  const { fetchedData, fetchError, loading } = useFetch("http://localhost:3000/meals");
+  const { fetchData, fetchedData, fetchError, loading } = useFetch();
   const [cart, dispatch] = useReducer(FoodCRUDReducer, []);
+
+  useEffect(() => {
+    fetchData("get", "http://localhost:3000/meals");
+  }, []);
 
   function addToCart(id) {
     const selectedFood = fetchedData.find((food) => {

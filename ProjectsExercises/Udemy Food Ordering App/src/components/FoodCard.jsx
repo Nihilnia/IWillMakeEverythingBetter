@@ -19,7 +19,7 @@ export default function FoodCard({ food }) {
       <article>
         <h3>{name}</h3>
 
-        <img src={image} alt={name} />
+        <img src={`http://localhost:3000/${image}`} alt={name} />
 
         <p className="meal-item-description">{description}</p>
         <div className="meal-item-actions">

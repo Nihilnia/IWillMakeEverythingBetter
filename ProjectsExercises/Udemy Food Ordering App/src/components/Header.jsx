@@ -4,6 +4,8 @@ import Dialog from "./UI/Dialog";
 import { DialogContext } from "../context/DialogContext";
 import Cart from "./Cart";
 
+import logo from "/logo.jpg";
+
 export default function Header() {
   const { cartLength } = useContext(FoodContext);
   const { handleShowDialog } = useContext(DialogContext);
@@ -17,11 +19,10 @@ export default function Header() {
   return (
     <section id="main-header">
       <div id="title">
-        <img src="/logo.jpg" alt="asdasd" />
+        <img src={logo} alt="asdasd" />
         <h1>Food Order App</h1>
       </div>
       <div>
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <button className="text-button" onClick={handleOpenCart}>
           Cart ({cartLength})
         </button>

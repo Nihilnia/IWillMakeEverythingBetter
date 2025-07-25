@@ -1,9 +1,19 @@
+import Cart from "./components/Cart";
+import FoodList from "./components/FoodList";
+import Header from "./components/Header";
+import DialogContextProvider from "./store/DialogContext";
+import FoodContextProvider from "./store/FoodContext";
+
 function App() {
   return (
     <>
-      <h1>You got this 💪</h1>
-      <p>Stuck? Not sure how to proceed?</p>
-      <p>Don't worry - we've all been there. Let's build it together!</p>
+      <FoodContextProvider>
+        <DialogContextProvider>
+          <Header />
+          <FoodList />
+          <Cart />
+        </DialogContextProvider>
+      </FoodContextProvider>
     </>
   );
 }

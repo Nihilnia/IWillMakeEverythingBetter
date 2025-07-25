@@ -3,24 +3,18 @@ import { FoodContext } from "../store/FoodContext";
 import Dialog from "./UI/Dialog";
 import { DialogContext } from "../store/DialogContext";
 import Button from "./UI/Button";
+import CartItem from "./CartItem";
 
 export default function Cart() {
-  const { cart, addToCart, removeFromCart } = useContext(FoodContext);
-  const { activeDialog, hideCartDialog, showCheckoutDialog } = useContext(DialogContext);
-
-  function handleAddFood(food) {
-    addToCart(food);
-  }
-  function handleRemoveFood(id) {
-    removeFromCart(id);
-  }
+  const { cart } = useContext(FoodContext);
+  const { activeDialog, hideDialog, showCheckoutDialog } = useContext(DialogContext);
 
   function handleCheckout() {
     showCheckoutDialog();
   }
 
   function handleCloseDialog() {
-    hideCartDialog();
+    hideDialog();
   }
 
   return (
@@ -30,17 +24,10 @@ export default function Cart() {
       onClose={activeDialog === "cart" ? handleCloseDialog : null}
     >
       <div className="cart">
-        <h2>Orders</h2>
+        <h2>{cart.length > 0 ? "Your" : "You dont have any"} orders</h2>
         <ul>
           {cart.map((order) => {
-            return (
-              <li key={order.id}>
-                {order.name} - {order.quantity} x {order.price}
-                <button onClick={() => handleRemoveFood(order.id)}>-</button>
-                {order.quantity}
-                <button onClick={() => handleAddFood(order)}>+</button>
-              </li>
-            );
+            return <CartItem key={order.id} order={order} />;
           })}
         </ul>
       </div>
@@ -48,7 +35,7 @@ export default function Cart() {
         <Button textOnly onClick={handleCloseDialog}>
           Close
         </Button>
-        <Button onClick={handleCheckout}>Checkout</Button>
+        {cart.length > 0 && <Button onClick={handleCheckout}>Checkout</Button>}
       </div>
     </Dialog>
   );

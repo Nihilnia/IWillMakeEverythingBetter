@@ -3,9 +3,8 @@ import { createContext, useState } from "react";
 export const DialogContext = createContext({
   activeDialog: "",
   showCartDialog: () => {},
-  hideCartDialog: () => {},
   showCheckoutDialog: () => {},
-  hideCheckoutDialog: () => {},
+  hideDialog: () => {},
 });
 
 export default function DialogContextProvider({ children }) {
@@ -15,28 +14,20 @@ export default function DialogContextProvider({ children }) {
     setActiveDialog("cart");
   }
 
-  function hideCartDialog() {
-    setActiveDialog("");
-  }
-
   function showCheckoutDialog() {
     setActiveDialog("checkout");
   }
 
-  function hideCheckoutDialog() {
+  function hideDialog() {
     setActiveDialog("");
   }
 
   const ctxValues = {
     activeDialog,
     showCartDialog,
-    hideCartDialog,
     showCheckoutDialog,
-    hideCheckoutDialog,
+    hideDialog,
   };
-
-  console.log("activeDialog");
-  console.log(activeDialog);
 
   return <DialogContext.Provider value={ctxValues}>{children}</DialogContext.Provider>;
 }

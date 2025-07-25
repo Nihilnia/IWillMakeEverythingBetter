@@ -19,8 +19,16 @@ export default function Cart() {
     showCheckoutDialog();
   }
 
+  function handleCloseDialog() {
+    hideCartDialog();
+  }
+
   return (
-    <Dialog className="cart" open={activeDialog === "cart"} handleClose={hideCartDialog}>
+    <Dialog
+      className="cart"
+      open={activeDialog === "cart"}
+      onClose={activeDialog === "cart" ? handleCloseDialog : null}
+    >
       <div className="cart">
         <h2>Orders</h2>
         <ul>
@@ -37,7 +45,9 @@ export default function Cart() {
         </ul>
       </div>
       <div className="modal-actions">
-        <Button textOnly>Close</Button>
+        <Button textOnly onClick={handleCloseDialog}>
+          Close
+        </Button>
         <Button onClick={handleCheckout}>Checkout</Button>
       </div>
     </Dialog>

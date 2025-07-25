@@ -7,8 +7,12 @@ export default function Checkout() {
   const { activeDialog, hideCheckoutDialog } = useContext(DialogContext);
 
   return (
-    <Dialog handleClose={hideCheckoutDialog} open={activeDialog === "checkout"}>
-      <form onSubmit={handleSubmit}>
+    <Dialog
+      handleClose={hideCheckoutDialog}
+      open={activeDialog === "checkout"}
+      onClose={activeDialog === "checkout" ? hideCheckoutDialog : null}
+    >
+      <form>
         <InputGroup labelFor={"name"} labelTitle={"Full name"} />
         <InputGroup labelFor={"email"} labelTitle={"Email"} type={"email"} />
         <InputGroup labelFor={"street"} labelTitle={"Street"} />

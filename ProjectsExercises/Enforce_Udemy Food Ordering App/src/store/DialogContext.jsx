@@ -24,7 +24,7 @@ export default function DialogContextProvider({ children }) {
   }
 
   function hideCheckoutDialog() {
-    setActiveDialog("cart");
+    setActiveDialog("");
   }
 
   const ctxValues = {

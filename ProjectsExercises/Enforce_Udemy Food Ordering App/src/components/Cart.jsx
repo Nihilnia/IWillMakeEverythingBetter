@@ -2,16 +2,21 @@ import { useContext } from "react";
 import { FoodContext } from "../store/FoodContext";
 import Dialog from "./UI/Dialog";
 import { DialogContext } from "../store/DialogContext";
+import Button from "./UI/Button";
 
 export default function Cart() {
   const { cart, addToCart, removeFromCart } = useContext(FoodContext);
-  const { activeDialog, hideCartDialog } = useContext(DialogContext);
+  const { activeDialog, hideCartDialog, showCheckoutDialog } = useContext(DialogContext);
 
   function handleAddFood(food) {
     addToCart(food);
   }
   function handleRemoveFood(id) {
     removeFromCart(id);
+  }
+
+  function handleCheckout() {
+    showCheckoutDialog();
   }
 
   return (
@@ -30,6 +35,10 @@ export default function Cart() {
             );
           })}
         </ul>
+      </div>
+      <div className="modal-actions">
+        <Button textOnly>Close</Button>
+        <Button onClick={handleCheckout}>Checkout</Button>
       </div>
     </Dialog>
   );
